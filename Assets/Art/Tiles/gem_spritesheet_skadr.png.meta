@@ -1,0 +1,3876 @@
+fileFormatVersion: 2
+guid: cfed192f8ebda4724ac4b61836b94e13
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4026219644352005895
+    second: gem_spritesheet_skadr_0
+  - first:
+      213: -5512421412512838277
+    second: gem_spritesheet_skadr_1
+  - first:
+      213: 4345520078947647456
+    second: gem_spritesheet_skadr_2
+  - first:
+      213: 3192861240884650567
+    second: gem_spritesheet_skadr_3
+  - first:
+      213: -8473947464224494772
+    second: gem_spritesheet_skadr_4
+  - first:
+      213: -5018343685139894813
+    second: gem_spritesheet_skadr_5
+  - first:
+      213: -5121455323577307050
+    second: gem_spritesheet_skadr_6
+  - first:
+      213: -6641743020007453130
+    second: gem_spritesheet_skadr_7
+  - first:
+      213: -8789833818586115632
+    second: gem_spritesheet_skadr_8
+  - first:
+      213: 5553018380745400336
+    second: gem_spritesheet_skadr_9
+  - first:
+      213: 8077446098498365420
+    second: gem_spritesheet_skadr_10
+  - first:
+      213: 7249159617500861474
+    second: gem_spritesheet_skadr_11
+  - first:
+      213: 3872400939015510592
+    second: gem_spritesheet_skadr_12
+  - first:
+      213: 2258538975623639961
+    second: gem_spritesheet_skadr_13
+  - first:
+      213: 6480100037823480259
+    second: gem_spritesheet_skadr_14
+  - first:
+      213: 4043593497694624776
+    second: gem_spritesheet_skadr_15
+  - first:
+      213: 303874843447607917
+    second: gem_spritesheet_skadr_16
+  - first:
+      213: 6334949773670729262
+    second: gem_spritesheet_skadr_17
+  - first:
+      213: -1249036616345522535
+    second: gem_spritesheet_skadr_18
+  - first:
+      213: 8438689485544435157
+    second: gem_spritesheet_skadr_19
+  - first:
+      213: -8937102357727513895
+    second: gem_spritesheet_skadr_20
+  - first:
+      213: 4649769297211957274
+    second: gem_spritesheet_skadr_21
+  - first:
+      213: -6956579428112251812
+    second: gem_spritesheet_skadr_22
+  - first:
+      213: -3492135301581230194
+    second: gem_spritesheet_skadr_23
+  - first:
+      213: -6123759506059279
+    second: gem_spritesheet_skadr_24
+  - first:
+      213: -8619062001807979538
+    second: gem_spritesheet_skadr_25
+  - first:
+      213: 7101130083385094086
+    second: gem_spritesheet_skadr_26
+  - first:
+      213: 8453648046394300910
+    second: gem_spritesheet_skadr_27
+  - first:
+      213: -7058690781227740590
+    second: gem_spritesheet_skadr_28
+  - first:
+      213: -5448905486420536602
+    second: gem_spritesheet_skadr_29
+  - first:
+      213: -9024774986820045343
+    second: gem_spritesheet_skadr_30
+  - first:
+      213: -6019232700316015408
+    second: gem_spritesheet_skadr_31
+  - first:
+      213: -6792172020759979246
+    second: gem_spritesheet_skadr_32
+  - first:
+      213: 1593978630307911060
+    second: gem_spritesheet_skadr_33
+  - first:
+      213: 4890178885430903202
+    second: gem_spritesheet_skadr_34
+  - first:
+      213: -4508369320435922586
+    second: gem_spritesheet_skadr_35
+  - first:
+      213: -8116653207278871936
+    second: gem_spritesheet_skadr_36
+  - first:
+      213: -6243817089842561439
+    second: gem_spritesheet_skadr_37
+  - first:
+      213: 1201761501158536020
+    second: gem_spritesheet_skadr_38
+  - first:
+      213: -3621159425000764173
+    second: gem_spritesheet_skadr_39
+  - first:
+      213: -2311431419422114807
+    second: gem_spritesheet_skadr_40
+  - first:
+      213: -5884933113711626179
+    second: gem_spritesheet_skadr_41
+  - first:
+      213: 1115584911430366648
+    second: gem_spritesheet_skadr_42
+  - first:
+      213: -7305270352359864843
+    second: gem_spritesheet_skadr_43
+  - first:
+      213: -6023444982813953330
+    second: gem_spritesheet_skadr_44
+  - first:
+      213: -1045361954095911300
+    second: gem_spritesheet_skadr_45
+  - first:
+      213: -7726413433737803948
+    second: gem_spritesheet_skadr_46
+  - first:
+      213: 6255610404637380653
+    second: gem_spritesheet_skadr_47
+  - first:
+      213: -2025217252977783465
+    second: gem_spritesheet_skadr_48
+  - first:
+      213: -1435350907923646083
+    second: gem_spritesheet_skadr_49
+  - first:
+      213: 186326477673205737
+    second: gem_spritesheet_skadr_50
+  - first:
+      213: 5504585237731851325
+    second: gem_spritesheet_skadr_51
+  - first:
+      213: 4830048690363357268
+    second: gem_spritesheet_skadr_52
+  - first:
+      213: 3627413891404845909
+    second: gem_spritesheet_skadr_53
+  - first:
+      213: 2271359282946106027
+    second: gem_spritesheet_skadr_54
+  - first:
+      213: -26242609182794029
+    second: gem_spritesheet_skadr_55
+  - first:
+      213: -846420265869914782
+    second: gem_spritesheet_skadr_56
+  - first:
+      213: -8541939942744560515
+    second: gem_spritesheet_skadr_57
+  - first:
+      213: 460725427636261494
+    second: gem_spritesheet_skadr_58
+  - first:
+      213: 8975831645052354957
+    second: gem_spritesheet_skadr_59
+  - first:
+      213: -1180804118276958252
+    second: gem_spritesheet_skadr_60
+  - first:
+      213: -8285796616862913605
+    second: gem_spritesheet_skadr_61
+  - first:
+      213: -5410920921457077859
+    second: gem_spritesheet_skadr_62
+  - first:
+      213: -5680748519583636819
+    second: gem_spritesheet_skadr_63
+  - first:
+      213: 1459965605950108266
+    second: gem_spritesheet_skadr_64
+  - first:
+      213: -817560895696358982
+    second: gem_spritesheet_skadr_65
+  - first:
+      213: -7240096459445427589
+    second: gem_spritesheet_skadr_66
+  - first:
+      213: -613679118804203242
+    second: gem_spritesheet_skadr_67
+  - first:
+      213: 2960622095236991903
+    second: gem_spritesheet_skadr_68
+  - first:
+      213: -9077522038928680827
+    second: gem_spritesheet_skadr_69
+  - first:
+      213: 5667408539267694430
+    second: gem_spritesheet_skadr_70
+  - first:
+      213: 5904875166888728248
+    second: gem_spritesheet_skadr_71
+  - first:
+      213: 8653508645444169493
+    second: gem_spritesheet_skadr_72
+  - first:
+      213: 4113698988820097426
+    second: gem_spritesheet_skadr_73
+  - first:
+      213: -8735864476444540800
+    second: gem_spritesheet_skadr_74
+  - first:
+      213: -3552918427763231933
+    second: gem_spritesheet_skadr_75
+  - first:
+      213: 5638353119861145138
+    second: gem_spritesheet_skadr_76
+  - first:
+      213: 4569184574735464083
+    second: gem_spritesheet_skadr_77
+  - first:
+      213: -3042169122222115814
+    second: gem_spritesheet_skadr_78
+  - first:
+      213: -2130517159058397308
+    second: gem_spritesheet_skadr_79
+  - first:
+      213: 3151878693531688541
+    second: gem_spritesheet_skadr_80
+  - first:
+      213: -1141027072091066113
+    second: gem_spritesheet_skadr_81
+  - first:
+      213: -3518042860939084213
+    second: gem_spritesheet_skadr_82
+  - first:
+      213: 6392316678935322536
+    second: gem_spritesheet_skadr_83
+  - first:
+      213: 73601506023011798
+    second: gem_spritesheet_skadr_84
+  - first:
+      213: 8811740431548627767
+    second: gem_spritesheet_skadr_85
+  - first:
+      213: -8219552589352737281
+    second: gem_spritesheet_skadr_86
+  - first:
+      213: -8944032990974693459
+    second: gem_spritesheet_skadr_87
+  - first:
+      213: 2928006368669865697
+    second: gem_spritesheet_skadr_88
+  - first:
+      213: 3769520487088792464
+    second: gem_spritesheet_skadr_89
+  - first:
+      213: 1383390478952616564
+    second: gem_spritesheet_skadr_90
+  - first:
+      213: 2023750987934619214
+    second: gem_spritesheet_skadr_91
+  - first:
+      213: 1805209344854785044
+    second: gem_spritesheet_skadr_92
+  - first:
+      213: 6954236512437357663
+    second: gem_spritesheet_skadr_93
+  - first:
+      213: 8326185037071602191
+    second: gem_spritesheet_skadr_94
+  - first:
+      213: 4909755098971646097
+    second: gem_spritesheet_skadr_95
+  - first:
+      213: -3848346302634017697
+    second: gem_spritesheet_skadr_96
+  - first:
+      213: 5726143325901976696
+    second: gem_spritesheet_skadr_97
+  - first:
+      213: 5478229865425573709
+    second: gem_spritesheet_skadr_98
+  - first:
+      213: -8534618057831107134
+    second: gem_spritesheet_skadr_99
+  - first:
+      213: 4884481380053003980
+    second: gem_spritesheet_skadr_100
+  - first:
+      213: -5630314079140676366
+    second: gem_spritesheet_skadr_101
+  - first:
+      213: -6426753732913487226
+    second: gem_spritesheet_skadr_102
+  - first:
+      213: -6509658162080115032
+    second: gem_spritesheet_skadr_103
+  - first:
+      213: -7218466238512771234
+    second: gem_spritesheet_skadr_104
+  - first:
+      213: -3055622459504177810
+    second: gem_spritesheet_skadr_105
+  - first:
+      213: 1693488366042806650
+    second: gem_spritesheet_skadr_106
+  - first:
+      213: -3908625947573313700
+    second: gem_spritesheet_skadr_107
+  - first:
+      213: -4756837182621109281
+    second: gem_spritesheet_skadr_108
+  - first:
+      213: -2979808198208895965
+    second: gem_spritesheet_skadr_109
+  - first:
+      213: -4154185021307848819
+    second: gem_spritesheet_skadr_110
+  - first:
+      213: -3348937089838078793
+    second: gem_spritesheet_skadr_111
+  - first:
+      213: 4995819247127269415
+    second: gem_spritesheet_skadr_112
+  - first:
+      213: -7047105791642161736
+    second: gem_spritesheet_skadr_113
+  - first:
+      213: 6292244263175218145
+    second: gem_spritesheet_skadr_114
+  - first:
+      213: -1799714292184314050
+    second: gem_spritesheet_skadr_115
+  - first:
+      213: 5058796479077182475
+    second: gem_spritesheet_skadr_116
+  - first:
+      213: 2468492889710950338
+    second: gem_spritesheet_skadr_117
+  - first:
+      213: -1505441437421279422
+    second: gem_spritesheet_skadr_118
+  - first:
+      213: -7820699339700171509
+    second: gem_spritesheet_skadr_119
+  - first:
+      213: -8335742333586778610
+    second: gem_spritesheet_skadr_120
+  - first:
+      213: 719901712683492600
+    second: gem_spritesheet_skadr_121
+  - first:
+      213: 4831283642720290003
+    second: gem_spritesheet_skadr_122
+  - first:
+      213: -2327958609863196559
+    second: gem_spritesheet_skadr_123
+  - first:
+      213: 3298089096537214980
+    second: gem_spritesheet_skadr_124
+  - first:
+      213: 6420316479845779286
+    second: gem_spritesheet_skadr_125
+  - first:
+      213: -8087401120540043250
+    second: gem_spritesheet_skadr_126
+  - first:
+      213: 3821962369627234960
+    second: gem_spritesheet_skadr_127
+  - first:
+      213: 3927713283003690135
+    second: gem_spritesheet_skadr_128
+  - first:
+      213: 6438748859353108968
+    second: gem_spritesheet_skadr_129
+  - first:
+      213: -9054201074589083534
+    second: gem_spritesheet_skadr_130
+  - first:
+      213: 3579925641724915284
+    second: gem_spritesheet_skadr_131
+  - first:
+      213: 1869242981787618577
+    second: gem_spritesheet_skadr_132
+  - first:
+      213: -4111313887332389656
+    second: gem_spritesheet_skadr_133
+  - first:
+      213: -7636212314507736312
+    second: gem_spritesheet_skadr_134
+  - first:
+      213: 231832869666874711
+    second: gem_spritesheet_skadr_135
+  - first:
+      213: -4766146343442017663
+    second: gem_spritesheet_skadr_136
+  - first:
+      213: 8579521228636413006
+    second: gem_spritesheet_skadr_137
+  - first:
+      213: 2746249626748614088
+    second: gem_spritesheet_skadr_138
+  - first:
+      213: 2996735065730857806
+    second: gem_spritesheet_skadr_139
+  - first:
+      213: 3284882995586904488
+    second: gem_spritesheet_skadr_140
+  - first:
+      213: 1464910638835311579
+    second: gem_spritesheet_skadr_141
+  - first:
+      213: -7182232934951278572
+    second: gem_spritesheet_skadr_142
+  - first:
+      213: -6908598096933660214
+    second: gem_spritesheet_skadr_143
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f8f2b6b09eff18c0800000000000000
+      internalID: -4026219644352005895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7d4aee6ee1ff73b0800000000000000
+      internalID: -5512421412512838277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ef700efc736e4c30800000000000000
+      internalID: 4345520078947647456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 742ea00d1625f4c20800000000000000
+      internalID: 3192861240884650567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ba39d9dad766a80800000000000000
+      internalID: -8473947464224494772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ed6966b1034b5ab0800000000000000
+      internalID: -5018343685139894813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6503421948fece8b0800000000000000
+      internalID: -5121455323577307050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e860ba9e9c3d3a0800000000000000
+      internalID: -6641743020007453130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d1957866bc340680800000000000000
+      internalID: -8789833818586115632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0106b8fcbc8401d40800000000000000
+      internalID: 5553018380745400336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_10
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce72c513e6ad81070800000000000000
+      internalID: 8077446098498365420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_11
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 224de31b3403a9460800000000000000
+      internalID: 7249159617500861474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a98ed13288db530800000000000000
+      internalID: 3872400939015510592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 993fb696b31f75f10800000000000000
+      internalID: 2258538975623639961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c1c67fb6a0fde950800000000000000
+      internalID: 6480100037823480259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80cda2ebcdabd1830800000000000000
+      internalID: 4043593497694624776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d624fd36f84973400800000000000000
+      internalID: 303874843447607917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_17
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e26c59151434ae750800000000000000
+      internalID: 6334949773670729262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99ee44ba0d78aaee0800000000000000
+      internalID: -1249036616345522535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_19
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dd23b3806f3c1570800000000000000
+      internalID: 8438689485544435157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d27856a1c809f380800000000000000
+      internalID: -8937102357727513895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_21
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1026df4a8c478040800000000000000
+      internalID: 4649769297211957274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_22
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c54449f1ed3457f90800000000000000
+      internalID: -6956579428112251812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_23
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 160
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8f26a10271798fc0800000000000000
+      internalID: -3492135301581230194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ff83f1297e3aeff0800000000000000
+      internalID: -6123759506059279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_25
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeb0b2d66c0f26880800000000000000
+      internalID: -8619062001807979538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_26
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cf220cff284c8260800000000000000
+      internalID: 7101130083385094086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_27
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee9d18ddb14615570800000000000000
+      internalID: 8453648046394300910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_28
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252989d022e7a0e90800000000000000
+      internalID: -7058690781227740590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_29
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e21a3364599164b0800000000000000
+      internalID: -5448905486420536602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_30
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e5b2ccf6fe81c280800000000000000
+      internalID: -9024774986820045343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_31
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d4af3510c3677ca0800000000000000
+      internalID: -6019232700316015408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_32
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b1149988b5db1a0800000000000000
+      internalID: -6792172020759979246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_33
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49511177e13fe1610800000000000000
+      internalID: 1593978630307911060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_34
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a1893a79c76dd340800000000000000
+      internalID: 4890178885430903202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_35
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 144
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 669c52b4dfd0f61c0800000000000000
+      internalID: -4508369320435922586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08a9b1f69eadb5f80800000000000000
+      internalID: -8116653207278871936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_37
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16ebb6d10718959a0800000000000000
+      internalID: -6243817089842561439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_38
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4537b45d7b38da010800000000000000
+      internalID: 1201761501158536020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_39
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc85cd40be0fbdc0800000000000000
+      internalID: -3621159425000764173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_40
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90cfaaade552cefd0800000000000000
+      internalID: -2311431419422114807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_41
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d38f8464384845ea0800000000000000
+      internalID: -5884933113711626179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_42
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b5b79af09a5b7f00800000000000000
+      internalID: 1115584911430366648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_43
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f5c56bc1577e9a90800000000000000
+      internalID: -7305270352359864843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_44
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec2f343a3bc686ca0800000000000000
+      internalID: -6023444982813953330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_45
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7ea76067d02e71f0800000000000000
+      internalID: -1045361954095911300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_46
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45780461be346c490800000000000000
+      internalID: -7726413433737803948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_47
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2016a5f48460d650800000000000000
+      internalID: 6255610404637380653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75d444373abf4e3e0800000000000000
+      internalID: -2025217252977783465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_49
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d793d2d34fb941ce0800000000000000
+      internalID: -1435350907923646083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_50
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ef06f9b1f6f59200800000000000000
+      internalID: 186326477673205737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_51
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3cbdd2fb17346c40800000000000000
+      internalID: 5504585237731851325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_52
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 458d2f471b7c70340800000000000000
+      internalID: 4830048690363357268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_53
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 553d08227b9275230800000000000000
+      internalID: 3627413891404845909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_54
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba2e941db3d758f10800000000000000
+      internalID: 2271359282946106027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_55
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3de1ea96c74c2aff0800000000000000
+      internalID: -26242609182794029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_56
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26dc122b049e044f0800000000000000
+      internalID: -846420265869914782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_57
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7c6df311eee47980800000000000000
+      internalID: -8541939942744560515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_58
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 672df3dd553d46600800000000000000
+      internalID: 460725427636261494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_59
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d814e0f335f809c70800000000000000
+      internalID: 8975831645052354957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d798cc19e0fc9fe0800000000000000
+      internalID: -1180804118276958252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_61
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbba0c280efe20d80800000000000000
+      internalID: -8285796616862913605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_62
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9152d8171c88e4b0800000000000000
+      internalID: -5410920921457077859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_63
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da224efb15de921b0800000000000000
+      internalID: -5680748519583636819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_64
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a62b1febbf6d24410800000000000000
+      internalID: 1459965605950108266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_65
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab1b4cd62b077a4f0800000000000000
+      internalID: -817560895696358982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_66
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b72213b31a2068b90800000000000000
+      internalID: -7240096459445427589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_67
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619c995c716cb77f0800000000000000
+      internalID: -613679118804203242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_68
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9b06cc0c1e361920800000000000000
+      internalID: 2960622095236991903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_69
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58850e4ecc9260280800000000000000
+      internalID: -9077522038928680827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_70
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ff01c0a0ea6ae40800000000000000
+      internalID: 5667408539267694430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_71
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b69d6dcda452f150800000000000000
+      internalID: 5904875166888728248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51fa878c340771870800000000000000
+      internalID: 8653508645444169493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_73
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 299618d5f6bc61930800000000000000
+      internalID: 4113698988820097426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_74
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 080c1931b89f3c680800000000000000
+      internalID: -8735864476444540800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_75
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 343bb3d938f71bec0800000000000000
+      internalID: -3552918427763231933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_76
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23ef98b0a447f3e40800000000000000
+      internalID: 5638353119861145138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_77
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3963d428921096f30800000000000000
+      internalID: 4569184574735464083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_78
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14f94b2d4b08c5d0800000000000000
+      internalID: -3042169122222115814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_79
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487237a8ee1ee62e0800000000000000
+      internalID: -2130517159058397308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_80
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5e141fe8f8bdbb20800000000000000
+      internalID: 3151878693531688541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_81
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff078e06ce14a20f0800000000000000
+      internalID: -1141027072091066113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_82
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4e702948a66d2fc0800000000000000
+      internalID: -3518042860939084213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_83
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8af9ebbc62216b850800000000000000
+      internalID: 6392316678935322536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_84
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d57f650e2c750100800000000000000
+      internalID: 73601506023011798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_85
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73b37636c37994a70800000000000000
+      internalID: 8811740431548627767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_86
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff5ecf218784eed80800000000000000
+      internalID: -8219552589352737281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_87
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf2499d16960e380800000000000000
+      internalID: -8944032990974693459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_88
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e616a0774e52a820800000000000000
+      internalID: 2928006368669865697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_89
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0932c7649e6005430800000000000000
+      internalID: 3769520487088792464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_90
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 472d0a3af4ac23310800000000000000
+      internalID: 1383390478952616564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_91
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4650bd1dcec51c10800000000000000
+      internalID: 2023750987934619214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_92
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41cf841b5546d0910800000000000000
+      internalID: 1805209344854785044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_93
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5c41ef4349628060800000000000000
+      internalID: 6954236512437357663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_94
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0253dc5d2d8c8370800000000000000
+      internalID: 8326185037071602191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_95
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1982e50ef34f22440800000000000000
+      internalID: 4909755098971646097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5cbfca5d6de79ac0800000000000000
+      internalID: -3848346302634017697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_97
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8747c593409577f40800000000000000
+      internalID: 5726143325901976696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_98
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4790a6a905960c40800000000000000
+      internalID: 5478229865425573709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_99
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c5b7514812fe8980800000000000000
+      internalID: -8534618057831107134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_100
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccea112afe929c340800000000000000
+      internalID: 4884481380053003980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_101
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fc70fafc2b1dd1b0800000000000000
+      internalID: -5630314079140676366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_102
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 682a6c2c7859fc6a0800000000000000
+      internalID: -6426753732913487226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_103
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a61ef7246c09a5a0800000000000000
+      internalID: -6509658162080115032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_104
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5fcb4e733bd2db90800000000000000
+      internalID: -7218466238512771234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_105
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6d4c8dff8f3895d0800000000000000
+      internalID: -3055622459504177810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_106
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79fc3942ba708710800000000000000
+      internalID: 1693488366042806650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_107
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5f9403d865c1c9c0800000000000000
+      internalID: -3908625947573313700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_108
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3bf7309c15cfdb0800000000000000
+      internalID: -4756837182621109281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_109
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32446fe3b3895a6d0800000000000000
+      internalID: -2979808198208895965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_110
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8772b1abbe5956c0800000000000000
+      internalID: -4154185021307848819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_111
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b42211d57f2681d0800000000000000
+      internalID: -3348937089838078793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_112
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7209413e227b45540800000000000000
+      internalID: 4995819247127269415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_113
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bd2292ae96a33e90800000000000000
+      internalID: -7047105791642161736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_114
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e36c82d1da825750800000000000000
+      internalID: 6292244263175218145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_115
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f0925f2612607e0800000000000000
+      internalID: -1799714292184314050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_116
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0c64665894743640800000000000000
+      internalID: 5058796479077182475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_117
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c77ccd5439d14220800000000000000
+      internalID: 2468492889710950338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_118
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 247e9542df89b1be0800000000000000
+      internalID: -1505441437421279422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_119
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0d0a0ae26b477390800000000000000
+      internalID: -7820699339700171509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_120
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e06df53238e715c80800000000000000
+      internalID: -8335742333586778610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_121
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f4e1b12bca9df900800000000000000
+      internalID: 719901712683492600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_122
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d48f7530ea2c0340800000000000000
+      internalID: 4831283642720290003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_123
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 170ca477afd61bfd0800000000000000
+      internalID: -2327958609863196559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_124
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40090bc2f8a25cd20800000000000000
+      internalID: 3298089096537214980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_125
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6574bc672db891950800000000000000
+      internalID: 6420316479845779286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_126
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e085d1e9787c3cf80800000000000000
+      internalID: -8087401120540043250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_127
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 092aa8a86865a0530800000000000000
+      internalID: 3821962369627234960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_128
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79ca405cb6a028630800000000000000
+      internalID: 3927713283003690135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_129
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e191bf39f70b5950800000000000000
+      internalID: 6438748859353108968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_130
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27858280814095280800000000000000
+      internalID: -9054201074589083534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_131
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45e635567637ea130800000000000000
+      internalID: 3579925641724915284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_132
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11dc7589692e0f910800000000000000
+      internalID: 1869242981787618577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_133
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec2c695dcda1f6c0800000000000000
+      internalID: -4111313887332389656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_134
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b8d4cbb59b60690800000000000000
+      internalID: -7636212314507736312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_135
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 755e0c344c2a73300800000000000000
+      internalID: 231832869666874711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_136
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1829c9b172f3bddb0800000000000000
+      internalID: -4766146343442017663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_137
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4cdbc7e915901770800000000000000
+      internalID: 8579521228636413006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_138
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c576ea3c73ac1620800000000000000
+      internalID: 2746249626748614088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_139
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4b38d63aaa869920800000000000000
+      internalID: 2996735065730857806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_140
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a1bda03eaf369d20800000000000000
+      internalID: 3284882995586904488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_141
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd3287fe678645410800000000000000
+      internalID: 1464910638835311579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_142
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4182e12e235935c90800000000000000
+      internalID: -7182232934951278572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gem_spritesheet_skadr_143
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac9545852aabf10a0800000000000000
+      internalID: -6908598096933660214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f4118e5b83f7149f489e7a58a350c4be
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      gem_spritesheet_skadr_0: -4026219644352005895
+      gem_spritesheet_skadr_1: -5512421412512838277
+      gem_spritesheet_skadr_10: 8077446098498365420
+      gem_spritesheet_skadr_100: 4884481380053003980
+      gem_spritesheet_skadr_101: -5630314079140676366
+      gem_spritesheet_skadr_102: -6426753732913487226
+      gem_spritesheet_skadr_103: -6509658162080115032
+      gem_spritesheet_skadr_104: -7218466238512771234
+      gem_spritesheet_skadr_105: -3055622459504177810
+      gem_spritesheet_skadr_106: 1693488366042806650
+      gem_spritesheet_skadr_107: -3908625947573313700
+      gem_spritesheet_skadr_108: -4756837182621109281
+      gem_spritesheet_skadr_109: -2979808198208895965
+      gem_spritesheet_skadr_11: 7249159617500861474
+      gem_spritesheet_skadr_110: -4154185021307848819
+      gem_spritesheet_skadr_111: -3348937089838078793
+      gem_spritesheet_skadr_112: 4995819247127269415
+      gem_spritesheet_skadr_113: -7047105791642161736
+      gem_spritesheet_skadr_114: 6292244263175218145
+      gem_spritesheet_skadr_115: -1799714292184314050
+      gem_spritesheet_skadr_116: 5058796479077182475
+      gem_spritesheet_skadr_117: 2468492889710950338
+      gem_spritesheet_skadr_118: -1505441437421279422
+      gem_spritesheet_skadr_119: -7820699339700171509
+      gem_spritesheet_skadr_12: 3872400939015510592
+      gem_spritesheet_skadr_120: -8335742333586778610
+      gem_spritesheet_skadr_121: 719901712683492600
+      gem_spritesheet_skadr_122: 4831283642720290003
+      gem_spritesheet_skadr_123: -2327958609863196559
+      gem_spritesheet_skadr_124: 3298089096537214980
+      gem_spritesheet_skadr_125: 6420316479845779286
+      gem_spritesheet_skadr_126: -8087401120540043250
+      gem_spritesheet_skadr_127: 3821962369627234960
+      gem_spritesheet_skadr_128: 3927713283003690135
+      gem_spritesheet_skadr_129: 6438748859353108968
+      gem_spritesheet_skadr_13: 2258538975623639961
+      gem_spritesheet_skadr_130: -9054201074589083534
+      gem_spritesheet_skadr_131: 3579925641724915284
+      gem_spritesheet_skadr_132: 1869242981787618577
+      gem_spritesheet_skadr_133: -4111313887332389656
+      gem_spritesheet_skadr_134: -7636212314507736312
+      gem_spritesheet_skadr_135: 231832869666874711
+      gem_spritesheet_skadr_136: -4766146343442017663
+      gem_spritesheet_skadr_137: 8579521228636413006
+      gem_spritesheet_skadr_138: 2746249626748614088
+      gem_spritesheet_skadr_139: 2996735065730857806
+      gem_spritesheet_skadr_14: 6480100037823480259
+      gem_spritesheet_skadr_140: 3284882995586904488
+      gem_spritesheet_skadr_141: 1464910638835311579
+      gem_spritesheet_skadr_142: -7182232934951278572
+      gem_spritesheet_skadr_143: -6908598096933660214
+      gem_spritesheet_skadr_15: 4043593497694624776
+      gem_spritesheet_skadr_16: 303874843447607917
+      gem_spritesheet_skadr_17: 6334949773670729262
+      gem_spritesheet_skadr_18: -1249036616345522535
+      gem_spritesheet_skadr_19: 8438689485544435157
+      gem_spritesheet_skadr_2: 4345520078947647456
+      gem_spritesheet_skadr_20: -8937102357727513895
+      gem_spritesheet_skadr_21: 4649769297211957274
+      gem_spritesheet_skadr_22: -6956579428112251812
+      gem_spritesheet_skadr_23: -3492135301581230194
+      gem_spritesheet_skadr_24: -6123759506059279
+      gem_spritesheet_skadr_25: -8619062001807979538
+      gem_spritesheet_skadr_26: 7101130083385094086
+      gem_spritesheet_skadr_27: 8453648046394300910
+      gem_spritesheet_skadr_28: -7058690781227740590
+      gem_spritesheet_skadr_29: -5448905486420536602
+      gem_spritesheet_skadr_3: 3192861240884650567
+      gem_spritesheet_skadr_30: -9024774986820045343
+      gem_spritesheet_skadr_31: -6019232700316015408
+      gem_spritesheet_skadr_32: -6792172020759979246
+      gem_spritesheet_skadr_33: 1593978630307911060
+      gem_spritesheet_skadr_34: 4890178885430903202
+      gem_spritesheet_skadr_35: -4508369320435922586
+      gem_spritesheet_skadr_36: -8116653207278871936
+      gem_spritesheet_skadr_37: -6243817089842561439
+      gem_spritesheet_skadr_38: 1201761501158536020
+      gem_spritesheet_skadr_39: -3621159425000764173
+      gem_spritesheet_skadr_4: -8473947464224494772
+      gem_spritesheet_skadr_40: -2311431419422114807
+      gem_spritesheet_skadr_41: -5884933113711626179
+      gem_spritesheet_skadr_42: 1115584911430366648
+      gem_spritesheet_skadr_43: -7305270352359864843
+      gem_spritesheet_skadr_44: -6023444982813953330
+      gem_spritesheet_skadr_45: -1045361954095911300
+      gem_spritesheet_skadr_46: -7726413433737803948
+      gem_spritesheet_skadr_47: 6255610404637380653
+      gem_spritesheet_skadr_48: -2025217252977783465
+      gem_spritesheet_skadr_49: -1435350907923646083
+      gem_spritesheet_skadr_5: -5018343685139894813
+      gem_spritesheet_skadr_50: 186326477673205737
+      gem_spritesheet_skadr_51: 5504585237731851325
+      gem_spritesheet_skadr_52: 4830048690363357268
+      gem_spritesheet_skadr_53: 3627413891404845909
+      gem_spritesheet_skadr_54: 2271359282946106027
+      gem_spritesheet_skadr_55: -26242609182794029
+      gem_spritesheet_skadr_56: -846420265869914782
+      gem_spritesheet_skadr_57: -8541939942744560515
+      gem_spritesheet_skadr_58: 460725427636261494
+      gem_spritesheet_skadr_59: 8975831645052354957
+      gem_spritesheet_skadr_6: -5121455323577307050
+      gem_spritesheet_skadr_60: -1180804118276958252
+      gem_spritesheet_skadr_61: -8285796616862913605
+      gem_spritesheet_skadr_62: -5410920921457077859
+      gem_spritesheet_skadr_63: -5680748519583636819
+      gem_spritesheet_skadr_64: 1459965605950108266
+      gem_spritesheet_skadr_65: -817560895696358982
+      gem_spritesheet_skadr_66: -7240096459445427589
+      gem_spritesheet_skadr_67: -613679118804203242
+      gem_spritesheet_skadr_68: 2960622095236991903
+      gem_spritesheet_skadr_69: -9077522038928680827
+      gem_spritesheet_skadr_7: -6641743020007453130
+      gem_spritesheet_skadr_70: 5667408539267694430
+      gem_spritesheet_skadr_71: 5904875166888728248
+      gem_spritesheet_skadr_72: 8653508645444169493
+      gem_spritesheet_skadr_73: 4113698988820097426
+      gem_spritesheet_skadr_74: -8735864476444540800
+      gem_spritesheet_skadr_75: -3552918427763231933
+      gem_spritesheet_skadr_76: 5638353119861145138
+      gem_spritesheet_skadr_77: 4569184574735464083
+      gem_spritesheet_skadr_78: -3042169122222115814
+      gem_spritesheet_skadr_79: -2130517159058397308
+      gem_spritesheet_skadr_8: -8789833818586115632
+      gem_spritesheet_skadr_80: 3151878693531688541
+      gem_spritesheet_skadr_81: -1141027072091066113
+      gem_spritesheet_skadr_82: -3518042860939084213
+      gem_spritesheet_skadr_83: 6392316678935322536
+      gem_spritesheet_skadr_84: 73601506023011798
+      gem_spritesheet_skadr_85: 8811740431548627767
+      gem_spritesheet_skadr_86: -8219552589352737281
+      gem_spritesheet_skadr_87: -8944032990974693459
+      gem_spritesheet_skadr_88: 2928006368669865697
+      gem_spritesheet_skadr_89: 3769520487088792464
+      gem_spritesheet_skadr_9: 5553018380745400336
+      gem_spritesheet_skadr_90: 1383390478952616564
+      gem_spritesheet_skadr_91: 2023750987934619214
+      gem_spritesheet_skadr_92: 1805209344854785044
+      gem_spritesheet_skadr_93: 6954236512437357663
+      gem_spritesheet_skadr_94: 8326185037071602191
+      gem_spritesheet_skadr_95: 4909755098971646097
+      gem_spritesheet_skadr_96: -3848346302634017697
+      gem_spritesheet_skadr_97: 5726143325901976696
+      gem_spritesheet_skadr_98: 5478229865425573709
+      gem_spritesheet_skadr_99: -8534618057831107134
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
