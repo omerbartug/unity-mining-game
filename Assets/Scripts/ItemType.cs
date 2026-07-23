@@ -3,12 +3,14 @@ using UnityEngine;
 
 public enum ItemType
     {
-        RawIron,
+
+        None,
+
+    
         RawGold,
         RawCoal,
         RawDiamond,
 
-        ProcessedIron,
         ProcessedGold,
         ProcessedCoal,
         ProcessedDiamond

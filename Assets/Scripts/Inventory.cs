@@ -17,4 +17,22 @@ public class Inventory : MonoBehaviour
         }
         Debug.Log($"Item: {item}, Value: {items[item]}");
     }
+
+    public void RemoveItem(ItemType item, int amount)
+    {
+        if(!items.ContainsKey(item)){
+            return;
+        }
+        items[item] -= amount;
+
+        if(items[item] <= 0){
+            items.Remove(item);
+        }
+    }
+
+    public void GetInventory(){
+        foreach(KeyValuePair<ItemType, int> component in items){
+            Debug.Log($"Item : {component.Key}, Amount : {component.Value}");
+        }
+    }
 }
