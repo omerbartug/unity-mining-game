@@ -1,5 +1,5 @@
 public class InventorySlot
 {
-    public ItemType ItemType;
+    public ItemData Item;
     public int Amount;
 }

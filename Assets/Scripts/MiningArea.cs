@@ -4,7 +4,7 @@ public class MiningArea : MonoBehaviour, IInteractable
     private float operationTimer = 0;
 
     
-    [SerializeField] private ItemType rewardItem;
+    [SerializeField] private ItemData rewardItem;
     [SerializeField] private float operationTime = 2f;
     
    

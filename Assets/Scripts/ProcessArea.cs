@@ -4,11 +4,11 @@ public class ProcessArea : MonoBehaviour, IInteractable
     private float operationTimer = 0;
 
 
-    [SerializeField] private ItemType consumedItem;
-    [SerializeField] private ItemType rewardItem;
+    [SerializeField] private ItemData consumedItem;
+    [SerializeField] private ItemData rewardItem;
     [SerializeField] private float operationTime = 2f;
 
-    public ItemType getConsumedItem(){
+    public ItemData getConsumedItem(){
         return consumedItem;
     }
 

@@ -574,7 +574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af825228880684f7684191e49c82ba93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Selling
-  inventory: {fileID: 0}
 --- !u!1 &187080720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,8 +1382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfbe85389b17457abaa00c4289fa589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Area
-  consumedItem: 1
-  rewardItem: 4
+  consumedItem: {fileID: 11400000, guid: ba52294f7d96e4ddf8023749f51fd655, type: 2}
+  rewardItem: {fileID: 11400000, guid: 4bdc8dcb33d294ca09620e7d2c0028d9, type: 2}
   operationTime: 2
 --- !u!19719996 &567940703
 TilemapCollider2D:
@@ -1832,8 +1831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfbe85389b17457abaa00c4289fa589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Area
-  consumedItem: 3
-  rewardItem: 6
+  consumedItem: {fileID: 11400000, guid: 0ba3dc7c681a04e94b93599555c90fd5, type: 2}
+  rewardItem: {fileID: 11400000, guid: 62c5746c38c224919ab4188e9bcfec52, type: 2}
   operationTime: 2
 --- !u!19719996 &621047713
 TilemapCollider2D:
@@ -1884,8 +1883,8 @@ GameObject:
   - component: {fileID: 655339067}
   - component: {fileID: 655339069}
   - component: {fileID: 655339068}
-  - component: {fileID: 655339070}
   - component: {fileID: 655339071}
+  - component: {fileID: 655339072}
   m_Layer: 0
   m_Name: DiamondMine
   m_TagString: Untagged
@@ -2910,21 +2909,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &655339070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 655339066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbfbe85389b17457abaa00c4289fa589, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MiningRock
-  consumedItem: 0
-  rewardItem: 3
-  operationTime: 2
 --- !u!19719996 &655339071
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2963,6 +2947,20 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &655339072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655339066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f64cb8a0f9c84dce9bdff84117b0cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiningArea
+  rewardItem: {fileID: 11400000, guid: 0ba3dc7c681a04e94b93599555c90fd5, type: 2}
+  operationTime: 2
 --- !u!114 &688855491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3304,8 +3302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbfbe85389b17457abaa00c4289fa589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Area
-  consumedItem: 2
-  rewardItem: 5
+  consumedItem: {fileID: 11400000, guid: 28eb593db5c8849ab97ea70d5ded0eaa, type: 2}
+  rewardItem: {fileID: 11400000, guid: 2e641610681ac405fa81b1d0294c6ebc, type: 2}
   operationTime: 2
 --- !u!19719996 &936640562
 TilemapCollider2D:
@@ -3356,8 +3354,8 @@ GameObject:
   - component: {fileID: 1220529579}
   - component: {fileID: 1220529581}
   - component: {fileID: 1220529580}
-  - component: {fileID: 1220529582}
   - component: {fileID: 1220529583}
+  - component: {fileID: 1220529584}
   m_Layer: 0
   m_Name: GoldMine
   m_TagString: Untagged
@@ -4402,21 +4400,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1220529582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220529578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbfbe85389b17457abaa00c4289fa589, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MiningRock
-  consumedItem: 0
-  rewardItem: 1
-  operationTime: 2
 --- !u!19719996 &1220529583
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4455,6 +4438,20 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &1220529584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220529578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f64cb8a0f9c84dce9bdff84117b0cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiningArea
+  rewardItem: {fileID: 11400000, guid: ba52294f7d96e4ddf8023749f51fd655, type: 2}
+  operationTime: 2
 --- !u!1 &1265641862
 GameObject:
   m_ObjectHideFlags: 0
@@ -12577,7 +12574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f64cb8a0f9c84dce9bdff84117b0cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiningArea
-  rewardItem: 2
+  rewardItem: {fileID: 11400000, guid: 28eb593db5c8849ab97ea70d5ded0eaa, type: 2}
   operationTime: 2
 --- !u!1 &1891312313
 GameObject:

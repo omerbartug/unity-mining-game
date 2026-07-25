@@ -18,6 +18,7 @@ public enum ItemType
 
 public static class ItemTypeExtensions
 {
+   
 
     public static int GetPrice(this ItemType type)
     {
@@ -29,5 +30,7 @@ public static class ItemTypeExtensions
             default: return 0;
         }
     }
+
+   
 }
 

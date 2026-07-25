@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerProcessing : MonoBehaviour
+public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
     private IInteractable currentInteractable;

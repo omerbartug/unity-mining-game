@@ -15,6 +15,10 @@ public class InventoryUI : MonoBehaviour
             slotUIs[i] = Instantiate(slotPrefab, slotParent);
         }
     }
+    private void Start()
+    {
+        Refresh();
+    }
     public void Refresh()
     {
         InventorySlot[] slots = inventory.GetSlots();

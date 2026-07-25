@@ -9,14 +9,23 @@ public class InventorySlotUI : MonoBehaviour
     [SerializeField] private Image selectionBorder;
 
 
+
     public void Refresh(InventorySlot slot)
     {
-        if(slot.ItemType == ItemType.None || slot.Amount == 1){
+        if (slot.Item == null)
+        {
+            icon.enabled = false;
             amountText.text = "";
+            return;
         }
-        else{
+
+        icon.enabled = true;
+        icon.sprite = slot.Item.icon;
+
+        if (slot.Amount > 1)
             amountText.text = "x" + slot.Amount;
-        }
+        else
+            amountText.text = "";
     }
 
 }
