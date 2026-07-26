@@ -20,15 +20,15 @@ public class Inventory : MonoBehaviour
     {
         foreach(var slot in slots){
             if(slot.Item == item){
-                slot.Amount += amount;
+                slot.AddAmount(amount);
                 inventoryUI.Refresh();
                 return;
             }
         }
         foreach(var slot in slots){
             if(slot.Item == null){
-                slot.Item = item; 
-                slot.Amount += amount;
+                slot.SetItem(item);
+                slot.AddAmount(amount);
                 inventoryUI.Refresh();
                 return;
             }
@@ -43,11 +43,10 @@ public class Inventory : MonoBehaviour
                     Debug.Log("o kadar item yok");
                     return;
                 }
-                slot.Amount -= amount;
+                slot.RemoveAmount(amount);
                 if(slot.Amount <= 0){
                     Debug.Log("Item Siliniyor");
-                    slot.Item = null;
-                    slot.Amount = 0;
+                    slot.Clear();
                 }
                 inventoryUI.Refresh();
                 return;
@@ -56,6 +55,16 @@ public class Inventory : MonoBehaviour
         Debug.Log("Oyle bi item yok");
     }
 
+    public void RemoveAll(ItemData item){
+        foreach(var slot in slots){
+            if(slot.Item == item){
+                slot.Clear();
+                inventoryUI.Refresh();
+                return;
+            }
+        }
+        Debug.Log("bilinemeyen hata");
+    }
     public bool HasItem(ItemData item, int amount)
     {
         foreach(var slot in slots){
@@ -69,5 +78,12 @@ public class Inventory : MonoBehaviour
     public InventorySlot[] GetSlots()
     {
         return slots;
+    }
+
+    public InventorySlot getSelectedSlot(){
+        return slots[inventoryUI.getSelectedSlotIndex()];
+    }
+    public ItemData getSelectedItem(){
+        return getSelectedSlot().Item;
     }
 }

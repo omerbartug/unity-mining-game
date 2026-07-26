@@ -7,12 +7,14 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform slotParent;
 
     private InventorySlotUI[] slotUIs = new InventorySlotUI[8];
+    private int selectedSlotIndex = 0;
 
     private void Awake()
     {
         for(int i = 0; i < slotUIs.Length; i++)
         {
             slotUIs[i] = Instantiate(slotPrefab, slotParent);
+            slotUIs[i].Initialize(i,this);
         }
     }
     private void Start()
@@ -28,4 +30,16 @@ public class InventoryUI : MonoBehaviour
             slotUIs[i].Refresh(slots[i]);
         }
     }
+    public void SelectSlot(int index)
+    {   
+        slotUIs[selectedSlotIndex].setIsSelected(false);
+        selectedSlotIndex = index;
+        Debug.Log(selectedSlotIndex);
+        slotUIs[selectedSlotIndex].setIsSelected(true); 
+    }
+
+    public int getSelectedSlotIndex(){
+        return selectedSlotIndex;
+    }
+    
 }
