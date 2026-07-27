@@ -9,4 +9,6 @@ public class ItemData : ScriptableObject
 
     public int sellPrice;
     public bool sellable;
+    public bool processable;
+    public ItemData rewardItem;
 }

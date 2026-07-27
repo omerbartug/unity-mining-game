@@ -4,7 +4,9 @@ public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
     private IInteractable currentInteractable;
-    [SerializeField] private PlayerStats player;
+    [SerializeField] private PlayerMovement playerMovement;
+    
+
 
 
     
@@ -23,13 +25,15 @@ public class PlayerInteract : MonoBehaviour
        if (currentInteractable != null)
         {
             if (Input.GetKey(KeyCode.E)){
+                playerMovement.DisableMovement();
                 currentInteractable.Interact(inventory);}
             else{
+                playerMovement.EnableMovement();
                 currentInteractable.ResetInteract();}
             
         }
         if(Input.GetKeyDown(KeyCode.P)){
-            Debug.Log(player.getPlayerMoney());
+            Debug.Log(PlayerStats.Instance.getPlayerMoney());
         }
     }
 

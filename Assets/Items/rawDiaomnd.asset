@@ -16,3 +16,5 @@ MonoBehaviour:
   icon: {fileID: 6180438035462561861, guid: 75834cab208634aa19891e6298a93b87, type: 3}
   sellPrice: 30
   sellable: 0
+  processable: 1
+  rewardItem: {fileID: 11400000, guid: 62c5746c38c224919ab4188e9bcfec52, type: 2}
