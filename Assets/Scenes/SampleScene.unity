@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 187080726}
   - component: {fileID: 187080727}
   - component: {fileID: 187080728}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1142,8 +1142,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: -0.09965071, y: 0}
+  m_Size: {x: 0.77403957, y: 1}
   m_Direction: 0
 --- !u!212 &187080724
 SpriteRenderer:
@@ -1560,6 +1560,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522825982}
   m_CullTransparentMesh: 1
+--- !u!1 &611738733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 611738735}
+  - component: {fileID: 611738734}
+  m_Layer: 0
+  m_Name: Building Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &611738734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611738733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0facdc8e4ed949c399ee011d6a94749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
+  selectedBuilding: {fileID: 11400000, guid: c9b345c93949d4f7399890601e5f0676, type: 2}
+  grid: {fileID: 376124137}
+  placementBlockerLayer:
+    serializedVersion: 2
+    m_Bits: 72
+  oreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!4 &611738735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611738733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.56214, y: 2.47083, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,7 +1726,7 @@ GameObject:
   - component: {fileID: 655339068}
   - component: {fileID: 655339071}
   - component: {fileID: 655339072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DiamondMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2796,7 +2848,7 @@ GameObject:
   - component: {fileID: 893837980}
   - component: {fileID: 893837982}
   - component: {fileID: 893837981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2873,7 +2925,7 @@ GameObject:
   - component: {fileID: 1220529580}
   - component: {fileID: 1220529583}
   - component: {fileID: 1220529584}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GoldMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8051,7 +8103,7 @@ GameObject:
   - component: {fileID: 1319702170}
   - component: {fileID: 1319702172}
   - component: {fileID: 1319702171}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11373,7 +11425,7 @@ GameObject:
   - component: {fileID: 1811933038}
   - component: {fileID: 1811933037}
   - component: {fileID: 1811933036}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11477,7 +11529,7 @@ GameObject:
   - component: {fileID: 1841763117}
   - component: {fileID: 1841763120}
   - component: {fileID: 1841763121}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CoalMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12263,7 +12315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1876115598}
   - component: {fileID: 1876115599}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32977,3 +33029,4 @@ SceneRoots:
   - {fileID: 1901700764}
   - {fileID: 1810085733}
   - {fileID: 2145017541}
+  - {fileID: 611738735}
