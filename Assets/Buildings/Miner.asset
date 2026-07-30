@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbeb87e963b5430b9815f688bff7eda, type: 3}
   m_Name: Miner
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Miner
+  objectName: Miner
+  icon: {fileID: -6184986122619547851, guid: 903a1ef63a0a04cfa9a652c63a959207, type: 3}
+  price: 1000
   buildingPrefab: {fileID: 8899441607048598942, guid: f2d4136e9a6f8443480a532ff29446d0, type: 3}
   ghostPrefab: {fileID: 1419821347055716274, guid: e0eeb6b11ee4a460c9c5f6972a870fd5, type: 3}
   size: {x: 1, y: 1}
-  icon: {fileID: -6184986122619547851, guid: 903a1ef63a0a04cfa9a652c63a959207, type: 3}
-  price: 1000
+  inputItem: {fileID: 11400000, guid: 28eb593db5c8849ab97ea70d5ded0eaa, type: 2}
+  outputItem: {fileID: 11400000, guid: 28eb593db5c8849ab97ea70d5ded0eaa, type: 2}
+  productionTime: 2
+  storageCapacity: 20

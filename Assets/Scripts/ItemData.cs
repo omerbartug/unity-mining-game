@@ -1,12 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class ItemData : ScriptableObject
+public class ItemData : InventoryObject
 {
-    public string displayName;
-
-    public Sprite icon;
-
     public int sellPrice;
     public bool sellable;
     public bool processable;

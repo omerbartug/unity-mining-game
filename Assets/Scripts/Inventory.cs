@@ -16,17 +16,17 @@ public class Inventory : MonoBehaviour
             }
         }
 
-    public void AddItem(ItemData item, int amount)
+    public void AddItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){
-            if(slot.Item == item){
+            if(slot.Data == item){
                 slot.AddAmount(amount);
                 inventoryUI.Refresh();
                 return;
             }
         }
         foreach(var slot in slots){
-            if(slot.Item == null){
+            if(slot.Data == null){
                 slot.SetItem(item);
                 slot.AddAmount(amount);
                 inventoryUI.Refresh();
@@ -35,10 +35,10 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void RemoveItem(ItemData item, int amount)
+    public void RemoveItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){
-            if(slot.Item == item){
+            if(slot.Data == item){
                 if(slot.Amount-amount < 0){
                     Debug.Log("o kadar item yok");
                     return;
@@ -53,22 +53,24 @@ public class Inventory : MonoBehaviour
             }
         }
         Debug.Log("Oyle bi item yok");
+        return;
     }
 
-    public void RemoveAll(ItemData item){
+    public void RemoveAll(InventoryObject item){
         foreach(var slot in slots){
-            if(slot.Item == item){
+            if(slot.Data == item){
                 slot.Clear();
                 inventoryUI.Refresh();
                 return;
             }
         }
-        Debug.Log("bilinemeyen hata");
+        Debug.Log("O item yok");
+        return;
     }
-    public bool HasItem(ItemData item, int amount)
+    public bool HasItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){
-            if(slot.Item == item && slot.Amount >= amount){
+            if(slot.Data == item && slot.Amount >= amount){
                 return true;
             }
         }
@@ -80,10 +82,10 @@ public class Inventory : MonoBehaviour
         return slots;
     }
 
-    public InventorySlot getSelectedSlot(){
+    public InventorySlot GetSelectedSlot(){
         return slots[inventoryUI.getSelectedSlotIndex()];
     }
-    public ItemData getSelectedItem(){
-        return getSelectedSlot().Item;
+    public InventoryObject GetSelectedItem(){
+        return GetSelectedSlot().Data;
     }
 }

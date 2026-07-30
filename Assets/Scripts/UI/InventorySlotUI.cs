@@ -15,7 +15,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 
     public void Refresh(InventorySlot slot)
     {
-        if (slot.Item == null)
+        if (slot.Data == null)
         {
             icon.enabled = false;
             amountText.text = "";
@@ -23,7 +23,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         }
 
         icon.enabled = true;
-        icon.sprite = slot.Item.icon;
+        icon.sprite = slot.Data.icon;
 
         if (slot.Amount > 1){
             amountText.text = "x" + slot.Amount;}

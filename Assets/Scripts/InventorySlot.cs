@@ -1,11 +1,11 @@
 public class InventorySlot
 {
-    public ItemData Item { get; private set; }
+    public InventoryObject Data { get; private set; }
     public int Amount { get; private set; }
 
     public void Clear()
     {
-        Item = null;
+        Data = null;
         Amount = 0;
     }
 
@@ -15,7 +15,7 @@ public class InventorySlot
     public void RemoveAmount(int amount){
         Amount -= amount;
     }
-    public void SetItem(ItemData item){
-        Item = item;
+    public void SetItem(InventoryObject data){
+        Data = data;
     }
 }

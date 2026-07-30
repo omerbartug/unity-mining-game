@@ -9,29 +9,32 @@ public class SellingArea : MonoBehaviour, IInteractable
 
     public void Interact(Inventory inventory){
 
-        ItemData selectedItem = inventory.getSelectedItem();
-        int selectedItemAmount = inventory.getSelectedSlot().Amount;
+        InventoryObject selectedItem = inventory.GetSelectedItem();
+        int selectedItemAmount = inventory.GetSelectedSlot().Amount;
         if(selectedItem == null){
             return;
         }
-        if(!selectedItem.sellable){
-            Debug.Log("Bu urun satilamaz.");
-            return;
-        }
-        Debug.Log("SatisBasladi");
-        
-        operationTimer += Time.deltaTime;
-        progressBar.SetProgress(operationTimer,operationTime);
 
-        if (operationTimer >= operationTime)
-        {
-            operationTimer = 0;
-            progressBar.ResetProgress();
+        if(selectedItem is ItemData item){
+            if(!item.sellable){
+                Debug.Log("Bu urun satilamaz.");
+                return;
+            }
+            Debug.Log("SatisBasladi");
+            
+            operationTimer += Time.deltaTime;
+            progressBar.SetProgress(operationTimer,operationTime);
 
-            PlayerStats.Instance.addMoney(selectedItem.sellPrice * selectedItemAmount);
-            inventory.RemoveAll(selectedItem);
+            if (operationTimer >= operationTime)
+            {
+                operationTimer = 0;
+                progressBar.ResetProgress();
 
-            Debug.Log("satis bitti.");
+                PlayerStats.Instance.addMoney(item.sellPrice * selectedItemAmount);
+                inventory.RemoveAll(item);
+
+                Debug.Log("satis bitti.");
+            }
         }
     }
 

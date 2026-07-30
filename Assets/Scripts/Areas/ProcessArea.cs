@@ -8,28 +8,31 @@ public class ProcessArea : MonoBehaviour, IInteractable
     [SerializeField] private ProgressBar progressBar;
 
     public void Interact(Inventory inventory){
-        ItemData selectedItem = inventory.getSelectedItem();
+        InventoryObject selectedItem = inventory.GetSelectedItem();
         if(selectedItem == null){
             return;
         }
-        if(!selectedItem.processable){
-            Debug.Log("islenemez");
-            return;
-        }
-        Debug.Log("IslemBasladi");
 
-        operationTimer += Time.deltaTime;
-        progressBar.SetProgress(operationTimer,operationTime);
+        if(selectedItem is ItemData item){
+            if(!item.processable){
+                Debug.Log("islenemez");
+                return;
+            }
+            Debug.Log("IslemBasladi");
 
-        if (operationTimer >= operationTime)
-        {
-            operationTimer = 0;
-            progressBar.ResetProgress();
+            operationTimer += Time.deltaTime;
+            progressBar.SetProgress(operationTimer,operationTime);
 
-            inventory.RemoveItem(selectedItem, 1);
-            inventory.AddItem(selectedItem.rewardItem, 1);
+            if (operationTimer >= operationTime)
+            {
+                operationTimer = 0;
+                progressBar.ResetProgress();
 
-            Debug.Log("islem bitti.");
+                inventory.RemoveItem(item, 1);
+                inventory.AddItem(item.rewardItem, 1);
+
+                Debug.Log("islem bitti.");
+            }
         }
     }
     
