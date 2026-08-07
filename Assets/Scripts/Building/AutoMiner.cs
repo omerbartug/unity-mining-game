@@ -3,53 +3,57 @@ using System.Collections.Generic;
 
 public class AutoMiner : Building
 {
-    private float timer;
-    [SerializeField] private LayerMask placementBlockerLayer;
-    [SerializeField] private LayerMask oreLayer;
-    private Queue<ItemData> storageQueue = new Queue<ItemData>();
+    
+
+    private int Storage;
+    public int StoredItemCount => Storage;
+
+    private MiningArea miningArea;
+
+    private void Awake()
+    {
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+
+        Collider2D ore = Physics2D.OverlapBox(
+            box.bounds.center,
+            box.bounds.size,
+            0f,
+            buildingData.fineLayer
+        );
+
+        if (ore != null)
+        {
+            miningArea = ore.GetComponent<MiningArea>();
+        }
+    }
 
     private void Update()
     {
+        if(miningArea == null) return;
         timer += Time.deltaTime;
 
         if (timer >= buildingData.productionTime &&
-            storageQueue.Count < buildingData.storageCapacity)
+            Storage < buildingData.storageCapacity)
         {
-            storageQueue.Enqueue(buildingData.outputItem);
+            Storage++;
             timer = 0f;
         }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (!other.CompareTag("Player"))
-            return;
 
-        Inventory inventory = other.GetComponent<Inventory>();
-        if (inventory == null)
-            return;
 
-        int amount = storageQueue.Count;
-        if (amount == 0)
-            return;
-
-        storageQueue.Clear();
-        inventory.AddItem(buildingData.outputItem, amount);
-
-        Debug.Log($"Collected {amount}");
-    }
-
-    public override bool CheckPlacement(Vector2 position, Vector2 size)
+    public override void CollectItems(Inventory inventory)
     {
         
-        Collider2D blocker = Physics2D.OverlapBox(position, size, 0, placementBlockerLayer);
-        Collider2D ore = Physics2D.OverlapBox(position, size, 0, oreLayer);
+        if (Storage == 0 || miningArea == null)
+        {
+            return;
+        }
 
-       
-        return blocker == null && ore != null;
+        inventory.AddItem(miningArea.RewardItem, Storage);
+        Storage = 0;
     }
-    public override void OnSelected()
-    {
-        Debug.Log(storageQueue.Count);
-    }
+
+
+    
 }

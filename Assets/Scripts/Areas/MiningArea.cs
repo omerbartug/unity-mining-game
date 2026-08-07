@@ -5,30 +5,28 @@ public class MiningArea : MonoBehaviour, IInteractable
 
     
     [SerializeField] private ItemData rewardItem;
-    [SerializeField] private float operationTime = 2f;
-    [SerializeField] private ProgressBar progressBar;
-   
+    public ItemData RewardItem => rewardItem;
 
-    public void Interact(Inventory inventory)
+    [SerializeField] private float operationTime = 2f;
+    
+
+    public void Interact(Inventory inventory, ProgressBar progress)
     {
-        Debug.Log("Islem basladi.");
         operationTimer += Time.deltaTime;
-        progressBar.SetProgress(operationTimer,operationTime);
+        progress.SetProgress(operationTimer / operationTime);
 
         if (operationTimer >= operationTime)
         {
             operationTimer = 0;
-            progressBar.ResetProgress();
+            progress.ResetProgress();
 
             inventory.AddItem(rewardItem, 1);
-
-            Debug.Log("Islem bitti.");
         }
     }
 
-    public void ResetInteract()
+    public void ResetInteract(ProgressBar progress)
     {
         operationTimer = 0;
-        progressBar.ResetProgress();
+        progress.ResetProgress();
     }
 }

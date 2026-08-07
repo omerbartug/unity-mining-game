@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
+    [SerializeField] private ProgressBar progress;
+
     private IInteractable currentInteractable;
     [SerializeField] private PlayerMovement playerMovement;
     
@@ -26,10 +28,10 @@ public class PlayerInteract : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)){
                 playerMovement.DisableMovement();
-                currentInteractable.Interact(inventory);}
+                currentInteractable.Interact(inventory, progress);}
             else{
                 playerMovement.EnableMovement();
-                currentInteractable.ResetInteract();}
+                currentInteractable.ResetInteract(progress);}
             
         }
         if(Input.GetKeyDown(KeyCode.P)){

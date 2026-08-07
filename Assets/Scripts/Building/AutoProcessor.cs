@@ -1,22 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AutoProcessor : Building, IInteractable
+using System;
+public class AutoProcessor : Building
 {
-    [SerializeField] private ProgressBar progressBar;
 
-    [SerializeField] private LayerMask placementBlockerLayer;
-    [SerializeField] private LayerMask okey;
+    [SerializeField] private ItemData deneme;
+    
 
     private Queue<ItemData> inputQueue = new Queue<ItemData>();
-    private Queue<ItemData> outputQueue = new Queue<ItemData>();
+    public Queue<ItemData> InputQueue => inputQueue;
+
 
     private ItemData currentItem;
+    public ItemData CurrentItem => currentItem;
 
-    private float processTimer;
-    private float interactTimer;
+    public event Action QueueChanged;
+    public event Action CurrentItemChanged;
+    public event Action OutputChanged;
 
-    [SerializeField] private float interactTime = 2f;
+    private Dictionary<ItemData, int> storage = new Dictionary<ItemData, int>();
+    public Dictionary<ItemData, int> Storage => storage;
+
+
+
+
+
+    private void Start(){
+        AddToQueue(deneme, 20);
+    }
 
     private void Update()
     {
@@ -25,67 +36,28 @@ public class AutoProcessor : Building, IInteractable
             if (inputQueue.Count > 0)
             {
                 currentItem = inputQueue.Dequeue();
-                processTimer = 0;
+                QueueChanged?.Invoke();
+                CurrentItemChanged?.Invoke();
+                timer = 0;
             }
 
             return;
         }
 
-        processTimer += Time.deltaTime;
+        ItemData output = currentItem.rewardItem;
+        timer += Time.deltaTime;
 
-        if (processTimer >= buildingData.productionTime)
+        if (timer >= buildingData.productionTime)
         {
-            outputQueue.Enqueue(currentItem.rewardItem);
+
+            if (storage.ContainsKey(output)){storage[output]++;}
+            else{storage.Add(output, 1);}
+            OutputChanged?.Invoke();
 
             currentItem = null;
-            processTimer = 0;
-        }
-    }
+            CurrentItemChanged?.Invoke();
 
-    public void Interact(Inventory inventory)
-    {
-        InventoryObject selected = inventory.GetSelectedItem();
-
-        if (!(selected is ItemData item))
-            return;
-
-        if (!item.processable)
-            return;
-
-        interactTimer += Time.deltaTime;
-        progressBar.SetProgress(interactTimer, interactTime);
-
-        if (interactTimer < interactTime)
-            return;
-
-        interactTimer = 0;
-        progressBar.ResetProgress();
-
-        int amount = inventory.GetSelectedSlot().Amount;
-
-        AddToQueue(item, amount);
-        inventory.RemoveAll(item);
-    }
-
-    public void ResetInteract()
-    {
-        interactTimer = 0;
-        progressBar.ResetProgress();
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (!other.CompareTag("Player"))
-            return;
-
-        Inventory inventory = other.GetComponent<Inventory>();
-
-        if (inventory == null)
-            return;
-
-        while (outputQueue.Count > 0)
-        {
-            inventory.AddItem(outputQueue.Dequeue(), 1);
+            timer = 0;
         }
     }
 
@@ -95,10 +67,31 @@ public class AutoProcessor : Building, IInteractable
         {
             inputQueue.Enqueue(item);
         }
+        QueueChanged?.Invoke();
     }
 
-    public override bool CheckPlacement(Vector2 position, Vector2 size)
+    public override void CollectItems(Inventory inventory)
     {
-       return false;
+        foreach (var pair in storage)
+        {
+            inventory.AddItem(pair.Key, pair.Value);
+        }
+
+        storage.Clear();
+        OutputChanged?.Invoke();
+    }
+    
+    public void AddInput(Inventory inventory, ItemData item)
+    {
+        
+        if(!item.processable)
+            return;
+         
+        if (inputQueue.Count >= buildingData.storageCapacity)
+            return;
+
+        inputQueue.Enqueue(item);
+        inventory.RemoveItem(item, 1);
+        QueueChanged?.Invoke();
     }
 }

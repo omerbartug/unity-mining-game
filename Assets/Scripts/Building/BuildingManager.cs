@@ -6,6 +6,10 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private Grid grid;
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryObject initialItem;
+    [SerializeField] private InventoryObject initialItem2;
+    [SerializeField] private BuildingUIManager buildingUI;
+    [SerializeField] private LayerMask buildingLayer;
+
 
     private BuildingData selectedBuilding;
     private GameObject ghostBuilding;
@@ -18,6 +22,7 @@ public class BuildingManager : MonoBehaviour
 
     private void Start(){
         inventory.AddItem(initialItem,2);
+        inventory.AddItem(initialItem2,2);
     }
 
 
@@ -31,7 +36,7 @@ public class BuildingManager : MonoBehaviour
         }
 
         MoveGhost();
-        CheckPlacement();
+        CheckPlacement(selectedBuilding.placementBlockerLayer, selectedBuilding.fineLayer);
         UpdateGhostColor();
     }
 
@@ -44,10 +49,12 @@ public class BuildingManager : MonoBehaviour
         ghostBuilding.transform.position = grid.GetCellCenterWorld(cellPosition);
     }
 
-    private void CheckPlacement()
+    private void CheckPlacement(LayerMask blocker, LayerMask fine)
     {
-        Building script = selectedBuilding.buildingPrefab.GetComponent<Building>();
-        canPlace = script.CheckPlacement(ghostBuilding.transform.position, selectedBuilding.size);
+        Collider2D Block = Physics2D.OverlapBox(ghostBuilding.transform.position, selectedBuilding.size, 0, blocker);
+        Collider2D Okey = Physics2D.OverlapBox(ghostBuilding.transform.position, selectedBuilding.size, 0, fine);
+
+        canPlace = Block == null && Okey != null;
     }
 
     private void UpdateGhostColor()
@@ -83,6 +90,7 @@ public class BuildingManager : MonoBehaviour
 
     public void HandleLeftClick(Vector2 mousePosition)
     {
+       
         // placement mode control
         if (selectedBuilding != null)
         {
@@ -100,17 +108,22 @@ public class BuildingManager : MonoBehaviour
         }
 
     
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+        Collider2D hit = Physics2D.OverlapPoint(mousePosition, buildingLayer);
+        
 
-        if (hit.collider == null)
+        if (hit == null){
+            buildingUI.Close();
             return;
+        }
 
-        Building building = hit.collider.GetComponent<Building>();
-
-        if (building == null)
+        Building building = hit.GetComponentInParent<Building>();
+        
+        if (building == null){
+            buildingUI.Close();
             return;
+        }
 
-        building.OnSelected();
+        buildingUI.Open(building);
     }
 
     private void UpdatePlacementMode(){

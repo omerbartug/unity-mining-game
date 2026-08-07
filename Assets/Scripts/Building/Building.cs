@@ -1,13 +1,14 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public abstract class Building : MonoBehaviour
 {
     [SerializeField] protected BuildingData buildingData;
+    protected float timer;
+   
+    public BuildingData Data => buildingData;
+    public float Progress => timer / buildingData.productionTime;
 
-    public abstract bool CheckPlacement(Vector2 position, Vector2 size);
 
-    public virtual void OnSelected()
-    {
-        Debug.Log("Building seçildi.");
-    }
+    public abstract void CollectItems(Inventory inventory);
 }

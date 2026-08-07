@@ -67,6 +67,7 @@ public class Inventory : MonoBehaviour
         Debug.Log("O item yok");
         return;
     }
+    
     public bool HasItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){

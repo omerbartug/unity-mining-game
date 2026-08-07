@@ -7,7 +7,7 @@ public class SellingArea : MonoBehaviour, IInteractable
     [SerializeField] private float operationTime = 2f;
     [SerializeField] private ProgressBar progressBar;
 
-    public void Interact(Inventory inventory){
+    public void Interact(Inventory inventory, ProgressBar progress){
 
         InventoryObject selectedItem = inventory.GetSelectedItem();
         int selectedItemAmount = inventory.GetSelectedSlot().Amount;
@@ -23,12 +23,12 @@ public class SellingArea : MonoBehaviour, IInteractable
             Debug.Log("SatisBasladi");
             
             operationTimer += Time.deltaTime;
-            progressBar.SetProgress(operationTimer,operationTime);
+            progress.SetProgress(operationTimer / operationTime);
 
             if (operationTimer >= operationTime)
             {
                 operationTimer = 0;
-                progressBar.ResetProgress();
+                progress.ResetProgress();
 
                 PlayerStats.Instance.addMoney(item.sellPrice * selectedItemAmount);
                 inventory.RemoveAll(item);
@@ -38,9 +38,9 @@ public class SellingArea : MonoBehaviour, IInteractable
         }
     }
 
-    public void ResetInteract(){
+    public void ResetInteract(ProgressBar progress){
         operationTimer = 0f;
-        progressBar.ResetProgress();
+        progress.ResetProgress();
     }
     
 

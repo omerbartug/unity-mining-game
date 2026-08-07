@@ -5,9 +5,8 @@ public class ProcessArea : MonoBehaviour, IInteractable
 
     [SerializeField] private float operationTime = 2f;
     [SerializeField] private Inventory Inventory;
-    [SerializeField] private ProgressBar progressBar;
 
-    public void Interact(Inventory inventory){
+    public void Interact(Inventory inventory, ProgressBar progress){
         InventoryObject selectedItem = inventory.GetSelectedItem();
         if(selectedItem == null){
             return;
@@ -21,12 +20,12 @@ public class ProcessArea : MonoBehaviour, IInteractable
             Debug.Log("IslemBasladi");
 
             operationTimer += Time.deltaTime;
-            progressBar.SetProgress(operationTimer,operationTime);
+            progress.SetProgress(operationTimer / operationTime);
 
             if (operationTimer >= operationTime)
             {
                 operationTimer = 0;
-                progressBar.ResetProgress();
+                progress.ResetProgress();
 
                 inventory.RemoveItem(item, 1);
                 inventory.AddItem(item.rewardItem, 1);
@@ -37,9 +36,9 @@ public class ProcessArea : MonoBehaviour, IInteractable
     }
     
 
-    public void ResetInteract()
+    public void ResetInteract(ProgressBar progress)
     {
         operationTimer = 0;
-        progressBar.ResetProgress();
+        progress.ResetProgress();
     }
 }

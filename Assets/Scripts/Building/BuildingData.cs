@@ -12,9 +12,11 @@ public class BuildingData : InventoryObject
 
     [Header("Placement")]
     public Vector2Int size;
+    public LayerMask placementBlockerLayer;
+    public LayerMask fineLayer;
+
 
     [Header("Production")]
-    public ItemData outputItem;
     public float productionTime;
     public int storageCapacity;
 }

@@ -18,6 +18,11 @@ MonoBehaviour:
   buildingPrefab: {fileID: 5585303066632303852, guid: d4b9df547da1940cd973cfd85f50afb2, type: 3}
   ghostPrefab: {fileID: 4098379302802347248, guid: 2ea7e4f9e9c9b4f0d914c419b9d9bf98, type: 3}
   size: {x: 3, y: 3}
-  outputItem: {fileID: 0}
-  productionTime: 0
-  storageCapacity: 0
+  placementBlockerLayer:
+    serializedVersion: 2
+    m_Bits: 328
+  fineLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  productionTime: 3
+  storageCapacity: 30
