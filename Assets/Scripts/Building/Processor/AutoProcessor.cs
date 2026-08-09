@@ -3,8 +3,6 @@ using UnityEngine;
 using System;
 public class AutoProcessor : Building
 {
-
-    [SerializeField] private ItemData deneme;
     
 
     private Queue<ItemData> inputQueue = new Queue<ItemData>();
@@ -23,11 +21,6 @@ public class AutoProcessor : Building
 
 
 
-
-
-    private void Start(){
-        AddToQueue(deneme, 20);
-    }
 
     private void Update()
     {
