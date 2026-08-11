@@ -34,7 +34,6 @@ public class InventoryUI : MonoBehaviour
     {   
         slotUIs[selectedSlotIndex].setIsSelected(false);
         selectedSlotIndex = index;
-        Debug.Log(selectedSlotIndex);
         slotUIs[selectedSlotIndex].setIsSelected(true); 
     }
 

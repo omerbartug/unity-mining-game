@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 114647701}
   - component: {fileID: 114647700}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: BuildingPanels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2473,7 +2473,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4772332, y: 5.165139, z: -10.01}
+  m_LocalPosition: {x: -1.4775362, y: 5.165139, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17426,7 +17426,7 @@ Transform:
   m_GameObject: {fileID: 1901700761}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4772332, y: 5.1651387, z: -10.01}
+  m_LocalPosition: {x: -1.4775363, y: 5.1651387, z: -10.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

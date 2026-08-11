@@ -35,7 +35,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         inventoryUI.SelectSlot(slotIndex);
-        Debug.Log("Slota tıklandı!");
     }
 
     public void Initialize(int index, InventoryUI ui)
