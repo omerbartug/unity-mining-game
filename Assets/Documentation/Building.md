@@ -5,20 +5,23 @@ Oyuncunun satın aldığı/yerleştirdiği binaları yönetir ve otomatik üreti
 ## System Structure
 
 ```text
-                         Building System
-                               │
-              ┌────────────────┴────────────────┐
-              │                                 │
-        BuildingData                         Building
-          (Data)                           (Base Class)
-              │                                 │
-              │                    ┌────────────┴────────────┐
-              │                    │                         │
-              │                AutoMiner               AutoProcessor
-              │                                              │
-              │                                      ProcessorInputArea
-              │
-              └──────────────→ BuildingManager
+                  PlayerInputManager
+                           │
+                           ▼
+                    BuildingManager
+                           │
+                  ┌────────┴────────┐
+                  ▼                 ▼
+            BuildingData         Building
+                  │                 │
+                  │          ┌──────┴──────┐
+                  │          ▼             ▼
+                  │      AutoMiner    AutoProcessor
+                  │                         │
+                  │                         ▼
+                  │                ProcessorInputArea
+                  │
+                  └─────────────────────────────
 ```
 
 ### Scripts
@@ -199,6 +202,7 @@ Building seçimini ve placement sistemini yönetir.
 **Used by:**
 - `PlayerInputManager`
 - Building UI / player interaction systems
+- `PlayerInputManager` → Mouse click inputunu BuildingManager'a iletir.
 
 
 

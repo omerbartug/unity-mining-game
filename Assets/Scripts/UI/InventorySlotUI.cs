@@ -10,7 +10,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image selectionBorder;
 
     private int slotIndex;
-    private InventoryUI inventoryUI;
+    private Inventory inventory;
 
 
     public void Refresh(InventorySlot slot)
@@ -34,13 +34,13 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        inventoryUI.SelectSlot(slotIndex);
+        inventory.SelectSlot(slotIndex);
     }
 
-    public void Initialize(int index, InventoryUI ui)
+    public void Initialize(int index, Inventory inventory)
     {
         slotIndex = index;
-        inventoryUI = ui;
+        this.inventory = inventory;
     }
 
     public void setIsSelected(bool selected){

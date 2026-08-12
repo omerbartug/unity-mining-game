@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 
 public class Inventory : MonoBehaviour
@@ -8,13 +8,24 @@ public class Inventory : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private InventorySlot[] slots = new InventorySlot[8];
 
+  
+    private int selectedSlotIndex = 0;
+    public event Action SelectedSlotChanged;
+
+    public event Action InventoryChanged;
+
     private void Awake()
-        {
-            for (int i = 0; i < slots.Length; i++)
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        for (int i = 0; i < slots.Length; i++)
             {
                 slots[i] = new InventorySlot();
             }
-        }
+    }
 
     public void AddItem(InventoryObject item, int amount)
     {
@@ -39,15 +50,19 @@ public class Inventory : MonoBehaviour
     {
         foreach(var slot in slots){
             if(slot.Data == item){
+
                 if(slot.Amount-amount < 0){
                     Debug.Log("o kadar item yok");
                     return;
                 }
+
                 slot.RemoveAmount(amount);
                 if(slot.Amount <= 0){
-                    Debug.Log("Item Siliniyor");
+ 
                     slot.Clear();
                 }
+
+                InventoryChanged?.Invoke();
                 inventoryUI.Refresh();
                 return;
             }
@@ -58,8 +73,11 @@ public class Inventory : MonoBehaviour
 
     public void RemoveAll(InventoryObject item){
         foreach(var slot in slots){
+
             if(slot.Data == item){
                 slot.Clear();
+
+                InventoryChanged?.Invoke();
                 inventoryUI.Refresh();
                 return;
             }
@@ -82,11 +100,21 @@ public class Inventory : MonoBehaviour
     {
         return slots;
     }
-
-    public InventorySlot GetSelectedSlot(){
-        return slots[inventoryUI.getSelectedSlotIndex()];
+   public InventorySlot GetSelectedSlot()
+    {
+        return slots[selectedSlotIndex];
     }
     public InventoryObject GetSelectedItem(){
         return GetSelectedSlot().Data;
+    }
+
+    public void SelectSlot(int index)
+    {
+        if (index == selectedSlotIndex)
+            return;
+
+        selectedSlotIndex = index;
+        inventoryUI.SetSelectionBorder(index);
+        SelectedSlotChanged?.Invoke();
     }
 }

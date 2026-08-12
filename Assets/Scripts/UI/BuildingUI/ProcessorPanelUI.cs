@@ -29,9 +29,9 @@ public class ProcessorPanelUI : MonoBehaviour
     {
         currentProcessor = processor;
 
-        currentProcessor.QueueChanged += RefreshInput;
+        currentProcessor.InputQueueChanged += RefreshInput;
         currentProcessor.CurrentItemChanged += RefreshCurrentItem;
-        currentProcessor.OutputChanged += RefreshOutput;
+        currentProcessor.StorageChanged += RefreshOutput;
 
         RefreshCurrentItem();
         RefreshInput();
@@ -44,9 +44,9 @@ public class ProcessorPanelUI : MonoBehaviour
     {
         if (currentProcessor != null)
         {
-            currentProcessor.QueueChanged -= RefreshInput;
+            currentProcessor.InputQueueChanged -= RefreshInput;
             currentProcessor.CurrentItemChanged -= RefreshCurrentItem;
-            currentProcessor.OutputChanged -= RefreshOutput;
+            currentProcessor.StorageChanged -= RefreshOutput;
         }
 
         currentProcessor = null;

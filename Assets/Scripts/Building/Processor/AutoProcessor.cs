@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+
 public class AutoProcessor : Building
 {
     
@@ -12,9 +13,9 @@ public class AutoProcessor : Building
     private ItemData currentItem;
     public ItemData CurrentItem => currentItem;
 
-    public event Action QueueChanged;
+    public event Action InputQueueChanged;
     public event Action CurrentItemChanged;
-    public event Action OutputChanged;
+    public event Action StorageChanged;
 
     private Dictionary<ItemData, int> storage = new Dictionary<ItemData, int>();
     public Dictionary<ItemData, int> Storage => storage;
@@ -26,42 +27,13 @@ public class AutoProcessor : Building
     {
         if (currentItem == null)
         {
-            if (inputQueue.Count > 0)
-            {
-                currentItem = inputQueue.Dequeue();
-                QueueChanged?.Invoke();
-                CurrentItemChanged?.Invoke();
-                timer = 0;
-            }
-
+            TryStartNextItem();
             return;
         }
 
-        ItemData output = currentItem.rewardItem;
-        timer += Time.deltaTime;
-
-        if (timer >= buildingData.productionTime)
-        {
-
-            if (storage.ContainsKey(output)){storage[output]++;}
-            else{storage.Add(output, 1);}
-            OutputChanged?.Invoke();
-
-            currentItem = null;
-            CurrentItemChanged?.Invoke();
-
-            timer = 0;
-        }
+        ProcessCurrentItem();
     }
 
-    private void AddToQueue(ItemData item, int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            inputQueue.Enqueue(item);
-        }
-        QueueChanged?.Invoke();
-    }
 
     public override void CollectItems(Inventory inventory)
     {
@@ -71,7 +43,7 @@ public class AutoProcessor : Building
         }
 
         storage.Clear();
-        OutputChanged?.Invoke();
+        StorageChanged?.Invoke();
     }
     
     public void AddInput(Inventory inventory, ItemData item)
@@ -85,6 +57,43 @@ public class AutoProcessor : Building
 
         inputQueue.Enqueue(item);
         inventory.RemoveItem(item, 1);
-        QueueChanged?.Invoke();
+        InputQueueChanged?.Invoke();
     }
+
+    private void TryStartNextItem()
+    {
+        if (inputQueue.Count == 0)
+            return;
+
+        currentItem = inputQueue.Dequeue();
+
+        InputQueueChanged?.Invoke();
+        CurrentItemChanged?.Invoke();
+
+        timer = 0f;
+    }
+
+    private void ProcessCurrentItem()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= buildingData.productionTime)
+        {
+            ItemData output = currentItem.rewardItem;
+
+            if (storage.ContainsKey(output))
+            {storage[output]++;}
+
+            else{storage.Add(output, 1);}
+
+            StorageChanged?.Invoke();
+
+            currentItem = null;
+            CurrentItemChanged?.Invoke();
+
+            timer = 0;
+        }
+    }
+
+
 }

@@ -7,6 +7,7 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
 
     [SerializeField] private float firstInsertTime = 0.6f;
     private bool firstInsertDone = false;
+
     [SerializeField] private float repeatInsertTime = 0.3f;
     
 
@@ -19,42 +20,39 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
     public void Interact(Inventory inventory, ProgressBar progress)
     {
         InventoryObject selectedItem = inventory.GetSelectedItem();
-        if(selectedItem == null)
+
+        if (!(selectedItem is ItemData item))
             return;
-        
 
-        if(selectedItem is ItemData item){
+        if (!item.processable)
+            return;
 
-            if(!item.processable)
-                return;
- 
-            float currentOperationTimer;
-            timer += Time.deltaTime;
+        ProcessInput(inventory, item, progress);
+    }
 
-            if(firstInsertDone){
-                currentOperationTimer = repeatInsertTime;
-            }
-            else{
-                currentOperationTimer = firstInsertTime;
-            }
+    private void ProcessInput(Inventory inventory, ItemData item, ProgressBar progress)
+    {
+        timer += Time.deltaTime;
 
-            progress.SetProgress(timer / currentOperationTimer);
+        float operationTime = firstInsertDone
+            ? repeatInsertTime
+            : firstInsertTime;
 
-            if (timer >= currentOperationTimer)
-            {
-                timer = 0;
-                progress.ResetProgress();
+        progress.SetProgress(timer / operationTime);
 
-                processor.AddInput(inventory, item);
-                firstInsertDone = true;
-            }
+        if (timer >= operationTime)
+        {
+            timer = 0f;
+            progress.ResetProgress();
+
+            processor.AddInput(inventory, item);
+            firstInsertDone = true;
         }
-
     }
 
     public void ResetInteract(ProgressBar progress)
     {
-        timer = 0;
+        timer = 0f;
         progress.ResetProgress();
         firstInsertDone = false;
     }

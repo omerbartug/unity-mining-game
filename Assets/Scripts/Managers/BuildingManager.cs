@@ -21,6 +21,12 @@ public class BuildingManager : MonoBehaviour
     private readonly Color cantPlaceColor = new Color(1f, 0.5f, 0.5f, 0.5f);
 
     private void Start(){
+
+        inventory.SelectedSlotChanged += UpdatePlacementMode;
+        inventory.InventoryChanged += UpdatePlacementMode;
+
+        Application.targetFrameRate = 120;
+
         inventory.AddItem(initialItem,2);
         inventory.AddItem(initialItem2,2);
     }
@@ -29,16 +35,15 @@ public class BuildingManager : MonoBehaviour
     private void Update()
     {
 
-        UpdatePlacementMode();
-
-        if(ghostBuilding == null){
+        if(!IsPlacementMode()){
             return;
         }
 
         MoveGhost();
-        CheckPlacement(selectedBuilding.placementBlockerLayer, selectedBuilding.fineLayer);
+        CheckPlacement();
         UpdateGhostColor();
     }
+
 
     private void MoveGhost()
     {
@@ -49,18 +54,32 @@ public class BuildingManager : MonoBehaviour
         ghostBuilding.transform.position = grid.GetCellCenterWorld(cellPosition);
     }
 
-    private void CheckPlacement(LayerMask blocker, LayerMask fine)
-    {
-        Collider2D Block = Physics2D.OverlapBox(ghostBuilding.transform.position, selectedBuilding.size, 0, blocker);
-        Collider2D Okey = Physics2D.OverlapBox(ghostBuilding.transform.position, selectedBuilding.size, 0, fine);
 
-        canPlace = Block == null && Okey != null;
+    private void CheckPlacement()
+    {
+        Collider2D blocker = Physics2D.OverlapBox(
+            ghostBuilding.transform.position,
+            selectedBuilding.size,
+            0,
+            selectedBuilding.placementBlockerLayer
+        );
+
+        Collider2D fine = Physics2D.OverlapBox(
+            ghostBuilding.transform.position,
+            selectedBuilding.size,
+            0,
+            selectedBuilding.fineLayer
+        );
+
+        canPlace = blocker == null && fine != null;
     }
+
 
     private void UpdateGhostColor()
     {
         ghostRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
     }
+
 
     public void SelectBuilding(BuildingData building)
     {
@@ -75,6 +94,7 @@ public class BuildingManager : MonoBehaviour
         ghostRenderer.color = cantPlaceColor;
     }
 
+
     public void CancelPlacementMode()
     {
         if (ghostBuilding != null)
@@ -88,43 +108,53 @@ public class BuildingManager : MonoBehaviour
         selectedBuilding = null;
     }
 
+
     public void HandleLeftClick(Vector2 mousePosition)
     {
        
-        // placement mode control
-        if (selectedBuilding != null)
+        if (IsPlacementMode())
         {
-            if (!canPlace)
-                return;
-
-            Instantiate(
-                selectedBuilding.buildingPrefab,
-                ghostBuilding.transform.position,
-                Quaternion.identity
-            );
-
-            inventory.RemoveItem(selectedBuilding, 1);
+            TryPlaceBuilding();
             return;
         }
 
-    
-        Collider2D hit = Physics2D.OverlapPoint(mousePosition, buildingLayer);
-        
+        TryOpenBuildingUI(mousePosition);
 
-        if (hit == null){
+    }
+    private void TryPlaceBuilding()
+    {
+        if (!canPlace)
+            return;
+
+        Instantiate(
+            selectedBuilding.buildingPrefab,
+            ghostBuilding.transform.position,
+            Quaternion.identity
+        );
+
+        inventory.RemoveItem(selectedBuilding, 1);
+    }
+    private void TryOpenBuildingUI(Vector2 mousePosition)
+    {
+        Collider2D hit = Physics2D.OverlapPoint(mousePosition, buildingLayer);
+
+        if (hit == null)
+        {
             buildingUI.Close();
             return;
         }
 
         Building building = hit.GetComponentInParent<Building>();
-        
-        if (building == null){
+
+        if (building == null)
+        {
             buildingUI.Close();
             return;
         }
 
         buildingUI.Open(building);
     }
+
 
     private void UpdatePlacementMode(){
         InventoryObject selectedObject = inventory.GetSelectedItem();
@@ -138,5 +168,10 @@ public class BuildingManager : MonoBehaviour
         {
             SelectBuilding(building);
         }
+    }
+
+    private bool IsPlacementMode()
+    {
+        return selectedBuilding != null;
     }
 }

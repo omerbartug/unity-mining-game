@@ -1,12 +1,11 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class AutoMiner : Building
 {
     
 
-    private int Storage;
-    public int StoredItemCount => Storage;
+    private int storage;
+    public int StoredItemCount => storage;
 
     private MiningArea miningArea;
 
@@ -33,9 +32,9 @@ public class AutoMiner : Building
         timer += Time.deltaTime;
 
         if (timer >= buildingData.productionTime &&
-            Storage < buildingData.storageCapacity)
+            storage < buildingData.storageCapacity)
         {
-            Storage++;
+            storage++;
             timer = 0f;
         }
     }
@@ -45,15 +44,13 @@ public class AutoMiner : Building
     public override void CollectItems(Inventory inventory)
     {
         
-        if (Storage == 0 || miningArea == null)
+        if (storage == 0 || miningArea == null)
         {
             return;
         }
 
-        inventory.AddItem(miningArea.RewardItem, Storage);
-        Storage = 0;
+        inventory.AddItem(miningArea.RewardItem, storage);
+        storage = 0;
     }
-
-
-    
+ 
 }
