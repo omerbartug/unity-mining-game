@@ -8,7 +8,7 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
     [SerializeField] private float firstInsertTime = 0.6f;
     private bool firstInsertDone = false;
 
-    [SerializeField] private float repeatInsertTime = 0.3f;
+    [SerializeField] private float repeatInsertTime = 0.15f;
     
 
 

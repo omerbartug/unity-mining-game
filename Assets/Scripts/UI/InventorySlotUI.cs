@@ -43,11 +43,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         this.inventory = inventory;
     }
 
-    public void setIsSelected(bool selected){
+    public void SetSelected(bool selected){
         selectionBorder.enabled = selected;
     }
-    public bool isSelected(){
-        return selectionBorder.enabled;
-    }
-
+    
 }

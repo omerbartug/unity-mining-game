@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private InventorySlot[] slots = new InventorySlot[8];
 
   
     private int selectedSlotIndex = 0;
     public event Action SelectedSlotChanged;
-
     public event Action InventoryChanged;
+
 
     private void Awake()
     {
@@ -32,7 +31,7 @@ public class Inventory : MonoBehaviour
         foreach(var slot in slots){
             if(slot.Data == item){
                 slot.AddAmount(amount);
-                inventoryUI.Refresh();
+                InventoryChanged?.Invoke();
                 return;
             }
         }
@@ -40,7 +39,7 @@ public class Inventory : MonoBehaviour
             if(slot.Data == null){
                 slot.SetItem(item);
                 slot.AddAmount(amount);
-                inventoryUI.Refresh();
+                InventoryChanged?.Invoke();
                 return;
             }
         }
@@ -63,7 +62,6 @@ public class Inventory : MonoBehaviour
                 }
 
                 InventoryChanged?.Invoke();
-                inventoryUI.Refresh();
                 return;
             }
         }
@@ -78,7 +76,6 @@ public class Inventory : MonoBehaviour
                 slot.Clear();
 
                 InventoryChanged?.Invoke();
-                inventoryUI.Refresh();
                 return;
             }
         }
@@ -107,14 +104,19 @@ public class Inventory : MonoBehaviour
     public InventoryObject GetSelectedItem(){
         return GetSelectedSlot().Data;
     }
-
+    public int GetSelectedSlotIndex()
+    {
+        return selectedSlotIndex;
+    }
+    
     public void SelectSlot(int index)
     {
         if (index == selectedSlotIndex)
             return;
 
         selectedSlotIndex = index;
-        inventoryUI.SetSelectionBorder(index);
         SelectedSlotChanged?.Invoke();
     }
+
+
 }

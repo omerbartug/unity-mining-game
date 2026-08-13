@@ -7,8 +7,9 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform slotParent;
 
     private InventorySlotUI[] slotUIs = new InventorySlotUI[8];
+    int lastSelectedSlotIndex;
 
-    int selectedSlotIndex;
+
 
     private void Awake()
     {
@@ -20,6 +21,9 @@ public class InventoryUI : MonoBehaviour
     }
     private void Start()
     {
+        inventory.InventoryChanged += Refresh;
+        inventory.SelectedSlotChanged += SetSelectionBorder;
+
         Refresh();
     }
     public void Refresh()
@@ -31,13 +35,15 @@ public class InventoryUI : MonoBehaviour
             slotUIs[i].Refresh(slots[i]);
         }
     }
-    public void SetSelectionBorder(int index)
+    public void SetSelectionBorder()
     {   
-        slotUIs[selectedSlotIndex].setIsSelected(false);
-        selectedSlotIndex = index;
-        slotUIs[selectedSlotIndex].setIsSelected(true); 
+        int index = inventory.GetSelectedSlotIndex();
+
+        slotUIs[lastSelectedSlotIndex].SetSelected(false);
+        slotUIs[index].SetSelected(true); 
+
+        lastSelectedSlotIndex = index;
     }
 
-    
     
 }
