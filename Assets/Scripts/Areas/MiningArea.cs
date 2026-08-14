@@ -12,6 +12,17 @@ public class MiningArea : MonoBehaviour, IInteractable
 
     public void Interact(Inventory inventory, ProgressBar progress)
     {
+        Mine(inventory, progress);
+    }
+
+    public void ResetInteract(ProgressBar progress)
+    {
+        operationTimer = 0;
+        progress.ResetProgress();
+    }
+
+    private void Mine(Inventory inventory, ProgressBar progress)
+    {
         operationTimer += Time.deltaTime;
         progress.SetProgress(operationTimer / operationTime);
 
@@ -22,11 +33,5 @@ public class MiningArea : MonoBehaviour, IInteractable
 
             inventory.AddItem(rewardItem, 1);
         }
-    }
-
-    public void ResetInteract(ProgressBar progress)
-    {
-        operationTimer = 0;
-        progress.ResetProgress();
     }
 }

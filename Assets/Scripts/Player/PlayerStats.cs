@@ -4,7 +4,7 @@ public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance { get; private set; }
 
-    public int PlayerMoney = 0;
+    private int PlayerMoney = 0;
 
     private void Awake()
     {
@@ -16,14 +16,14 @@ public class PlayerStats : MonoBehaviour
 
         Instance = this;
     }
-    public int getPlayerMoney(){
+    public int GetPlayerMoney(){
         return PlayerMoney;
     }
-    public void addMoney(int amount){
+    public void AddMoney(int amount){
         PlayerMoney += amount;
     }
     public void RemoveMoney(int amount){
-        PlayerMoney += amount;
+        PlayerMoney -= amount;
     }
     
 }

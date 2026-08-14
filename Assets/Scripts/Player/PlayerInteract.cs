@@ -4,23 +4,34 @@ public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
     [SerializeField] private ProgressBar progress;
+    
 
-    private IInteractable currentInteractable;
     [SerializeField] private PlayerMovement playerMovement;
     
 
 
 
-    
+    private IInteractable currentInteractable;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        currentInteractable = other.GetComponent<IInteractable>();
+        IInteractable interactable = other.GetComponent<IInteractable>();
+
+        if (interactable != null)
+        {
+            currentInteractable = interactable;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        currentInteractable = null;
+        IInteractable interactable = other.GetComponent<IInteractable>();
+
+        if (interactable == currentInteractable)
+        {
+            currentInteractable = null;
+        }
     }
+
 
     private void Update()
     {
@@ -35,7 +46,7 @@ public class PlayerInteract : MonoBehaviour
             
         }
         if(Input.GetKeyDown(KeyCode.P)){
-            Debug.Log(PlayerStats.Instance.getPlayerMoney());
+            Debug.Log(PlayerStats.Instance.GetPlayerMoney());
         }
     }
 
