@@ -39,7 +39,6 @@ public class ProcessorPanelUI : MonoBehaviour
 
         gameObject.SetActive(true);
     }
-
     public void Close()
     {
         if (currentProcessor != null)
@@ -52,6 +51,7 @@ public class ProcessorPanelUI : MonoBehaviour
         currentProcessor = null;
         gameObject.SetActive(false);
     }
+
 
     private void Update()
     {
@@ -68,7 +68,10 @@ public class ProcessorPanelUI : MonoBehaviour
         progressBar.SetProgress(currentProcessor.Progress);
 
     }
+
+
     private void RefreshCurrentItem(){
+        Debug.Log(currentProcessor.CurrentItem);
 
         if (currentProcessor.CurrentItem == null)
         {
@@ -83,67 +86,88 @@ public class ProcessorPanelUI : MonoBehaviour
         }
 
     }
+
+
     private void RefreshInput()
     {
-        int index = 0;
+        int slotIndex = DisplayQueueItems();
+
+        ClearEmptyQueueSLots(slotIndex);
+        UpdateQueueMoreText(slotIndex);
+    }
+    private int DisplayQueueItems()
+    {
+        int slotIndex = 0;
 
         foreach (ItemData item in currentProcessor.InputQueue)
         {
-            if (index >= queueSlots.Length)
+            if (slotIndex >= queueSlots.Length)
                 break;
 
-            queueSlots[index].enabled = true;
-            queueSlots[index].sprite = item.icon;
+            queueSlots[slotIndex].enabled = true;
+            queueSlots[slotIndex].sprite = item.icon;
 
-            index++;
+            slotIndex++;
         }
 
-        while (index < queueSlots.Length)
+        return slotIndex;
+    }
+    private void ClearEmptyQueueSLots(int slotIndex)
+    {
+        for (int i = slotIndex; i < queueSlots.Length; i++)
         {
-            queueSlots[index].enabled = false;
-            index++;
-        }
-
-        int extra = currentProcessor.InputQueue.Count - queueSlots.Length;
-
-        if (extra > 0)
-        {
-            queueMoreText.gameObject.SetActive(true);
-            queueMoreText.text = $"+{extra}";
-        }
-        else
-        {
-            queueMoreText.gameObject.SetActive(false);
+            queueSlots[i].enabled = false;
         }
     }
+    private void UpdateQueueMoreText(int slotIndex)
+    {
+        int extraCount = currentProcessor.InputQueue.Count - slotIndex;
+
+        if (extraCount <= 0)
+        {
+            queueMoreText.gameObject.SetActive(false);
+            return;
+        }
+
+        queueMoreText.gameObject.SetActive(true);
+        queueMoreText.text = $"+{extraCount}";
+    }
+
 
     private void RefreshOutput()
     {
-        int index = 0;
+        int slotIndex = DisplayOutputItems();
+
+        ClearOutputSlots(slotIndex);
+    }
+    private int DisplayOutputItems()
+    {
+        int slotIndex = 0;
 
         foreach (var pair in currentProcessor.Storage)
         {
-            if (index >= outputIcons.Length)
+            if (slotIndex >= outputIcons.Length)
                 break;
 
-            outputIcons[index].enabled = true;
-            outputIcons[index].sprite = pair.Key.icon;
+            outputIcons[slotIndex].enabled = true;
+            outputIcons[slotIndex].sprite = pair.Key.icon;
 
-            outputAmounts[index].gameObject.SetActive(true);
-            outputAmounts[index].text = $"x{pair.Value}";
+            outputAmounts[slotIndex].gameObject.SetActive(true);
+            outputAmounts[slotIndex].text = $"x{pair.Value}";
 
-            index++;
+            slotIndex++;
         }
 
-        
-        while (index < outputIcons.Length)
+        return slotIndex;
+    }
+    private void ClearOutputSlots(int slotIndex)
+    {
+        for (int i = slotIndex; i < outputIcons.Length; i++)
         {
-            outputIcons[index].enabled = false;
+            outputIcons[i].enabled = false;
 
-            outputAmounts[index].text = "";
-            outputAmounts[index].gameObject.SetActive(false);
-
-            index++;
+            outputAmounts[i].text = "";
+            outputAmounts[i].gameObject.SetActive(false);
         }
     }
 }

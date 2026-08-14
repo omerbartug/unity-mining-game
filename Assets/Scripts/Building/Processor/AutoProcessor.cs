@@ -63,7 +63,10 @@ public class AutoProcessor : Building
     private void TryStartNextItem()
     {
         if (inputQueue.Count == 0)
+        {
+            CurrentItemChanged?.Invoke();
             return;
+        }
 
         currentItem = inputQueue.Dequeue();
 
@@ -84,13 +87,12 @@ public class AutoProcessor : Building
             if (storage.ContainsKey(output))
             {storage[output]++;}
 
-            else{storage.Add(output, 1);}
+            else
+            {storage.Add(output, 1);}
 
             StorageChanged?.Invoke();
 
             currentItem = null;
-            CurrentItemChanged?.Invoke();
-
             timer = 0;
         }
     }

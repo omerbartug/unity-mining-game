@@ -4,15 +4,15 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     [SerializeField] private Image fillImage;
-    [SerializeField] private Image Background;
+    [SerializeField] private Image background;
 
     public void SetProgress(float progress)
     {
-        Background.enabled = true;
+        background.enabled = true;
         fillImage.fillAmount = progress;
     }
     public void ResetProgress(){
         fillImage.fillAmount = 0;
-        Background.enabled = false;
+        background.enabled = false;
     }
 }

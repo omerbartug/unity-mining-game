@@ -5,9 +5,8 @@ public class MinerPanelUI : MonoBehaviour
 {
     private AutoMiner currentMiner;
 
-    [SerializeField] private TMP_Text titleText;
+
     [SerializeField] private TMP_Text storageText;
-    [SerializeField] private TMP_Text statusText;
     [SerializeField] private ProgressBar progressBar;
 
     public void Open(AutoMiner miner)

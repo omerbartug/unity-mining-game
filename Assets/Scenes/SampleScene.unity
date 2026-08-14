@@ -574,9 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39003834005846d181ed1da2320c332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SellingArea
-  inventory: {fileID: 187080727}
   operationTime: 2
-  progressBar: {fileID: 1876115599}
 --- !u!1 &93811513
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +902,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProcessArea
   operationTime: 0.5
-  Inventory: {fileID: 187080727}
 --- !u!19719996 &157170567
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1526,7 +1523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91bc16a6e1db416882a17b1ea550df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  inventoryUI: {fileID: 1457840622}
 --- !u!114 &187080728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,7 +1535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038ee79291a4e41b9875969c854ab7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  PlayerMoney: 0
 --- !u!1 &227373305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,7 +1722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressBar
   fillImage: {fileID: 1407069086}
-  Background: {fileID: 287022939}
+  background: {fileID: 287022939}
 --- !u!1 &287022937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,9 +2104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44dc0f8eefce240dca7a99888d8a2ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinerPanelUI
-  titleText: {fileID: 1698872248}
   storageText: {fileID: 880181577}
-  statusText: {fileID: 292092053}
   progressBar: {fileID: 258500154}
 --- !u!1 &376124136
 GameObject:
@@ -4544,7 +4537,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1347319537}
-  m_Father: {fileID: 2030828451}
+  m_Father: {fileID: 1417168392}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4564,7 +4557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressBar
   fillImage: {fileID: 2121501690}
-  Background: {fileID: 1347319538}
+  background: {fileID: 1347319538}
 --- !u!1 &955373048
 GameObject:
   m_ObjectHideFlags: 0
@@ -10384,6 +10377,7 @@ RectTransform:
   - {fileID: 2030828451}
   - {fileID: 2070585819}
   - {fileID: 113342309}
+  - {fileID: 916643513}
   m_Father: {fileID: 114647703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -15446,7 +15440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressBar
   fillImage: {fileID: 893837981}
-  Background: {fileID: 1319702171}
+  background: {fileID: 1319702171}
 --- !u!1 &1890757584
 GameObject:
   m_ObjectHideFlags: 0
@@ -17840,7 +17834,6 @@ RectTransform:
   - {fileID: 1501346092}
   - {fileID: 2049354090}
   - {fileID: 417910216}
-  - {fileID: 916643513}
   m_Father: {fileID: 1417168392}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
