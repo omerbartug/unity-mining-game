@@ -48,16 +48,11 @@ public class AutoProcessor : Building
     
     public void AddInput(Inventory inventory, ItemData item)
     {
-        
-        if(!item.processable)
-            return;
-         
-        if (inputQueue.Count >= buildingData.storageCapacity)
-            return;
 
         inputQueue.Enqueue(item);
         inventory.RemoveItem(item, 1);
         InputQueueChanged?.Invoke();
+        
     }
 
     private void TryStartNextItem()

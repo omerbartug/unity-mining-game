@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {   
@@ -111,6 +112,10 @@ public class BuildingManager : MonoBehaviour
 
     public void HandleLeftClick(Vector2 mousePosition)
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        
+            
        
         if (IsPlacementMode())
         {

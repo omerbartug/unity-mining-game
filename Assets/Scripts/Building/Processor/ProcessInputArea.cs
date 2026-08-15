@@ -26,6 +26,9 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
 
         if (!item.processable)
             return;
+         
+        if (processor.InputQueue.Count >= processor.Data.storageCapacity)
+            return;
 
         ProcessInput(inventory, item, progress);
     }
