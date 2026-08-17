@@ -19,18 +19,21 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
 
     public void Interact(Inventory inventory, ProgressBar progress)
     {
-        InventoryObject selectedItem = inventory.GetSelectedItem();
+        if(inventory is PlayerInventory playerInventory)
+        {
+            InventoryObject selectedItem = playerInventory.GetSelectedItem();
 
-        if (!(selectedItem is ItemData item))
-            return;
+            if (!(selectedItem is ItemData item))
+                return;
 
-        if (!item.processable)
-            return;
-         
-        if (processor.InputQueue.Count >= processor.Data.storageCapacity)
-            return;
+            if (!item.processable)
+                return;
+            
+            if (processor.InputQueue.Count >= processor.Data.storageCapacity)
+                return;
 
-        ProcessInput(inventory, item, progress);
+            ProcessInput(playerInventory, item, progress);
+        }
     }
 
     private void ProcessInput(Inventory inventory, ItemData item, ProgressBar progress)

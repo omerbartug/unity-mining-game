@@ -5,23 +5,29 @@ public class ProcessArea : MonoBehaviour, IInteractable
 
     [SerializeField] private float operationTime = 2f;
 
-    public void Interact(Inventory inventory, ProgressBar progress){
+    public void Interact(Inventory inventory, ProgressBar progress)
+    {
+        if (inventory is PlayerInventory playerInventory)
+        {
+            InventoryObject selectedItem = playerInventory.GetSelectedItem();
 
-        InventoryObject selectedItem = inventory.GetSelectedItem();
-
-        if(selectedItem == null){
-            return;
-        }
-
-        if(selectedItem is ItemData item){
-
-            if(!item.processable){
-                Debug.Log("bu item islenemez");
+            if (selectedItem == null)
+            {
                 return;
             }
 
-            Process(inventory, item, progress);
+            if (selectedItem is ItemData item)
+            {
+                if (!item.processable)
+                {
+                    Debug.Log("bu item islenemez");
+                    return;
+                }
+                Process(playerInventory, item, progress);
+            }
         }
+
+
     }
     
 
@@ -43,7 +49,7 @@ public class ProcessArea : MonoBehaviour, IInteractable
 
             inventory.RemoveItem(item, 1);
             inventory.AddItem(item.rewardItem, 1);
-
         }
     }
+    
 }

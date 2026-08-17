@@ -5,7 +5,7 @@ public class BuildingManager : MonoBehaviour
 {   
 
     [SerializeField] private Grid grid;
-    [SerializeField] private Inventory inventory;
+    [SerializeField] private PlayerInventory inventory;
     [SerializeField] private InventoryObject initialItem;
     [SerializeField] private InventoryObject initialItem2;
     [SerializeField] private BuildingUIManager buildingUI;
@@ -115,7 +115,6 @@ public class BuildingManager : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
         
-            
        
         if (IsPlacementMode())
         {

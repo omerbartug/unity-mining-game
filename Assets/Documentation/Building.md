@@ -205,25 +205,3 @@ Building seçimini ve placement sistemini yönetir.
 - `PlayerInputManager` → Mouse click inputunu BuildingManager'a iletir.
 
 
-
-## GELISTIRME HEDEFI
-
-### Sadelestirme
-- Yukarida ayni fonksiyonun birden fazla gorev yaptigini veya tek scriptin bir suru is yaptigini goruyorsun.
-
-- Bunlari duzeltmeliyiz olabildigince tek fonksiyon tek gorev / tek script tek sorumluluk ilerlemeliyiz.
-
-- Buyuk fonksiyonlari cesitli yardimci fonksiyonlara bolerek bunlari duzelt.
-
-- Worker isine sonra baslayacagiz.
-
-
-### Optimizasyon
-
-- Kodunda update methodu altinda saniyede 60 defa gereksiz yere calisan kodlar var. Bunlari tespit etmeliyiz.
-
-- Tespit ettikten sonra olabildigince *event / refresh metodlari* kullanarak update metodunu optimize etmeliyiz.
-
-- Suanki kanaatime gore update metodunda gerektigi zaman ProgressBar in anlik calismasi yeterli, digerleri eventler ile zamani gelince refresh edilseler kafi.
-
-- Suanki bilgilerimle bu kadar oluyor 2. sinifa gecince muhtemelen farki optimiazyonlar yapacagim.

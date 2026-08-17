@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] private Inventory inventory;
+    [SerializeField] private Inventory playerInventory;
     [SerializeField] private ProgressBar progress;
     
 
@@ -39,7 +39,7 @@ public class PlayerInteract : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)){
                 playerMovement.DisableMovement();
-                currentInteractable.Interact(inventory, progress);}
+                currentInteractable.Interact(playerInventory, progress);}
             else{
                 playerMovement.EnableMovement();
                 currentInteractable.ResetInteract(progress);}

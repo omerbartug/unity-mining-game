@@ -23,6 +23,7 @@ public class MiningArea : MonoBehaviour, IInteractable
 
     private void Mine(Inventory inventory, ProgressBar progress)
     {
+        Debug.Log("Kazi basladi");
         operationTimer += Time.deltaTime;
         progress.SetProgress(operationTimer / operationTime);
 

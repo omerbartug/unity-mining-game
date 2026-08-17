@@ -2,18 +2,32 @@ using UnityEngine;
 
 public class WorkerManager : MonoBehaviour
 {
+
+    private Worker selectedWorker;
+    [SerializeField] private Grid grid;
+
     public void HandleLeftClick(Vector2 mousePosition)
-{
-    Collider2D hit = Physics2D.OverlapPoint(mousePosition);
+    {
+        Collider2D hit = Physics2D.OverlapPoint(mousePosition);
 
-    if (hit == null)
-        return;
+        if (hit != null)
+        {
+            Worker worker = hit.GetComponentInParent<Worker>();
 
-    Worker worker = hit.GetComponentInParent<Worker>();
+            if (worker != null)
+            {
+                selectedWorker = worker;
+                return;
+            }
+        }
 
-    if (worker == null)
-        return;
+        if (selectedWorker == null)
+            return;
 
-    Debug.Log("Worker seçildi!");
-}
+        Vector3Int cell = grid.WorldToCell(mousePosition);
+
+        WorkerMovement movement = selectedWorker.GetComponent<WorkerMovement>();
+
+        movement.MoveTo(cell);
+    }
 }
