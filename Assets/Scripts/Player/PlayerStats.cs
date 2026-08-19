@@ -6,6 +6,9 @@ public class PlayerStats : MonoBehaviour
 
     private int PlayerMoney = 0;
 
+    private float operationTimer;
+    public float PlayerTimer => operationTimer;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

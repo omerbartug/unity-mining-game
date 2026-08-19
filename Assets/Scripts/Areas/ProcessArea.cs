@@ -1,55 +1,52 @@
 using UnityEngine;
 public class ProcessArea : MonoBehaviour, IInteractable
 {
-    private float operationTimer = 0;
 
     [SerializeField] private float operationTime = 2f;
+    public float OperationTime => operationTime;
 
-    public void Interact(Inventory inventory, ProgressBar progress)
+
+    public bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount)
+{
+    item = null;
+    amount = 0;
+
+    if (inventory is PlayerInventory playerInventory)
     {
-        if (inventory is PlayerInventory playerInventory)
+        InventoryObject selectedItem = playerInventory.GetSelectedItem();
+
+        if (selectedItem == null)
+            return false;
+
+        if (selectedItem is not ItemData itemData)
+            return false;
+
+        if (!itemData.processable)
         {
-            InventoryObject selectedItem = playerInventory.GetSelectedItem();
-
-            if (selectedItem == null)
-            {
-                return;
-            }
-
-            if (selectedItem is ItemData item)
-            {
-                if (!item.processable)
-                {
-                    Debug.Log("bu item islenemez");
-                    return;
-                }
-                Process(playerInventory, item, progress);
-            }
+            Debug.Log("bu item islenemez");
+            return false;
         }
 
+        item = itemData;
+        amount = 1;
 
+        return true;
     }
+
+    return false;
+}
     
 
-    public void ResetInteract(ProgressBar progress)
+    public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
-        operationTimer = 0;
-        progress.ResetProgress();
+
+        inventory.RemoveItem(item , amount);
+        inventory.AddItem(item.rewardItem, amount); 
     }
 
-    private void Process(Inventory inventory, ItemData item, ProgressBar progress)
+    public void CancelInteract(ProgressBar progress)
     {
-        operationTimer += Time.deltaTime;
-        progress.SetProgress(operationTimer / operationTime);
-
-        if (operationTimer >= operationTime)
-        {
-            operationTimer = 0;
-            progress.ResetProgress();
-
-            inventory.RemoveItem(item, 1);
-            inventory.AddItem(item.rewardItem, 1);
-        }
+        progress.ResetProgress();
     }
     
 }

@@ -1,6 +1,8 @@
 public interface IInteractable
 {
-    void Interact(Inventory inventory, ProgressBar progress);
-    void ResetInteract(ProgressBar progress);
-  
+    float OperationTime { get; } 
+    bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount); 
+    void CompleteInteract(Inventory inventory, ItemData item, int amount); 
+    
+    void CancelInteract(ProgressBar progress); 
 }

@@ -1,38 +1,28 @@
 using UnityEngine;
 public class MiningArea : MonoBehaviour, IInteractable
 {
-    private float operationTimer = 0;
-
     
     [SerializeField] private ItemData rewardItem;
     public ItemData RewardItem => rewardItem;
 
     [SerializeField] private float operationTime = 2f;
+    public float OperationTime => operationTime;
     
 
-    public void Interact(Inventory inventory, ProgressBar progress)
+    public bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount)
     {
-        Mine(inventory, progress);
+        item = rewardItem;
+        amount = 1;
+        return true;
     }
 
-    public void ResetInteract(ProgressBar progress)
+    public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
-        operationTimer = 0;
+        inventory.AddItem(item, amount);
+    }
+
+    public void CancelInteract(ProgressBar progress)
+    {
         progress.ResetProgress();
-    }
-
-    private void Mine(Inventory inventory, ProgressBar progress)
-    {
-        Debug.Log("Kazi basladi");
-        operationTimer += Time.deltaTime;
-        progress.SetProgress(operationTimer / operationTime);
-
-        if (operationTimer >= operationTime)
-        {
-            operationTimer = 0;
-            progress.ResetProgress();
-
-            inventory.AddItem(rewardItem, 1);
-        }
     }
 }

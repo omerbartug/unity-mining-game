@@ -2,55 +2,47 @@ using UnityEngine;
 
 public class SellingArea : MonoBehaviour, IInteractable
 {
-    private float operationTimer = 0f;
     [SerializeField] private float operationTime = 2f;
+    public float OperationTime => operationTime;
 
-    public void Interact(Inventory inventory, ProgressBar progress)
+    public bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount)
+{
+    item = null;
+    amount = 0;
+
+    if (inventory is PlayerInventory playerInventory)
     {
-        
-        if (inventory is PlayerInventory playerInventory)
-        {
-            InventoryObject selectedItem = playerInventory.GetSelectedItem();
-            if (selectedItem == null) return;
+        InventoryObject selectedItem = playerInventory.GetSelectedItem();
 
-            if (selectedItem is ItemData item)
-            {
-                if (!item.sellable)
-                {
-                    Debug.Log("Bu urun satilamaz.");
-                    return;
-                }
-                
-                
-                int amount = playerInventory.GetSelectedSlot().Amount;
-                
-                
-                Sell(inventory, item, amount, progress);
-            }
+        if (selectedItem == null)
+            return false;
+
+        if (selectedItem is not ItemData itemData)
+            return false;
+
+        if (!itemData.sellable)
+        {
+            Debug.Log("bu item satilmaz");
+            return false;
         }
-        
+
+        item = itemData;
+        amount = playerInventory.GetSelectedSlot().Amount;
+
+        return true;
     }
 
-    public void ResetInteract(ProgressBar progress)
+    return false;
+}
+    
+    public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
-        operationTimer = 0f;
+        PlayerStats.Instance.AddMoney(item.sellPrice * amount);
+        inventory.RemoveAll(item); 
+    }
+
+    public void CancelInteract(ProgressBar progress)
+    {
         progress.ResetProgress();
-    }
-
-    private void Sell(Inventory inventory, ItemData item, int amount, ProgressBar progress)
-    {
-        operationTimer += Time.deltaTime;
-        progress.SetProgress(operationTimer / operationTime);
-
-        if (operationTimer >= operationTime)
-        {
-            operationTimer = 0;
-            progress.ResetProgress();
-
-            
-            PlayerStats.Instance.AddMoney(item.sellPrice * amount);
-            
-            inventory.RemoveAll(item); 
-        }
     }
 }

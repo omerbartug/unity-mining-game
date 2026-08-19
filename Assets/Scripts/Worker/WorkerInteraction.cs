@@ -6,12 +6,16 @@ public class WorkerInteraction : MonoBehaviour
     private  Inventory workerInventory;
     private WorkerMovement workerMovement;
     private ProgressBar progress;
+    private Worker worker;
+
+    private float timer;
 
     private void Awake()
     {
         workerInventory = GetComponent<WorkerInventory>();
         workerMovement = GetComponent<WorkerMovement>();
         progress = GetComponentInChildren<ProgressBar>();
+        worker = GetComponent<Worker>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -30,17 +34,38 @@ public class WorkerInteraction : MonoBehaviour
 
         if (interactable == currentInteractable)
         {
-            currentInteractable.ResetInteract(progress);
+            currentInteractable.CancelInteract(progress);
             currentInteractable = null;
         }
     }
 
     private void Update()
     {
-        if(currentInteractable != null && workerMovement.HasReachedTarget)
+        if(currentInteractable != null)
         {
-            Debug.Log("Interact oluyon");
-            currentInteractable.Interact(workerInventory, progress);
+
+        
+            if(workerMovement.HasReachedTarget && 
+            currentInteractable.TryGetInteractionData(workerInventory, out ItemData item, out int amount))
+            {
+                timer += Time.deltaTime;
+                progress.SetProgress(timer / currentInteractable.OperationTime);
+
+                if (timer >= currentInteractable.OperationTime)
+                {
+                    currentInteractable.CompleteInteract(workerInventory, item, amount);
+                    timer = 0f;
+                    progress.ResetProgress();
+                
+                }
+            }
+            else
+            {
+                currentInteractable.CancelInteract(progress);
+                timer = 0f;
+                progress.ResetProgress();
+            }
         }
+
     }
 }
