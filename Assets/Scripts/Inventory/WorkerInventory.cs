@@ -22,7 +22,6 @@ public class WorkerInventory : Inventory
         
         if (spaceLeft <= 0)
         {
-            Debug.Log("İşçinin kapasitesi dolu!");
             return;
         }
 

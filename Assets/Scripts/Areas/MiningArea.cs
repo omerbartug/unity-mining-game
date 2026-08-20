@@ -13,6 +13,12 @@ public class MiningArea : MonoBehaviour, IInteractable
     {
         item = rewardItem;
         amount = 1;
+
+        if (inventory is WorkerInventory workerInventory && workerInventory.IsFull())
+        {
+            return false; 
+        }
+
         return true;
     }
 

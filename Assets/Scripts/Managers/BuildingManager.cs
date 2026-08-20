@@ -5,6 +5,7 @@ public class BuildingManager : MonoBehaviour
 {   
 
     [SerializeField] private Grid grid;
+    [SerializeField] private NodeMaker nodes;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private InventoryObject initialItem;
     [SerializeField] private InventoryObject initialItem2;
@@ -28,7 +29,7 @@ public class BuildingManager : MonoBehaviour
 
         Application.targetFrameRate = 120;
 
-        inventory.AddItem(initialItem,2);
+        inventory.AddItem(initialItem,40);
         inventory.AddItem(initialItem2,2);
     }
 
@@ -137,6 +138,9 @@ public class BuildingManager : MonoBehaviour
         );
 
         inventory.RemoveItem(selectedBuilding, 1);
+
+        Vector3Int cellPosition = grid.WorldToCell(ghostBuilding.transform.position);
+        nodes.UpdateNodeWalkability(cellPosition, false);
     }
     private void TryOpenBuildingUI(Vector2 mousePosition)
     {

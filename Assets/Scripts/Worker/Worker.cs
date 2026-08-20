@@ -4,7 +4,10 @@ public class Worker : MonoBehaviour
 {
     [SerializeField] private int level = 1;
 
+
     [SerializeField] private float miningSpeed = 1f;
+    public float MiningSpeed => miningSpeed;
+
 
     [SerializeField] private float movementSpeed = 2f;
     public float MovementSpeed => movementSpeed;
@@ -12,6 +15,4 @@ public class Worker : MonoBehaviour
     [SerializeField] private int carryCapacity = 10;
     public int CarryCapacity => carryCapacity;
 
-    private float operationTimer;
-    public float WorkerTimer => operationTimer;
 }

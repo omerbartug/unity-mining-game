@@ -3,12 +3,14 @@ using UnityEngine;
 public class WorkerInteraction : MonoBehaviour
 {
     private IInteractable currentInteractable;
-    private  Inventory workerInventory;
+    private Inventory workerInventory;
     private WorkerMovement workerMovement;
     private ProgressBar progress;
     private Worker worker;
 
     private float timer;
+    
+    private bool isInteracting = false; 
 
     private void Awake()
     {
@@ -21,7 +23,6 @@ public class WorkerInteraction : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         IInteractable interactable = other.GetComponent<IInteractable>();
-
         if (interactable != null)
         {
             currentInteractable = interactable;
@@ -31,10 +32,14 @@ public class WorkerInteraction : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         IInteractable interactable = other.GetComponent<IInteractable>();
-
-        if (interactable == currentInteractable)
+        if (interactable != null && interactable == currentInteractable)
         {
-            currentInteractable.CancelInteract(progress);
+            if (isInteracting)
+            {
+                currentInteractable.CancelInteract(progress);
+                isInteracting = false;
+            }
+            
             currentInteractable = null;
         }
     }
@@ -43,12 +48,13 @@ public class WorkerInteraction : MonoBehaviour
     {
         if(currentInteractable != null)
         {
-
-        
+            
             if(workerMovement.HasReachedTarget && 
-            currentInteractable.TryGetInteractionData(workerInventory, out ItemData item, out int amount))
+               currentInteractable.TryGetInteractionData(workerInventory, out ItemData item, out int amount))
             {
-                timer += Time.deltaTime;
+                
+                isInteracting = true;
+                timer += Time.deltaTime * worker.MiningSpeed;
                 progress.SetProgress(timer / currentInteractable.OperationTime);
 
                 if (timer >= currentInteractable.OperationTime)
@@ -56,16 +62,20 @@ public class WorkerInteraction : MonoBehaviour
                     currentInteractable.CompleteInteract(workerInventory, item, amount);
                     timer = 0f;
                     progress.ResetProgress();
-                
+                    isInteracting = false; 
                 }
             }
             else
             {
-                currentInteractable.CancelInteract(progress);
-                timer = 0f;
-                progress.ResetProgress();
+                
+                if (isInteracting)
+                {
+                    currentInteractable.CancelInteract(progress);
+                    timer = 0f;
+                    progress.ResetProgress();
+                    isInteracting = false;
+                }
             }
         }
-
     }
 }
