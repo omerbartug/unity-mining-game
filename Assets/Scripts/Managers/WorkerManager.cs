@@ -1,31 +1,47 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WorkerManager : MonoBehaviour
 {
-    private WorkerMovement selectedWorker;
+    private WorkerMovement selectedWorkerMovement;
     [SerializeField] private Grid grid;
     [SerializeField] private LayerMask oreLayer;
+    [SerializeField] private WorkerUIManager uiManager;
+
+    private bool WorkMode;
+    public void SetWorkMode(bool tf)
+    {
+        WorkMode = tf;
+    }
 
     public void HandleLeftClick(Vector2 mousePosition)
     {
-        if (OrderMode())
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        
+        if (WorkMode)
         {
             TryMoveWorker(mousePosition);
             return;
         }
 
-        TryPickWorker(mousePosition);
+        TryOpenWorkerUI(mousePosition);
+
     }
 
     private void TryMoveWorker(Vector2 mousePosition) // controls at WorkerMovement.cs
     {
+        Debug.Log("calisiyo");
         Collider2D oreHit = Physics2D.OverlapPoint(mousePosition, oreLayer);
 
         if (oreHit != null)
         {
                 
             Vector3Int cell = grid.WorldToCell(mousePosition);
-            selectedWorker.MoveTo(cell);
+            selectedWorkerMovement.MoveTo(cell);
             Debug.Log("Madene gidiliyor!");
         }
         else
@@ -33,27 +49,37 @@ public class WorkerManager : MonoBehaviour
             Debug.Log("İptal: İşçi sadece maden (Ore) alanlarına gönderilebilir!");
         }
 
-        selectedWorker = null;
+        selectedWorkerMovement = null;
+        WorkMode = false;
     }
 
-    private void TryPickWorker(Vector2 mousePosition)
+    private void TryOpenWorkerUI(Vector2 mousePosition)
     {
         Collider2D hit = Physics2D.OverlapPoint(mousePosition);
 
-        if (hit != null)
+        if (hit == null)
         {
-            WorkerMovement worker = hit.GetComponentInParent<WorkerMovement>();
-
-            if (worker != null)
-            {
-                selectedWorker = worker;
-                Debug.Log("İşçi seçildi! Şimdi gideceği/çalışacağı yere tıkla.");
-            }
+            uiManager.CloseAllPanels();
+            selectedWorkerMovement = null;
+            return;
         }
+
+        Worker worker = hit.GetComponentInParent<Worker>();
+        WorkerMovement movement = hit.GetComponentInParent<WorkerMovement>();
+
+        if (worker == null)
+        {
+            uiManager.CloseAllPanels();
+            selectedWorkerMovement = null;
+            return;
+        }
+
+        selectedWorkerMovement = movement;
+        uiManager.OpenWorkerUI(worker);
     }
 
-    private bool OrderMode()
-    {
-        return selectedWorker != null;
-    }
+    
+    
+
+
 }
