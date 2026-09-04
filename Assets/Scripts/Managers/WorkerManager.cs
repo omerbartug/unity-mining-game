@@ -25,7 +25,7 @@ public class WorkerManager : MonoBehaviour
         
         if (MoveWorkerMode)
         {
-            TryMoveWorker(mousePosition);
+            TryMoveToWork(mousePosition);
             return;
         }
 
@@ -33,7 +33,7 @@ public class WorkerManager : MonoBehaviour
 
     }
 
-    private void TryMoveWorker(Vector2 mousePosition) // controls at WorkerMovement.cs
+    private void TryMoveToWork(Vector2 mousePosition) // controls at WorkerMovement.cs
     {
         Debug.Log("calisiyo");
         Collider2D oreHit = Physics2D.OverlapPoint(mousePosition, oreLayer);
@@ -43,6 +43,10 @@ public class WorkerManager : MonoBehaviour
                 
             Vector3Int cell = grid.WorldToCell(mousePosition);
             selectedWorkerMovement.MoveTo(cell);
+            
+            Worker worker = selectedWorkerMovement.GetComponent<Worker>();
+            worker.CurrentState = WorkerState.Working;
+
             Debug.Log("Madene gidiliyor!");
         }
         else

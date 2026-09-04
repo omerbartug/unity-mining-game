@@ -138,7 +138,7 @@ public class BuildingManager : MonoBehaviour
             Quaternion.identity
         );
 
-        inventory.RemoveItem(selectedBuilding, 1);
+        
 
         Vector3Int cellPosition = grid.WorldToCell(ghostBuilding.transform.position);
 
@@ -153,6 +153,8 @@ public class BuildingManager : MonoBehaviour
                 nodes.UpdateNodeWalkability(nodePos, false);
             }
         }
+
+        inventory.RemoveItem(selectedBuilding, 1);
     }
     private void TryOpenBuildingUI(Vector2 mousePosition)
     {

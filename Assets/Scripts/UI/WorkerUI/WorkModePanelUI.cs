@@ -10,12 +10,14 @@ public class WorkModePanelUI: MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI speedText;
     [SerializeField] private TextMeshProUGUI capacityText;
-    [SerializeField] private Sprite icon;
+    [SerializeField] private TextMeshProUGUI statusText;
+    [SerializeField] private Image iconImage;
 
 
 
     [SerializeField] WorkerManager workerManager;
     private Worker currentWorker;
+    private WorkerInventory currentInventory;
     
 
     
@@ -23,13 +25,23 @@ public class WorkModePanelUI: MonoBehaviour
     public void Open(Worker worker)
     {
         currentWorker = worker;
+        currentInventory = worker.Inventory;
+
+        currentInventory.OnInventoryChanged += UpdateUI;
+
         UpdateUI();
         panel.SetActive(true);
     }
 
     public void Close()
     {
+        if (currentInventory != null)
+        {
+            currentInventory.OnInventoryChanged -= UpdateUI;
+        }
+
         currentWorker = null;
+        currentInventory = null;
         panel.SetActive(false);
     }
 
@@ -39,9 +51,24 @@ public class WorkModePanelUI: MonoBehaviour
 
         nameText.text = currentWorker.Name;
         levelText.text = $"Level: {currentWorker.Level}"; 
-        speedText.text = $"Move Speed: {currentWorker.MovementSpeed}";
-        capacityText.text = $"{currentWorker.StoredItemCount} / {currentWorker.CarryCapacity}";
-        icon = currentWorker.CurrentItem.icon;
+        speedText.text = $"Mining Speed: {currentWorker.MiningSpeed}";
+        capacityText.text = $"{currentInventory.GetTotalAmount()} / {currentWorker.CarryCapacity}";
+        
+        if (statusText != null)
+        {
+            statusText.text = "Status : " + currentWorker.Status;
+        }
+        
+        InventoryObject carriedItem = currentInventory.GetFirstItem();
+        if (carriedItem is ItemData itemData)
+        {
+            iconImage.sprite = itemData.icon;
+            iconImage.enabled = true;
+        }
+        else
+        {
+            iconImage.enabled = false;
+        }
     }
 
    

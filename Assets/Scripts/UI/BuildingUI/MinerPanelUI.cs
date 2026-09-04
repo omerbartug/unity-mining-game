@@ -7,6 +7,7 @@ public class MinerPanelUI : MonoBehaviour
 
 
     [SerializeField] private TMP_Text storageText;
+    [SerializeField] private TMP_Text statusText;
     [SerializeField] private ProgressBar progressBar;
 
     public void Open(AutoMiner miner)
@@ -28,6 +29,11 @@ public class MinerPanelUI : MonoBehaviour
 
         storageText.text =
             $"Storage : {currentMiner.StoredItemCount}/{currentMiner.Data.storageCapacity}";
+
+        if (statusText != null)
+        {
+            statusText.text = "Status   :  " + currentMiner.Status;
+        }
 
         progressBar.SetProgress(currentMiner.Progress);
     }

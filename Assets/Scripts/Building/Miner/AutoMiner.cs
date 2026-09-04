@@ -7,6 +7,16 @@ public class AutoMiner : Building
     private int storage;
     public int StoredItemCount => storage;
 
+    public string Status
+    {
+        get
+        {
+            if (miningArea == null) return "No Ore";
+            if (storage >= buildingData.storageCapacity) return "Storage Full";
+            return "Mining";
+        }
+    }
+
     private MiningArea miningArea;
 
     private void Awake()

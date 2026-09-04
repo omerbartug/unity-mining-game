@@ -26,7 +26,7 @@ public class AssignTaskPanelUI : MonoBehaviour
         
     
         nameText.text = $"{currentWorker.Name} ({currentWorker.Level} lvl)";
-        statusText.text = "Durum: Boşta (Görev Bekliyor)";
+        statusText.text = "Waiting for assignment (Idle)";
 
         // Buton eventlerini temizle ve yeniden bağla (eski tıklamalar üst üste binmesin diye)
         workButton.onClick.RemoveAllListeners();
@@ -55,7 +55,6 @@ public class AssignTaskPanelUI : MonoBehaviour
         workerManager.SetMoveWorkerMode(true);
         uiManager.CloseAllPanels();
         
-        Debug.Log("İş verme moduna geçildi, şimdi madene tıklanması bekleniyor...");
     }
 
     private void OnTransportButtonClicked()

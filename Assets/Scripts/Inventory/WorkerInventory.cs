@@ -1,10 +1,12 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class WorkerInventory : Inventory
 {
     private Worker workerStats;
     
+    public event Action OnInventoryChanged;
     
     private Dictionary<InventoryObject, int> items = new Dictionary<InventoryObject, int>();
 
@@ -37,6 +39,8 @@ public class WorkerInventory : Inventory
         {
             items.Add(item, amountToAdd);
         }
+
+        OnInventoryChanged?.Invoke();
     }
 
     public override void RemoveItem(InventoryObject item, int amount)
@@ -51,6 +55,8 @@ public class WorkerInventory : Inventory
                 items.Remove(item);
             }
         }
+
+        OnInventoryChanged?.Invoke();
     }
 
     public override void RemoveAll(InventoryObject item)
@@ -59,6 +65,8 @@ public class WorkerInventory : Inventory
         {
             items.Remove(item);
         }
+
+        OnInventoryChanged?.Invoke();
     }
 
     public override bool HasItem(InventoryObject item, int amount)
@@ -71,7 +79,7 @@ public class WorkerInventory : Inventory
         return GetTotalAmount() >= workerStats.CarryCapacity;
     }
 
-    private int GetTotalAmount()
+    public int GetTotalAmount()
     {
         int total = 0;
         foreach (var amount in items.Values)
@@ -79,5 +87,15 @@ public class WorkerInventory : Inventory
             total += amount;
         }
         return total;
+    }
+
+    public InventoryObject GetFirstItem()
+    {
+        foreach (var pair in items)
+        {
+            if (pair.Value > 0)
+                return pair.Key;
+        }
+        return null;
     }
 }

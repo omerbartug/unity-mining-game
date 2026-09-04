@@ -118,10 +118,9 @@
 
 ````
 
-                              WorkMode daki ui yi yap
+               DONE           WorkMode daki ui yi yap 
                               skill designini ayarla
                               ui ya hepsini yerlestir calisir bi sistem olsun
-                              autoprocessorun her yere konmasi bugini fixle
 
                               collectitem ile workerin yanina yaklasildiginda itemin toplanm,asini sagla bugsiz bir sekilde
 
@@ -132,6 +131,9 @@
                               ayni anda iki isci gelse hangisine vericek falan da buyuk soru isareti ama yaptikca bakicam bilmiyom
 
                               mesela treansporterin rotasi belirlenebilecek mi belirlense super olur cizgi halinde boyle transporteri player acayip envanter basar 5-10 tane iscinni yanindan dolasir envanteri maxlanir makineye oyle gider falan bilmiyom aga bakacaz.
+
+
+                              Workeri bi yere yollarken makinaya basarsan bug giriyor onu fixle;
 
 
      

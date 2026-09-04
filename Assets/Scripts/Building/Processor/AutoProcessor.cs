@@ -20,6 +20,16 @@ public class AutoProcessor : Building
     private Dictionary<ItemData, int> storage = new Dictionary<ItemData, int>();
     public Dictionary<ItemData, int> Storage => storage;
 
+    public string Status
+    {
+        get
+        {
+            if (currentItem != null) return "Processing";
+            if (inputQueue.Count > 0) return "Starting";
+            return "No Item";
+        }
+    }
+
 
 
 

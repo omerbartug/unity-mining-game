@@ -30,10 +30,24 @@ public class Worker : MonoBehaviour
     [SerializeField] private int carryCapacity = 10;
     public int CarryCapacity => carryCapacity;
 
-    private int storage;
-    public int StoredItemCount => storage;
+    private WorkerInventory workerInventory;
+    public WorkerInventory Inventory => workerInventory;
 
-    private ItemData item;
-    public ItemData CurrentItem => item;
+    public string Status
+    {
+        get
+        {
+            if (CurrentState == WorkerState.Idle) return "Idle";
+            if (CurrentState == WorkerState.Working && workerInventory != null && workerInventory.IsFull()) return "Capacity Full";
+            if (CurrentState == WorkerState.Working) return "Working";
+            if (CurrentState == WorkerState.Transporting) return "Transporting";
+            return "";
+        }
+    }
+
+    private void Awake()
+    {
+        workerInventory = GetComponent<WorkerInventory>();
+    }
 
 }

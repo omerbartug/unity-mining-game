@@ -32,10 +32,13 @@ public class ProcessorPanelUI : MonoBehaviour
         currentProcessor.InputQueueChanged += RefreshInput;
         currentProcessor.CurrentItemChanged += RefreshCurrentItem;
         currentProcessor.StorageChanged += RefreshOutput;
+        currentProcessor.InputQueueChanged += RefreshStatus;
+        currentProcessor.CurrentItemChanged += RefreshStatus;
 
         RefreshCurrentItem();
         RefreshInput();
         RefreshOutput();
+        RefreshStatus();
 
         gameObject.SetActive(true);
     }
@@ -46,6 +49,8 @@ public class ProcessorPanelUI : MonoBehaviour
             currentProcessor.InputQueueChanged -= RefreshInput;
             currentProcessor.CurrentItemChanged -= RefreshCurrentItem;
             currentProcessor.StorageChanged -= RefreshOutput;
+            currentProcessor.InputQueueChanged -= RefreshStatus;
+            currentProcessor.CurrentItemChanged -= RefreshStatus;
         }
 
         currentProcessor = null;
@@ -59,7 +64,14 @@ public class ProcessorPanelUI : MonoBehaviour
             return;
   
         RefreshProgressBar();
+    }
 
+    private void RefreshStatus()
+    {
+        if (statusText != null && currentProcessor != null)
+        {
+            statusText.text = "Status : " + currentProcessor.Status;
+        }
     }
 
 
