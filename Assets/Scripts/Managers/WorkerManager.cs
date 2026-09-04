@@ -6,12 +6,13 @@ public class WorkerManager : MonoBehaviour
     private WorkerMovement selectedWorkerMovement;
     [SerializeField] private Grid grid;
     [SerializeField] private LayerMask oreLayer;
+    [SerializeField] private LayerMask workerLayer;
     [SerializeField] private WorkerUIManager uiManager;
 
-    private bool WorkMode;
-    public void SetWorkMode(bool tf)
+    private bool MoveWorkerMode;
+    public void SetMoveWorkerMode(bool tf)
     {
-        WorkMode = tf;
+        MoveWorkerMode = tf;
     }
 
     public void HandleLeftClick(Vector2 mousePosition)
@@ -22,7 +23,7 @@ public class WorkerManager : MonoBehaviour
             return;
         }
         
-        if (WorkMode)
+        if (MoveWorkerMode)
         {
             TryMoveWorker(mousePosition);
             return;
@@ -50,12 +51,12 @@ public class WorkerManager : MonoBehaviour
         }
 
         selectedWorkerMovement = null;
-        WorkMode = false;
+        MoveWorkerMode = false;
     }
 
     private void TryOpenWorkerUI(Vector2 mousePosition)
     {
-        Collider2D hit = Physics2D.OverlapPoint(mousePosition);
+        Collider2D hit = Physics2D.OverlapPoint(mousePosition, workerLayer);
 
         if (hit == null)
         {

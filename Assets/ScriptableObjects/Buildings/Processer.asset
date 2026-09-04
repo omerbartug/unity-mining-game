@@ -20,9 +20,9 @@ MonoBehaviour:
   size: {x: 3, y: 3}
   placementBlockerLayer:
     serializedVersion: 2
-    m_Bits: 328
+    m_Bits: 2952
   fineLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1024
   productionTime: 3
   storageCapacity: 30

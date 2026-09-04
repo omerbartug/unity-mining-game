@@ -52,7 +52,7 @@ public class AssignTaskPanelUI : MonoBehaviour
         if (currentWorker == null) return;
 
 
-        workerManager.SetWorkMode(true);
+        workerManager.SetMoveWorkerMode(true);
         uiManager.CloseAllPanels();
         
         Debug.Log("İş verme moduna geçildi, şimdi madene tıklanması bekleniyor...");

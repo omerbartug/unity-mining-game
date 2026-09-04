@@ -77,6 +77,7 @@ public class BuildingManager : MonoBehaviour
     }
 
 
+
     private void UpdateGhostColor()
     {
         ghostRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
@@ -140,7 +141,18 @@ public class BuildingManager : MonoBehaviour
         inventory.RemoveItem(selectedBuilding, 1);
 
         Vector3Int cellPosition = grid.WorldToCell(ghostBuilding.transform.position);
-        nodes.UpdateNodeWalkability(cellPosition, false);
+
+        int startX = -selectedBuilding.size.x / 2;
+        int startY = -selectedBuilding.size.y / 2;
+
+        for (int x = 0; x < selectedBuilding.size.x; x++)
+        {
+            for (int y = 0; y < selectedBuilding.size.y; y++)
+            {
+                Vector3Int nodePos = cellPosition + new Vector3Int(startX + x, startY + y, 0);
+                nodes.UpdateNodeWalkability(nodePos, false);
+            }
+        }
     }
     private void TryOpenBuildingUI(Vector2 mousePosition)
     {

@@ -43,7 +43,7 @@
                               │
                               ▼
                     ┌─────────────────────┐
-                    │    4. WORKER UI      │
+                    │    4. WORKER UI      │ burdayim
                     └─────────────────────┘
                               │
                               ├── Worker'a tıkla
@@ -52,6 +52,8 @@
                               └── [Mining] [Transport] ...
                               │
                               ▼
+
+
                     ┌─────────────────────┐
                     │    5. TASK SYSTEM    │
                     └─────────────────────┘
@@ -113,3 +115,24 @@
                     └─────────────────────┘
                               │
                               └── SONRA TASARLAYACAĞIZ
+
+````
+
+                              WorkMode daki ui yi yap
+                              skill designini ayarla
+                              ui ya hepsini yerlestir calisir bi sistem olsun
+                              autoprocessorun her yere konmasi bugini fixle
+
+                              collectitem ile workerin yanina yaklasildiginda itemin toplanm,asini sagla bugsiz bir sekilde
+
+                              sadece tasiyici iscilerin ve playerin collectitem yapabilmesini sagla
+
+                              ama ileride calisan iscilere de transporterin item vermesi gerekicek ve isciler yan yana calisiyorlar nasil olcak bilmiyorum muhtemeln birbirlerinin icine girerek falan halledicekler bi sekilde
+
+                              ayni anda iki isci gelse hangisine vericek falan da buyuk soru isareti ama yaptikca bakicam bilmiyom
+
+                              mesela treansporterin rotasi belirlenebilecek mi belirlense super olur cizgi halinde boyle transporteri player acayip envanter basar 5-10 tane iscinni yanindan dolasir envanteri maxlanir makineye oyle gider falan bilmiyom aga bakacaz.
+
+
+     
+  
