@@ -12,21 +12,23 @@ public class AssignTaskPanelUI : MonoBehaviour
     [Header("UI Metinleri")]
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI statusText;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI WorkSpeedText;
+    [SerializeField] private TextMeshProUGUI MoveSpeedText;
+
 
     [Header("UI Butonları")]
     [SerializeField] private Button workButton;
     [SerializeField] private Button transportButton;
     [SerializeField] private Button closeButton;
+    [SerializeField] private Button upgradeMiningSpeedButton;
+    [SerializeField] private Button upgradeMovementSpeedButton;
 
     private Worker currentWorker;
 
     public void Open(Worker worker)
     {
         currentWorker = worker;
-        
-    
-        nameText.text = $"{currentWorker.Name} ({currentWorker.Level} lvl)";
-        statusText.text = "Waiting for assignment (Idle)";
 
         // Buton eventlerini temizle ve yeniden bağla (eski tıklamalar üst üste binmesin diye)
         workButton.onClick.RemoveAllListeners();
@@ -38,6 +40,19 @@ public class AssignTaskPanelUI : MonoBehaviour
         closeButton.onClick.RemoveAllListeners();
         closeButton.onClick.AddListener(OnCloseButtonClicked);
 
+        if (upgradeMiningSpeedButton != null)
+        {
+            upgradeMiningSpeedButton.onClick.RemoveAllListeners();
+            upgradeMiningSpeedButton.onClick.AddListener(OnUpgradeMiningSpeedClicked);
+        }
+
+        if (upgradeMovementSpeedButton != null)
+        {
+            upgradeMovementSpeedButton.onClick.RemoveAllListeners();
+            upgradeMovementSpeedButton.onClick.AddListener(OnUpgradeMovementSpeedClicked);
+        }
+
+        UpdateUI();
         panel.SetActive(true);
     }
 
@@ -45,6 +60,20 @@ public class AssignTaskPanelUI : MonoBehaviour
     {
         currentWorker = null;
         panel.SetActive(false);
+    }
+
+    private void UpdateUI()
+    {
+        if (currentWorker == null) return;
+
+        nameText.text = $"{currentWorker.Name} ({currentWorker.Level} lvl)";
+        statusText.text = "Waiting for assignment (Idle)";
+        
+        levelText.text = $"({currentWorker.Level} lvl)";
+
+        WorkSpeedText.text = $"Work Speed : {currentWorker.MiningSpeed}";
+
+        MoveSpeedText.text = $"Move Speed : {currentWorker.MovementSpeed}";
     }
 
     private void OnWorkButtonClicked()
@@ -65,5 +94,23 @@ public class AssignTaskPanelUI : MonoBehaviour
     private void OnCloseButtonClicked()
     {
         uiManager.CloseAllPanels();
+    }
+
+    private void OnUpgradeMiningSpeedClicked()
+    {
+        if (currentWorker == null) return;
+        if (currentWorker.TryUpgradeMiningSpeed(500))
+        {
+            UpdateUI();
+        }
+    }
+
+    private void OnUpgradeMovementSpeedClicked()
+    {
+        if (currentWorker == null) return;
+        if (currentWorker.TryUpgradeMovementSpeed(500))
+        {
+            UpdateUI();
+        }
     }
 }

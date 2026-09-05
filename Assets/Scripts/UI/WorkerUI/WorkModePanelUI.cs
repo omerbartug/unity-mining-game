@@ -13,7 +13,9 @@ public class WorkModePanelUI: MonoBehaviour
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private Image iconImage;
 
-
+    [Header("Geliştirme Butonları")]
+    [SerializeField] private Button upgradeMiningSpeedButton;
+    [SerializeField] private Button upgradeMovementSpeedButton;
 
     [SerializeField] WorkerManager workerManager;
     private Worker currentWorker;
@@ -28,6 +30,18 @@ public class WorkModePanelUI: MonoBehaviour
         currentInventory = worker.Inventory;
 
         currentInventory.OnInventoryChanged += UpdateUI;
+
+        if (upgradeMiningSpeedButton != null)
+        {
+            upgradeMiningSpeedButton.onClick.RemoveAllListeners();
+            upgradeMiningSpeedButton.onClick.AddListener(OnUpgradeMiningSpeedClicked);
+        }
+
+        if (upgradeMovementSpeedButton != null)
+        {
+            upgradeMovementSpeedButton.onClick.RemoveAllListeners();
+            upgradeMovementSpeedButton.onClick.AddListener(OnUpgradeMovementSpeedClicked);
+        }
 
         UpdateUI();
         panel.SetActive(true);
@@ -71,6 +85,23 @@ public class WorkModePanelUI: MonoBehaviour
         }
     }
 
-   
-    
+    private void OnUpgradeMiningSpeedClicked()
+    {
+        if (currentWorker == null) return;
+
+        if (currentWorker.TryUpgradeMiningSpeed(500))
+        {
+            UpdateUI();
+        }
+    }
+
+    private void OnUpgradeMovementSpeedClicked()
+    {
+        if (currentWorker == null) return;
+
+        if (currentWorker.TryUpgradeMovementSpeed(500))
+        {
+            UpdateUI();
+        }
+    }
 }

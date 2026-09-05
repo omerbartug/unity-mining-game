@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class CollectItemArea : MonoBehaviour
+public class CollectItem : MonoBehaviour
 {
-    private Building building;
+    private IItemSource itemSource;
 
     private void Awake()
     {
-        building = GetComponentInParent<Building>();
+        itemSource = GetComponentInParent<IItemSource>();
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -19,6 +19,6 @@ public class CollectItemArea : MonoBehaviour
         if (inventory == null)
             return;
 
-        building.CollectItems(inventory);
+        itemSource?.CollectItems(inventory);
     }
 }

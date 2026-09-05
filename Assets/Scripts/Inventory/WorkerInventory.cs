@@ -16,7 +16,7 @@ public class WorkerInventory : Inventory
     }
 
    
-
+   
     public override void AddItem(InventoryObject item, int amount)
     {
         int currentTotal = GetTotalAmount();
@@ -68,7 +68,7 @@ public class WorkerInventory : Inventory
 
         OnInventoryChanged?.Invoke();
     }
-
+    
     public override bool HasItem(InventoryObject item, int amount)
     {
         return items.ContainsKey(item) && items[item] >= amount;
@@ -97,5 +97,21 @@ public class WorkerInventory : Inventory
                 return pair.Key;
         }
         return null;
+    }
+
+    public void TransferAllItemsTo(Inventory targetInventory)
+    {
+        if (items.Count == 0) return;
+
+        foreach (var pair in items)
+        {
+            if (pair.Value > 0)
+            {
+                targetInventory.AddItem(pair.Key, pair.Value);
+            }
+        }
+
+        items.Clear();
+        OnInventoryChanged?.Invoke();
     }
 }

@@ -6,7 +6,7 @@ public enum WorkerState
     Working,      
     Transporting  
 }
-public class Worker : MonoBehaviour
+public class Worker : MonoBehaviour, IItemSource
 {
 
 
@@ -50,4 +50,39 @@ public class Worker : MonoBehaviour
         workerInventory = GetComponent<WorkerInventory>();
     }
 
+    public bool TryUpgradeMiningSpeed(int cost = 500, float amount = 0.5f)
+    {
+        if (PlayerStats.Instance.GetPlayerMoney() < cost)
+        {
+            Debug.Log("Yetersiz bakiye! Kazma hızı artırılamadı.");
+            return false;
+        }
+
+        PlayerStats.Instance.RemoveMoney(cost);
+        miningSpeed += amount;
+        Debug.Log($"{name} kazma hızı arttı! Yeni hız: {miningSpeed}");
+        return true;
+    }
+
+    public bool TryUpgradeMovementSpeed(int cost = 500, float amount = 0.5f)
+    {
+        if (PlayerStats.Instance.GetPlayerMoney() < cost)
+        {
+            Debug.Log("Yetersiz bakiye! Hareket hızı artırılamadı.");
+            return false;
+        }
+
+        PlayerStats.Instance.RemoveMoney(cost);
+        movementSpeed += amount;
+        Debug.Log($"{name} hareket hızı arttı! Yeni hız: {movementSpeed}");
+        return true;
+    }
+
+    public void CollectItems(Inventory targetInventory)
+    {
+        if (workerInventory != null)
+        {
+            workerInventory.TransferAllItemsTo(targetInventory);
+        }
+    }
 }

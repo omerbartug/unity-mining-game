@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Building : MonoBehaviour
+public abstract class Building : MonoBehaviour, IItemSource
 {
     [SerializeField] protected BuildingData buildingData;
     protected float timer;
