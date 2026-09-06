@@ -1,3 +1,4 @@
+
 public class InventorySlot
 {
     public InventoryObject Data { get; private set; }

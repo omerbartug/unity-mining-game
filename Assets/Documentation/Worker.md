@@ -114,26 +114,13 @@
                     │ 10. TRANSPORT TASK  │
                     └─────────────────────┘
                               │
-                              └── SONRA TASARLAYACAĞIZ
+                              ├── 2 Mod: Work Mode & Transport Mode
+                              ├── 3 Input & 3 Output Paylaşımlı Slot (Shared Buffer)
+                              ├── Rota Çizimi (LineRenderer + Ping-Pong Patrol)
+                              ├── Tek Odak İtem Taşınması (Designated Item Filter)
+                              └── Deadlock & Ünlem [!] İkonu
 
 ````
-
-               DONE           WorkMode daki ui yi yap 
-               DONE           skill designini ayarla
-               DONE           ui ya hepsini yerlestir calisir bi sistem olsun
-
-                              collectitem ile workerin yanina yaklasildiginda itemin toplanm,asini sagla bugsiz bir sekilde DONE
-
-                              sadece tasiyici iscilerin ve playerin collectitem yapabilmesini sagla
-
-                              ama ileride calisan iscilere de transporterin item vermesi gerekicek ve isciler yan yana calisiyorlar nasil olcak bilmiyorum muhtemeln birbirlerinin icine girerek falan halledicekler bi sekilde / sadece transporter - isci arasi bi alisveris olmali
-
-                              ayni anda iki isci gelse hangisine vericek falan da buyuk soru isareti ama yaptikca bakicam bilmiyom
-
-                              mesela treansporterin rotasi belirlenebilecek mi belirlense super olur cizgi halinde boyle transporteri player acayip envanter basar 5-10 tane iscinni yanindan dolasir envanteri maxlanir makineye oyle gider falan bilmiyom aga bakacaz.
-
-
-                              Workeri bi yere yollarken makinaya basarsan bug giriyor onu fixle;
 
 
      
