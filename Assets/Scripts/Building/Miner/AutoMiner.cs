@@ -53,14 +53,16 @@ public class AutoMiner : Building
 
     public override void CollectItems(Inventory inventory)
     {
-        
         if (storage == 0 || miningArea == null)
         {
             return;
         }
 
-        inventory.AddItem(miningArea.RewardItem, storage);
-        storage = 0;
+        if (inventory is PlayerInventory playerInventory)
+        {
+            playerInventory.AddItem(miningArea.RewardItem, storage);
+            storage = 0;
+        }
     }
  
 }

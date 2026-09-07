@@ -38,7 +38,15 @@ public class SellingArea : MonoBehaviour, IInteractable
     public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
         PlayerStats.Instance.AddMoney(item.sellPrice * amount);
-        inventory.RemoveAll(item); 
+
+        if (inventory is PlayerInventory playerInventory)
+        {
+            playerInventory.RemoveAll(item);
+        }
+        else if (inventory is WorkerInventory workerInventory)
+        {
+            workerInventory.RemoveFromOutput(item, amount);
+        }
     }
 
     public void CancelInteract(ProgressBar progress)

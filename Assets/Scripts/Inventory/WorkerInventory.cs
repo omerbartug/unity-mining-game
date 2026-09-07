@@ -4,114 +4,134 @@ using System.Collections.Generic;
 
 public class WorkerInventory : Inventory
 {
+    private const int MAX_ITEM_TYPES = 3;
+
     private Worker workerStats;
-    
     public event Action OnInventoryChanged;
-    
-    private Dictionary<InventoryObject, int> items = new Dictionary<InventoryObject, int>();
+
+    private Dictionary<InventoryObject, int> inputItems = new Dictionary<InventoryObject, int>();
+    private Dictionary<InventoryObject, int> outputItems = new Dictionary<InventoryObject, int>();
+
+    public Dictionary<InventoryObject, int> InputItems => inputItems;
+    public Dictionary<InventoryObject, int> OutputItems => outputItems;
 
     private void Awake()
     {
         workerStats = GetComponent<Worker>();
     }
 
-   
-   
-    public override void AddItem(InventoryObject item, int amount)
-    {
-        int currentTotal = GetTotalAmount();
-        int spaceLeft = workerStats.CarryCapacity - currentTotal;
-        
-        if (spaceLeft <= 0)
-        {
-            return;
-        }
-
-        
-        int amountToAdd = Mathf.Min(amount, spaceLeft);
-
-        
-        if (items.ContainsKey(item))
-        {
-            items[item] += amountToAdd;
-        }
-        else
-        {
-            items.Add(item, amountToAdd);
-        }
-
-        OnInventoryChanged?.Invoke();
-    }
-
-    public override void RemoveItem(InventoryObject item, int amount)
-    {
-        if (items.ContainsKey(item))
-        {
-            items[item] -= amount;
-            
-            
-            if (items[item] <= 0)
-            {
-                items.Remove(item);
-            }
-        }
-
-        OnInventoryChanged?.Invoke();
-    }
-
-    public override void RemoveAll(InventoryObject item)
-    {
-        if (items.ContainsKey(item))
-        {
-            items.Remove(item);
-        }
-
-        OnInventoryChanged?.Invoke();
-    }
-    
-    public override bool HasItem(InventoryObject item, int amount)
-    {
-        return items.ContainsKey(item) && items[item] >= amount;
-    }
-    
-    public bool IsFull()
-    {
-        return GetTotalAmount() >= workerStats.CarryCapacity;
-    }
-
-    public int GetTotalAmount()
+    // --- YARDIMCI METOTLAR ---
+    public int GetInputTotal()
     {
         int total = 0;
-        foreach (var amount in items.Values)
-        {
-            total += amount;
-        }
+        foreach (var val in inputItems.Values) total += val;
         return total;
     }
 
+    public int GetOutputTotal()
+    {
+        int total = 0;
+        foreach (var val in outputItems.Values) total += val;
+        return total;
+    }
+
+    public int GetCapacity()
+    {
+        return workerStats != null ? workerStats.CarryCapacity : 30;
+    }
+
+    // --- GİRDİ (INPUT) İŞLEMLERİ ---
+    public int AddToInput(InventoryObject item, int amount)
+    {
+        int spaceLeft = GetCapacity() - GetInputTotal();
+        if (spaceLeft <= 0) return 0;
+        if (!inputItems.ContainsKey(item) && inputItems.Count >= MAX_ITEM_TYPES) return 0;
+
+        int toAdd = Mathf.Min(amount, spaceLeft);
+        if (inputItems.ContainsKey(item)) inputItems[item] += toAdd;
+        else inputItems.Add(item, toAdd);
+
+        OnInventoryChanged?.Invoke();
+        return toAdd;
+    }
+
+    public int RemoveFromInput(InventoryObject item, int amount)
+    {
+        if (!inputItems.ContainsKey(item)) return 0;
+
+        int toRemove = Mathf.Min(amount, inputItems[item]);
+        inputItems[item] -= toRemove;
+        if (inputItems[item] <= 0) inputItems.Remove(item);
+
+        OnInventoryChanged?.Invoke();
+        return toRemove;
+    }
+
+    // --- ÇIKTI (OUTPUT) İŞLEMLERİ ---
+    public int AddToOutput(InventoryObject item, int amount)
+    {
+        int spaceLeft = GetCapacity() - GetOutputTotal();
+        if (spaceLeft <= 0) return 0;
+        if (!outputItems.ContainsKey(item) && outputItems.Count >= MAX_ITEM_TYPES) return 0;
+
+        int toAdd = Mathf.Min(amount, spaceLeft);
+        if (outputItems.ContainsKey(item)) outputItems[item] += toAdd;
+        else outputItems.Add(item, toAdd);
+
+        OnInventoryChanged?.Invoke();
+        return toAdd;
+    }
+
+    public int RemoveFromOutput(InventoryObject item, int amount)
+    {
+        if (!outputItems.ContainsKey(item)) return 0;
+
+        int toRemove = Mathf.Min(amount, outputItems[item]);
+        outputItems[item] -= toRemove;
+        if (outputItems[item] <= 0) outputItems.Remove(item);
+
+        OnInventoryChanged?.Invoke();
+        return toRemove;
+    }
+
+    // --- LOJİSTİK VE TRANSFER ---
+    public int TransferToInputOf(WorkerInventory receiver, InventoryObject item)
+    {
+        if (receiver == null || item == null) return 0;
+        if (!outputItems.ContainsKey(item) || outputItems[item] <= 0) return 0;
+
+        int actuallyAdded = receiver.AddToInput(item, outputItems[item]);
+
+        if (actuallyAdded > 0)
+        {
+            RemoveFromOutput(item, actuallyAdded);
+        }
+
+        return actuallyAdded;
+    }
+
+
+
+    public bool IsFull() => GetOutputTotal() >= GetCapacity();
+    public int GetTotalAmount() => GetOutputTotal();
+
     public InventoryObject GetFirstItem()
     {
-        foreach (var pair in items)
-        {
-            if (pair.Value > 0)
-                return pair.Key;
-        }
+        foreach (var key in outputItems.Keys) return key;
+        foreach (var key in inputItems.Keys) return key;
         return null;
     }
 
     public void TransferAllItemsTo(Inventory targetInventory)
     {
-        if (items.Count == 0) return;
-
-        foreach (var pair in items)
+        if (targetInventory is PlayerInventory playerInventory)
         {
-            if (pair.Value > 0)
-            {
-                targetInventory.AddItem(pair.Key, pair.Value);
-            }
-        }
+            foreach (var pair in outputItems) playerInventory.AddItem(pair.Key, pair.Value);
+            foreach (var pair in inputItems) playerInventory.AddItem(pair.Key, pair.Value);
 
-        items.Clear();
-        OnInventoryChanged?.Invoke();
+            outputItems.Clear();
+            inputItems.Clear();
+            OnInventoryChanged?.Invoke();
+        }
     }
 }

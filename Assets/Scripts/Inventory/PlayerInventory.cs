@@ -26,7 +26,7 @@ public class PlayerInventory : Inventory
             }
     }
 
-    public override void AddItem(InventoryObject item, int amount)
+    public void AddItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){
             if(slot.Data == item){
@@ -45,7 +45,7 @@ public class PlayerInventory : Inventory
         }
     }
 
-    public override void RemoveItem(InventoryObject item, int amount)
+    public void RemoveItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){
             if(slot.Data == item){
@@ -69,7 +69,7 @@ public class PlayerInventory : Inventory
         return;
     }
 
-    public override void RemoveAll(InventoryObject item){
+    public void RemoveAll(InventoryObject item){
         foreach(var slot in slots){
 
             if(slot.Data == item){
@@ -83,7 +83,7 @@ public class PlayerInventory : Inventory
         return;
     }
     
-    public override bool HasItem(InventoryObject item, int amount)
+    public bool HasItem(InventoryObject item, int amount)
     {
         foreach(var slot in slots){
             if(slot.Data == item && slot.Amount >= amount){

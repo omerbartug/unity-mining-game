@@ -47,22 +47,32 @@ public class AutoProcessor : Building
 
     public override void CollectItems(Inventory inventory)
     {
-        foreach (var pair in storage)
+        if (inventory is PlayerInventory playerInventory)
         {
-            inventory.AddItem(pair.Key, pair.Value);
-        }
+            foreach (var pair in storage)
+            {
+                playerInventory.AddItem(pair.Key, pair.Value);
+            }
 
-        storage.Clear();
-        StorageChanged?.Invoke();
+            storage.Clear();
+            StorageChanged?.Invoke();
+        }
     }
     
     public void AddInput(Inventory inventory, ItemData item)
     {
-
         inputQueue.Enqueue(item);
-        inventory.RemoveItem(item, 1);
+
+        if (inventory is PlayerInventory playerInventory)
+        {
+            playerInventory.RemoveItem(item, 1);
+        }
+        else if (inventory is WorkerInventory workerInventory)
+        {
+            workerInventory.RemoveFromInput(item, 1);
+        }
+
         InputQueueChanged?.Invoke();
-        
     }
 
     private void TryStartNextItem()

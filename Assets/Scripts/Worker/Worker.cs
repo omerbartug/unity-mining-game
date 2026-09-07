@@ -82,7 +82,7 @@ public class Worker : MonoBehaviour, IItemSource
     {
         if (workerInventory != null)
         {
-            workerInventory.TransferAllItemsTo(targetInventory);
+            //workerInventory.TransferAllItemsTo(targetInventory); baska bisey yaz suraya
         }
     }
 }

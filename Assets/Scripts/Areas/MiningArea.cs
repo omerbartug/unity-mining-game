@@ -24,7 +24,14 @@ public class MiningArea : MonoBehaviour, IInteractable
 
     public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
-        inventory.AddItem(item, amount);
+        if (inventory is PlayerInventory playerInventory)
+        {
+            playerInventory.AddItem(item, amount);
+        }
+        else if (inventory is WorkerInventory workerInventory)
+        {
+            workerInventory.AddToOutput(item, amount);
+        }
     }
 
     public void CancelInteract(ProgressBar progress)

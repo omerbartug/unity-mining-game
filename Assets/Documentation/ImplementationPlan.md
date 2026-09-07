@@ -9,7 +9,7 @@ Bu doküman, sistemin **baştan sona, en sağlam bağımlılık sırasıyla ve b
 ```text
                            [WORKER INVENTORY MİMARİSİ]
  ┌─────────────────────────────────────────────────────────────────────────────┐
- │  TOPLAM KAPASİTE: 30 (Upgrade edildikçe 30 -> 45 -> 60 artar)              │
+ │  TOPLAM KAPASİTE: 30 (Upgrade edildikçe 30 -> 33 -> 36 artar)              │
  ├──────────────────────────────────────┬──────────────────────────────────────┤
  │          GİRDİ (INPUT BUFFER)        │         ÇIKTI (OUTPUT BUFFER)        │
  │           Max: 3 Slot                │              Max: 3 Slot             │
