@@ -7,7 +7,8 @@ public class WorkerInventory : Inventory
     private const int MAX_ITEM_TYPES = 3;
 
     private Worker workerStats;
-    public event Action OnInventoryChanged;
+    public event Action OnInputChanged;
+    public event Action OnOutputChanged;
 
     private Dictionary<InventoryObject, int> inputItems = new Dictionary<InventoryObject, int>();
     private Dictionary<InventoryObject, int> outputItems = new Dictionary<InventoryObject, int>();
@@ -40,18 +41,34 @@ public class WorkerInventory : Inventory
         return workerStats != null ? workerStats.CarryCapacity : 30;
     }
 
+    // --- KONTROL METOTLARI ---
+    public bool CanAddToInput(InventoryObject item)
+    {
+        if (item == null) return false;
+        if (GetInputTotal() >= GetCapacity()) return false;
+        if (!inputItems.ContainsKey(item) && inputItems.Count >= MAX_ITEM_TYPES) return false;
+        return true;
+    }
+
+    public bool CanAddToOutput(InventoryObject item)
+    {
+        if (item == null) return false;
+        if (GetOutputTotal() >= GetCapacity()) return false;
+        if (!outputItems.ContainsKey(item) && outputItems.Count >= MAX_ITEM_TYPES) return false;
+        return true;
+    }
+
     // --- GİRDİ (INPUT) İŞLEMLERİ ---
     public int AddToInput(InventoryObject item, int amount)
     {
-        int spaceLeft = GetCapacity() - GetInputTotal();
-        if (spaceLeft <= 0) return 0;
-        if (!inputItems.ContainsKey(item) && inputItems.Count >= MAX_ITEM_TYPES) return 0;
+        if (amount <= 0 || !CanAddToInput(item)) return 0;
 
+        int spaceLeft = GetCapacity() - GetInputTotal();
         int toAdd = Mathf.Min(amount, spaceLeft);
         if (inputItems.ContainsKey(item)) inputItems[item] += toAdd;
         else inputItems.Add(item, toAdd);
 
-        OnInventoryChanged?.Invoke();
+        OnInputChanged?.Invoke();
         return toAdd;
     }
 
@@ -63,22 +80,28 @@ public class WorkerInventory : Inventory
         inputItems[item] -= toRemove;
         if (inputItems[item] <= 0) inputItems.Remove(item);
 
-        OnInventoryChanged?.Invoke();
+        OnInputChanged?.Invoke();
         return toRemove;
+    }
+
+    public void ClearInput()
+    {
+        if (inputItems.Count == 0) return;
+        inputItems.Clear();
+        OnInputChanged?.Invoke();
     }
 
     // --- ÇIKTI (OUTPUT) İŞLEMLERİ ---
     public int AddToOutput(InventoryObject item, int amount)
     {
-        int spaceLeft = GetCapacity() - GetOutputTotal();
-        if (spaceLeft <= 0) return 0;
-        if (!outputItems.ContainsKey(item) && outputItems.Count >= MAX_ITEM_TYPES) return 0;
+        if (amount <= 0 || !CanAddToOutput(item)) return 0;
 
+        int spaceLeft = GetCapacity() - GetOutputTotal();
         int toAdd = Mathf.Min(amount, spaceLeft);
         if (outputItems.ContainsKey(item)) outputItems[item] += toAdd;
         else outputItems.Add(item, toAdd);
 
-        OnInventoryChanged?.Invoke();
+        OnOutputChanged?.Invoke();
         return toAdd;
     }
 
@@ -90,8 +113,15 @@ public class WorkerInventory : Inventory
         outputItems[item] -= toRemove;
         if (outputItems[item] <= 0) outputItems.Remove(item);
 
-        OnInventoryChanged?.Invoke();
+        OnOutputChanged?.Invoke();
         return toRemove;
+    }
+
+    public void ClearOutput()
+    {
+        if (outputItems.Count == 0) return;
+        outputItems.Clear();
+        OnOutputChanged?.Invoke();
     }
 
     // --- LOJİSTİK VE TRANSFER ---
@@ -110,8 +140,6 @@ public class WorkerInventory : Inventory
         return actuallyAdded;
     }
 
-
-
     public bool IsFull() => GetOutputTotal() >= GetCapacity();
     public int GetTotalAmount() => GetOutputTotal();
 
@@ -120,18 +148,5 @@ public class WorkerInventory : Inventory
         foreach (var key in outputItems.Keys) return key;
         foreach (var key in inputItems.Keys) return key;
         return null;
-    }
-
-    public void TransferAllItemsTo(Inventory targetInventory)
-    {
-        if (targetInventory is PlayerInventory playerInventory)
-        {
-            foreach (var pair in outputItems) playerInventory.AddItem(pair.Key, pair.Value);
-            foreach (var pair in inputItems) playerInventory.AddItem(pair.Key, pair.Value);
-
-            outputItems.Clear();
-            inputItems.Clear();
-            OnInventoryChanged?.Invoke();
-        }
     }
 }

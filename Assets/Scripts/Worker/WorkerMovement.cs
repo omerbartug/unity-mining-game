@@ -26,12 +26,12 @@ public class WorkerMovement : MonoBehaviour
         stats = GetComponent<Worker>();
     }
 
-    public void MoveTo(Vector3Int targetCell)
+    public bool MoveTo(Vector3Int targetCell)
     {
         if (OccupiedCells.Contains(targetCell))
         {
             Debug.Log("bura dolu");
-            return;
+            return false;
         }
 
         Vector3Int startCell = grid.WorldToCell(transform.position);
@@ -41,7 +41,7 @@ public class WorkerMovement : MonoBehaviour
         if (currentPath == null || currentPath.Count == 0)
         {
             Debug.Log("Oraya giden bir yol yok!");
-            return;
+            return false;
         }
 
         if (hasClaimedCell)
@@ -57,6 +57,15 @@ public class WorkerMovement : MonoBehaviour
         pathIndex = 0;
         currentWaypoint = grid.GetCellCenterWorld(currentPath[pathIndex].gridPosition);
         HasReachedTarget = false;
+        stats.NotifyStatusChanged();
+        return true;
+    }
+
+    public void StopMoving()
+    {
+        currentPath = null;
+        HasReachedTarget = true;
+        stats.NotifyStatusChanged();
     }
 
     private void Update()
@@ -87,6 +96,7 @@ public class WorkerMovement : MonoBehaviour
                 transform.position = currentWaypoint;
                 HasReachedTarget = true;
                 currentPath = null;
+                stats.NotifyStatusChanged();
             }
             else
             {

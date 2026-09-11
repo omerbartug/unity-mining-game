@@ -5,7 +5,7 @@ public class WorkerManager : MonoBehaviour
 {
     private WorkerMovement selectedWorkerMovement;
     [SerializeField] private Grid grid;
-    [SerializeField] private LayerMask oreLayer;
+    [SerializeField] private LayerMask workableLayer;
     [SerializeField] private LayerMask workerLayer;
     [SerializeField] private WorkerUIManager uiManager;
 
@@ -35,27 +35,33 @@ public class WorkerManager : MonoBehaviour
 
     private void TryMoveToWork(Vector2 mousePosition) // controls at WorkerMovement.cs
     {
-        Debug.Log("calisiyo");
-        Collider2D oreHit = Physics2D.OverlapPoint(mousePosition, oreLayer);
+        Collider2D hit = Physics2D.OverlapPoint(mousePosition, workableLayer);
 
-        if (oreHit != null)
+        if (hit != null)
         {
-                
             Vector3Int cell = grid.WorldToCell(mousePosition);
-            selectedWorkerMovement.MoveTo(cell);
             
-            Worker worker = selectedWorkerMovement.GetComponent<Worker>();
-            worker.CurrentState = WorkerState.Working;
+            if (selectedWorkerMovement.MoveTo(cell))
+            {
+                Worker worker = selectedWorkerMovement.GetComponent<Worker>();
+                worker.CurrentState = WorkerState.Working;
 
-            Debug.Log("Madene gidiliyor!");
+                Debug.Log("İş alanına gidiliyor!");
+
+                selectedWorkerMovement = null;
+                MoveWorkerMode = false;
+            }
+            else
+            {
+                Debug.LogWarning("Uyarı: Seçilen hücre dolu veya ulaşılamıyor! Başka bir kare seçebilirsiniz.");
+            }
         }
         else
         {
-            Debug.Log("İptal: İşçi sadece maden (Ore) alanlarına gönderilebilir!");
+            Debug.Log("İptal: İşçi sadece belirlenen iş alanlarına gönderilebilir!");
+            selectedWorkerMovement = null;
+            MoveWorkerMode = false;
         }
-
-        selectedWorkerMovement = null;
-        MoveWorkerMode = false;
     }
 
     private void TryOpenWorkerUI(Vector2 mousePosition)

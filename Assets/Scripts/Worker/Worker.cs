@@ -27,20 +27,43 @@ public class Worker : MonoBehaviour, IItemSource
     [SerializeField] private float movementSpeed = 2f;
     public float MovementSpeed => movementSpeed;
     
-    [SerializeField] private int carryCapacity = 10;
+    [SerializeField] private int carryCapacity = 30;
     public int CarryCapacity => carryCapacity;
 
     private WorkerInventory workerInventory;
     public WorkerInventory Inventory => workerInventory;
+
+    private WorkerInteraction workerInteraction;
+    private WorkerMovement workerMovement;
+
+    public event System.Action OnStatusChanged;
+
+    public void NotifyStatusChanged()
+    {
+        OnStatusChanged?.Invoke();
+    }
 
     public string Status
     {
         get
         {
             if (CurrentState == WorkerState.Idle) return "Idle";
-            if (CurrentState == WorkerState.Working && workerInventory != null && workerInventory.IsFull()) return "Capacity Full";
-            if (CurrentState == WorkerState.Working) return "Working";
             if (CurrentState == WorkerState.Transporting) return "Transporting";
+
+            if (CurrentState == WorkerState.Working)
+            {
+                if (workerMovement != null && !workerMovement.HasReachedTarget)
+                    return "Moving";
+
+                if (workerInventory != null && workerInventory.IsFull())
+                    return "Capacity Full";
+
+                if (workerInteraction != null && !workerInteraction.IsInteracting)
+                    return "No Input";
+
+                return "Working";
+            }
+
             return "";
         }
     }
@@ -48,6 +71,20 @@ public class Worker : MonoBehaviour, IItemSource
     private void Awake()
     {
         workerInventory = GetComponent<WorkerInventory>();
+        workerInteraction = GetComponent<WorkerInteraction>();
+        workerMovement = GetComponent<WorkerMovement>();
+    }
+
+    public void StopWorking()
+    {
+        CurrentState = WorkerState.Idle;
+
+        if (workerMovement != null)
+        {
+            workerMovement.StopMoving();
+        }
+
+        NotifyStatusChanged();
     }
 
     public bool TryUpgradeMiningSpeed(int cost = 500, float amount = 0.5f)
@@ -80,9 +117,16 @@ public class Worker : MonoBehaviour, IItemSource
 
     public void CollectItems(Inventory targetInventory)
     {
-        if (workerInventory != null)
+        if (workerInventory != null && targetInventory is PlayerInventory playerInventory)
         {
-            //workerInventory.TransferAllItemsTo(targetInventory); baska bisey yaz suraya
+            if (workerInventory.OutputItems.Count == 0) return;
+
+            foreach (var pair in workerInventory.OutputItems)
+            {
+                playerInventory.AddItem(pair.Key, pair.Value);
+            }
+
+            workerInventory.ClearOutput();
         }
     }
 }

@@ -11,14 +11,21 @@ public class MiningArea : MonoBehaviour, IInteractable
 
     public bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount)
     {
-        item = rewardItem;
-        amount = 1;
+        item = null;
+        amount = 0;
 
-        if (inventory is WorkerInventory workerInventory && workerInventory.IsFull())
+        if (rewardItem == null) return false;
+
+        if (inventory is WorkerInventory workerInventory)
         {
-            return false; 
+            if (!workerInventory.CanAddToOutput(rewardItem))
+            {
+                return false;
+            }
         }
 
+        item = rewardItem;
+        amount = 1;
         return true;
     }
 

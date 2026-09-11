@@ -66,7 +66,7 @@ public class AssignTaskPanelUI : MonoBehaviour
     {
         if (currentWorker == null) return;
 
-        nameText.text = $"{currentWorker.Name} ({currentWorker.Level} lvl)";
+        nameText.text = $"{currentWorker.Name}";
         statusText.text = "Waiting for assignment (Idle)";
         
         levelText.text = $"({currentWorker.Level} lvl)";

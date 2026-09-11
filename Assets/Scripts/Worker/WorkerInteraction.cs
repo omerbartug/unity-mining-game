@@ -11,6 +11,7 @@ public class WorkerInteraction : MonoBehaviour
     private float timer;
     
     private bool isInteracting = false; 
+    public bool IsInteracting => isInteracting;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class WorkerInteraction : MonoBehaviour
             {
                 currentInteractable.CancelInteract(progress);
                 isInteracting = false;
+                if (worker != null) worker.NotifyStatusChanged();
             }
             
             currentInteractable = null;
@@ -46,14 +48,30 @@ public class WorkerInteraction : MonoBehaviour
 
     private void Update()
     {
+        if (worker != null && worker.CurrentState != WorkerState.Working)
+        {
+            if (isInteracting)
+            {
+                if (currentInteractable != null) currentInteractable.CancelInteract(progress);
+                timer = 0f;
+                progress.ResetProgress();
+                isInteracting = false;
+                worker.NotifyStatusChanged();
+            }
+            return;
+        }
+
         if(currentInteractable != null)
         {
-            
             if(workerMovement.HasReachedTarget && 
                currentInteractable.TryGetInteractionData(workerInventory, out ItemData item, out int amount))
             {
-                
-                isInteracting = true;
+                if (!isInteracting)
+                {
+                    isInteracting = true;
+                    if (worker != null) worker.NotifyStatusChanged();
+                }
+
                 timer += Time.deltaTime * worker.MiningSpeed;
                 progress.SetProgress(timer / currentInteractable.OperationTime);
 
@@ -62,18 +80,17 @@ public class WorkerInteraction : MonoBehaviour
                     currentInteractable.CompleteInteract(workerInventory, item, amount);
                     timer = 0f;
                     progress.ResetProgress();
-                    isInteracting = false; 
                 }
             }
             else
             {
-                
                 if (isInteracting)
                 {
                     currentInteractable.CancelInteract(progress);
                     timer = 0f;
                     progress.ResetProgress();
                     isInteracting = false;
+                    if (worker != null) worker.NotifyStatusChanged();
                 }
             }
         }
