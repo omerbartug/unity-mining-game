@@ -14,9 +14,4 @@ public class BuildingData : InventoryObject
     public Vector2Int size;
     public LayerMask placementBlockerLayer;
     public LayerMask fineLayer;
-
-
-    [Header("Production")]
-    public float productionTime;
-    public int storageCapacity;
 }

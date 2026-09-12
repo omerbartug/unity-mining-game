@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class AutoProcessor : Building
 {
-    
+    [SerializeField] private float productionTime = 2f;
+    public float ProductionTime => productionTime;
+
+    [SerializeField] private int storageCapacity = 20;
+    public int StorageCapacity => storageCapacity;
+
+    private float timer;
+    public float Progress => timer / productionTime;
 
     private Queue<ItemData> inputQueue = new Queue<ItemData>();
     public Queue<ItemData> InputQueue => inputQueue;
@@ -95,7 +102,7 @@ public class AutoProcessor : Building
     {
         timer += Time.deltaTime;
 
-        if (timer >= buildingData.productionTime)
+        if (timer >= productionTime)
         {
             ItemData output = currentItem.rewardItem;
 

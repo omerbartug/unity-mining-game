@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dbeb87e963b5430b9815f688bff7eda, type: 3}
-  m_Name: Processer
+  m_Name: Container
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  objectName: Processor
-  icon: {fileID: -8294537663432668017, guid: b5f87f99aeae94b5993120d8712cac2b, type: 3}
-  price: 700
-  buildingPrefab: {fileID: 7784863923550296478, guid: bf0a45b003f40481da6f752eca06d64e, type: 3}
-  ghostPrefab: {fileID: 4098379302802347248, guid: 2ea7e4f9e9c9b4f0d914c419b9d9bf98, type: 3}
-  size: {x: 3, y: 3}
+  objectName: Container
+  icon: {fileID: -9082660326067173623, guid: c049ffcb3d8d84bcbb765bf225c43fe2, type: 3}
+  price: 1500
+  buildingPrefab: {fileID: 5712823990251523145, guid: 2769e59cbd6a04748adf8408084772d0, type: 3}
+  ghostPrefab: {fileID: 2323391516853462129, guid: f69bb442fba384ac6bbe196289682889, type: 3}
+  size: {x: 4, y: 2}
   placementBlockerLayer:
     serializedVersion: 2
-    m_Bits: 3016
+    m_Bits: 584
   fineLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 2048

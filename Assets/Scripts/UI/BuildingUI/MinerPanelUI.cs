@@ -28,7 +28,7 @@ public class MinerPanelUI : MonoBehaviour
             return;
 
         storageText.text =
-            $"Storage : {currentMiner.StoredItemCount}/{currentMiner.Data.storageCapacity}";
+            $"Storage : {currentMiner.StoredItemCount}/{currentMiner.StorageCapacity}";
 
         if (statusText != null)
         {

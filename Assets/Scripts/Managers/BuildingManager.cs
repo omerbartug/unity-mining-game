@@ -9,6 +9,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private InventoryObject initialItem;
     [SerializeField] private InventoryObject initialItem2;
+    [SerializeField] private InventoryObject initialItem3;
     [SerializeField] private BuildingUIManager buildingUI;
     [SerializeField] private LayerMask buildingLayer;
 
@@ -31,6 +32,7 @@ public class BuildingManager : MonoBehaviour
 
         inventory.AddItem(initialItem,40);
         inventory.AddItem(initialItem2,2);
+        inventory.AddItem(initialItem3,2);
     }
 
 

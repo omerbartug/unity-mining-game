@@ -30,7 +30,7 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
             if (selectedItem != null && selectedItem is ItemData itemData && itemData.processable)
             {
                
-                if (processor.InputQueue.Count < processor.Data.storageCapacity)
+                if (processor.InputQueue.Count < processor.StorageCapacity)
                 {
                     item = itemData;
                     amount = 1;

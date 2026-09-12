@@ -4,6 +4,7 @@ public class BuildingUIManager : MonoBehaviour
 {
     [SerializeField] private MinerPanelUI minerPanel;
     [SerializeField] private ProcessorPanelUI processorPanel;
+    [SerializeField] private ContainerPanelUI containerPanel;
 
     public void Open(Building building)
     {
@@ -17,11 +18,16 @@ public class BuildingUIManager : MonoBehaviour
         {
             processorPanel.Open(processor);
         }
+        else if (building is CargoContainer container)
+        {
+            containerPanel.Open(container);
+        }
     }
 
     public void Close()
     {
-        minerPanel.Close();
-        processorPanel.Close();
+        if (minerPanel != null) minerPanel.Close();
+        if (processorPanel != null) processorPanel.Close();
+        if (containerPanel != null) containerPanel.Close();
     }
 }

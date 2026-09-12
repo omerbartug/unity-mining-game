@@ -12,9 +12,17 @@ public class PlayerInventory : Inventory
     public event Action SelectedSlotChanged;
     public event Action InventoryChanged;
 
+    public static PlayerInventory Instance { get; private set; }
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         Initialize();
     }
 

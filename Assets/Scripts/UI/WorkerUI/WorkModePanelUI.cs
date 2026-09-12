@@ -240,7 +240,7 @@ public class WorkModePanelUI : MonoBehaviour
     {
         if (!IsPlayerNearby()) return;
         if (currentInventory == null) return;
-        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        PlayerInventory playerInventory = PlayerInventory.Instance;
         if (playerInventory == null) return;
 
         InventoryObject selected = playerInventory.GetSelectedItem();
@@ -259,7 +259,7 @@ public class WorkModePanelUI : MonoBehaviour
     {
         if (!IsPlayerNearby()) return;
         if (currentInventory == null) return;
-        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        PlayerInventory playerInventory = PlayerInventory.Instance;
         if (playerInventory == null) return;
 
         if (currentInventory.InputItems.Count > 0)

@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class AutoMiner : Building
 {
-    
+    [SerializeField] private float productionTime = 2f;
+    public float ProductionTime => productionTime;
+
+    [SerializeField] private int storageCapacity = 20;
+    public int StorageCapacity => storageCapacity;
+
+    private float timer;
+    public float Progress => timer / productionTime;
 
     private int storage;
     public int StoredItemCount => storage;
@@ -12,7 +19,7 @@ public class AutoMiner : Building
         get
         {
             if (miningArea == null) return "No Ore";
-            if (storage >= buildingData.storageCapacity) return "Storage Full";
+            if (storage >= storageCapacity) return "Storage Full";
             return "Mining";
         }
     }
@@ -41,8 +48,8 @@ public class AutoMiner : Building
         if(miningArea == null) return;
         timer += Time.deltaTime;
 
-        if (timer >= buildingData.productionTime &&
-            storage < buildingData.storageCapacity)
+        if (timer >= productionTime &&
+            storage < storageCapacity)
         {
             storage++;
             timer = 0f;
