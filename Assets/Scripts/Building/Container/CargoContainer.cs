@@ -14,6 +14,16 @@ public class CargoContainer : Building
 
     public event Action OnStorageChanged;
 
+    private void OnEnable()
+    {
+        ShipmentManager.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        ShipmentManager.Unregister(this);
+    }
+
     public int GetTotalItemCount()
     {
         int total = 0;

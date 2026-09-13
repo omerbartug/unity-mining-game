@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8988901521576670513}
   - component: {fileID: 3878098383532635732}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 1674503651764362158}
   - component: {fileID: 5790136211099308669}
   - component: {fileID: 2355564199435290043}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InteractionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoProcessor
   buildingData: {fileID: 11400000, guid: af98a71c3a8e84e11beed45c9666b79d, type: 2}
   productionTime: 2
-  storageCapacity: 20
+  storageCapacity: 50
 --- !u!1 &8286333631407963737
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3474768323830600269}
   - component: {fileID: 7425411227610559973}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

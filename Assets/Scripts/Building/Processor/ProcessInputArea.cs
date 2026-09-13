@@ -38,6 +38,21 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
                 }
             }
         }
+        else if (inventory is WorkerInventory workerInventory)
+        {
+            if (processor.InputQueue.Count < processor.StorageCapacity)
+            {
+                foreach (var pair in workerInventory.InputItems)
+                {
+                    if (pair.Key is ItemData itemData && itemData.processable)
+                    {
+                        item = itemData;
+                        amount = 1;
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 

@@ -7,7 +7,7 @@ public class AutoProcessor : Building
     [SerializeField] private float productionTime = 2f;
     public float ProductionTime => productionTime;
 
-    [SerializeField] private int storageCapacity = 20;
+    [SerializeField] private int storageCapacity = 50;
     public int StorageCapacity => storageCapacity;
 
     private float timer;
