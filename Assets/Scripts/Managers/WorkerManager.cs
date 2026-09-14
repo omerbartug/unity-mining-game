@@ -46,7 +46,18 @@ public class WorkerManager : MonoBehaviour
                 Worker worker = selectedWorkerMovement.GetComponent<Worker>();
                 worker.CurrentState = WorkerState.Working;
 
-                Debug.Log("İş alanına gidiliyor!");
+                if (worker.Inventory != null && PlayerInventory.Instance != null)
+                {
+                    worker.Inventory.TransferAllToPlayer(PlayerInventory.Instance);
+                }
+
+                IInteractable interactable = hit.GetComponent<IInteractable>() ?? hit.GetComponentInParent<IInteractable>();
+                if (interactable != null)
+                {
+                    worker.CurrentWorkType = interactable.WorkType;
+                }
+
+                Debug.Log($"İş alanına gidiliyor! Görev: {worker.CurrentWorkType}");
 
                 selectedWorkerMovement = null;
                 MoveWorkerMode = false;

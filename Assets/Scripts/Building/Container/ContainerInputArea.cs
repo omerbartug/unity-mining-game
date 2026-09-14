@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ContainerInputArea : MonoBehaviour, IInteractable
 {
+    public WorkerWorkType WorkType => WorkerWorkType.Operating;
     private CargoContainer container;
 
     [SerializeField] private float firstInsertTime = 0.6f;

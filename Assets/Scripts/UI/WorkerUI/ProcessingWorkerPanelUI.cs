@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class WorkModePanelUI : MonoBehaviour
+public class ProcessingWorkerPanelUI : MonoBehaviour
 {
     [Header("Genel Bilgiler")]
     [SerializeField] private GameObject panel;
@@ -40,7 +40,7 @@ public class WorkModePanelUI : MonoBehaviour
     public void Open(Worker worker)
     {
         currentWorker = worker;
-        currentInventory = worker.Inventory;
+        currentInventory = worker != null ? worker.Inventory : null;
 
         if (currentInventory != null)
         {
@@ -110,7 +110,7 @@ public class WorkModePanelUI : MonoBehaviour
 
         currentWorker = null;
         currentInventory = null;
-        panel.SetActive(false);
+        if (panel != null) panel.SetActive(false);
     }
 
     private void RefreshGeneralStats()
@@ -153,7 +153,7 @@ public class WorkModePanelUI : MonoBehaviour
 
         if (inputTotalText != null)
         {
-            inputTotalText.text = $"{currentInventory.GetInputTotal()} / {currentWorker.CarryCapacity}";
+            inputTotalText.text = $"{currentInventory.GetInputTotal()} / {currentInventory.MaxInputCapacity}";
         }
 
         int activeCount = DisplayItems(inputIcons, inputAmounts, currentInventory.InputItems);
@@ -167,7 +167,7 @@ public class WorkModePanelUI : MonoBehaviour
 
         if (outputTotalText != null)
         {
-            outputTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentWorker.CarryCapacity}";
+            outputTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.MaxOutputCapacity}";
         }
 
         int activeCount = DisplayItems(outputIcons, outputAmounts, currentInventory.OutputItems);
@@ -289,3 +289,6 @@ public class WorkModePanelUI : MonoBehaviour
         }
     }
 }
+
+// Geriye dönük uyumluluk (Unity inspector referansı bozulmasın diye)
+public class WorkModePanelUI : ProcessingWorkerPanelUI {}

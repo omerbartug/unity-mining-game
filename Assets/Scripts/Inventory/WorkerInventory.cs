@@ -36,6 +36,40 @@ public class WorkerInventory : Inventory
         return total;
     }
 
+    public int MaxInputCapacity
+    {
+        get
+        {
+            if (workerStats == null) return 30;
+            int total = workerStats.CarryCapacity;
+            return workerStats.CurrentWorkType switch
+            {
+                WorkerWorkType.Mining => 0,
+                WorkerWorkType.Processing => total / 2,
+                WorkerWorkType.Operating => total,
+                WorkerWorkType.Transporting => 0,
+                _ => total / 2
+            };
+        }
+    }
+
+    public int MaxOutputCapacity
+    {
+        get
+        {
+            if (workerStats == null) return 30;
+            int total = workerStats.CarryCapacity;
+            return workerStats.CurrentWorkType switch
+            {
+                WorkerWorkType.Mining => total,
+                WorkerWorkType.Processing => total / 2,
+                WorkerWorkType.Operating => 0,
+                WorkerWorkType.Transporting => total,
+                _ => total / 2
+            };
+        }
+    }
+
     public int GetCapacity()
     {
         return workerStats != null ? workerStats.CarryCapacity : 30;
@@ -45,7 +79,8 @@ public class WorkerInventory : Inventory
     public bool CanAddToInput(InventoryObject item)
     {
         if (item == null) return false;
-        if (GetInputTotal() >= GetCapacity()) return false;
+        if (MaxInputCapacity <= 0) return false;
+        if (GetInputTotal() >= MaxInputCapacity) return false;
         if (!inputItems.ContainsKey(item) && inputItems.Count >= MAX_ITEM_TYPES) return false;
         return true;
     }
@@ -53,7 +88,8 @@ public class WorkerInventory : Inventory
     public bool CanAddToOutput(InventoryObject item)
     {
         if (item == null) return false;
-        if (GetOutputTotal() >= GetCapacity()) return false;
+        if (MaxOutputCapacity <= 0) return false;
+        if (GetOutputTotal() >= MaxOutputCapacity) return false;
         if (!outputItems.ContainsKey(item) && outputItems.Count >= MAX_ITEM_TYPES) return false;
         return true;
     }
@@ -63,7 +99,7 @@ public class WorkerInventory : Inventory
     {
         if (amount <= 0 || !CanAddToInput(item)) return 0;
 
-        int spaceLeft = GetCapacity() - GetInputTotal();
+        int spaceLeft = MaxInputCapacity - GetInputTotal();
         int toAdd = Mathf.Min(amount, spaceLeft);
         if (inputItems.ContainsKey(item)) inputItems[item] += toAdd;
         else inputItems.Add(item, toAdd);
@@ -96,7 +132,7 @@ public class WorkerInventory : Inventory
     {
         if (amount <= 0 || !CanAddToOutput(item)) return 0;
 
-        int spaceLeft = GetCapacity() - GetOutputTotal();
+        int spaceLeft = MaxOutputCapacity - GetOutputTotal();
         int toAdd = Mathf.Min(amount, spaceLeft);
         if (outputItems.ContainsKey(item)) outputItems[item] += toAdd;
         else outputItems.Add(item, toAdd);
@@ -125,6 +161,20 @@ public class WorkerInventory : Inventory
     }
 
     // --- LOJİSTİK VE TRANSFER ---
+    public void TransferAllToPlayer(PlayerInventory player)
+    {
+        if (player == null) return;
+
+        foreach (var pair in inputItems)
+            player.AddItem(pair.Key, pair.Value);
+
+        foreach (var pair in outputItems)
+            player.AddItem(pair.Key, pair.Value);
+
+        ClearInput();
+        ClearOutput();
+    }
+
     public int TransferToInputOf(WorkerInventory receiver, InventoryObject item)
     {
         if (receiver == null || item == null) return 0;
@@ -140,7 +190,16 @@ public class WorkerInventory : Inventory
         return actuallyAdded;
     }
 
-    public bool IsFull() => GetOutputTotal() >= GetCapacity();
+    public bool IsFull()
+    {
+        if (workerStats == null) return false;
+
+        if (workerStats.CurrentWorkType == WorkerWorkType.Operating)
+            return GetInputTotal() >= MaxInputCapacity;
+
+        return GetOutputTotal() >= MaxOutputCapacity;
+    }
+
     public int GetTotalAmount() => GetOutputTotal();
 
     public InventoryObject GetFirstItem()

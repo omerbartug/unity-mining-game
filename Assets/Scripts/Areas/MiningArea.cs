@@ -1,7 +1,8 @@
 using UnityEngine;
 public class MiningArea : MonoBehaviour, IInteractable
 {
-    
+    public WorkerWorkType WorkType => WorkerWorkType.Mining;
+
     [SerializeField] private ItemData rewardItem;
     public ItemData RewardItem => rewardItem;
 

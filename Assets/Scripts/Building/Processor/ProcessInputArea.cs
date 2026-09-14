@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ProcessorInputArea : MonoBehaviour, IInteractable
 {
+    public WorkerWorkType WorkType => WorkerWorkType.Operating;
     private AutoProcessor processor;
 
     [SerializeField] private float firstInsertTime = 0.6f;

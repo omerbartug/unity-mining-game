@@ -2,6 +2,8 @@ using UnityEngine;
 public class ProcessArea : MonoBehaviour, IInteractable
 {
 
+    public WorkerWorkType WorkType => WorkerWorkType.Processing;
+
     [SerializeField] private float operationTime = 2f;
     public float OperationTime => operationTime;
 

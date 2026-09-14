@@ -4,15 +4,15 @@ public class WorkerUIManager : MonoBehaviour
 {
     [Header("Paneller (Script Referansları)")]
     [SerializeField] private AssignTaskPanelUI assignPanel;
-    [SerializeField] private WorkModePanelUI workModePanel;
-    // [SerializeField] private TransportPanelUI transportPanel; // Taşıma moduna gelince bunu açarsın
-
+    [SerializeField] private MiningWorkerPanelUI miningPanel;
+    [SerializeField] private OperatingWorkerPanelUI operatingPanel;
+    [SerializeField] private ProcessingWorkerPanelUI processingPanel;
+    // [SerializeField] private TransportPanelUI transportPanel;
 
     public void OpenWorkerUI(Worker worker)
     {
         CloseAllPanels();
 
-        // İşçinin durumuna (State) bakıp, sadece ilgili panelin Open metodunu tetikliyoruz
         switch (worker.CurrentState)
         {
             case WorkerState.Idle:
@@ -20,21 +20,37 @@ public class WorkerUIManager : MonoBehaviour
                 break;
                 
             case WorkerState.Working:
-                if (workModePanel != null) workModePanel.Open(worker);
+                switch (worker.CurrentWorkType)
+                {
+                    case WorkerWorkType.Mining:
+                        if (miningPanel != null) miningPanel.Open(worker);
+                        break;
+
+                    case WorkerWorkType.Operating:
+                        if (operatingPanel != null) operatingPanel.Open(worker);
+                        break;
+
+                    case WorkerWorkType.Processing:
+                        if (processingPanel != null) processingPanel.Open(worker);
+                        break;
+
+                    default:
+                        if (miningPanel != null) miningPanel.Open(worker);
+                        break;
+                }
                 break;
                 
             case WorkerState.Transporting:
-                // if (transportPanel != null) transportPanel.Open(worker);
                 Debug.Log("Taşıma paneli henüz yapılmadı!");
                 break;
         }
     }
 
-    // Hem yeni panel açılırken hem de boşa tıklandığında her şeyi kapatan temizlik metodu
     public void CloseAllPanels()
     {
         if (assignPanel != null) assignPanel.Close();
-        if (workModePanel != null) workModePanel.Close();
-        // if (transportPanel != null) transportPanel.Close()
+        if (miningPanel != null) miningPanel.Close();
+        if (operatingPanel != null) operatingPanel.Close();
+        if (processingPanel != null) processingPanel.Close();
     }
 }

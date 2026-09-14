@@ -6,11 +6,23 @@ public enum WorkerState
     Working,      
     Transporting  
 }
+
+public enum WorkerWorkType
+{
+    None,
+    Mining,
+    Processing,
+    Operating,
+    Transporting
+}
+
 public class Worker : MonoBehaviour, IItemSource
 {
 
 
     public WorkerState CurrentState { get; set; } = WorkerState.Idle;
+    public WorkerWorkType CurrentWorkType { get; set; } = WorkerWorkType.None;
+    public IInteractable TargetInteractable { get; set; }
 
     [SerializeField] private string name = "";
     public string Name => name;
@@ -59,9 +71,20 @@ public class Worker : MonoBehaviour, IItemSource
                     return "Capacity Full";
 
                 if (workerInteraction != null && !workerInteraction.IsInteracting)
-                    return "No Input";
+                {
+                    if (CurrentWorkType == WorkerWorkType.Processing || CurrentWorkType == WorkerWorkType.Operating)
+                        return "No Input";
 
-                return "Working";
+                    return "Idle";
+                }
+
+                return CurrentWorkType switch
+                {
+                    WorkerWorkType.Mining => "Mining",
+                    WorkerWorkType.Processing => "Processing",
+                    WorkerWorkType.Operating => "Operating",
+                    _ => "Working"
+                };
             }
 
             return "";
@@ -78,6 +101,8 @@ public class Worker : MonoBehaviour, IItemSource
     public void StopWorking()
     {
         CurrentState = WorkerState.Idle;
+        CurrentWorkType = WorkerWorkType.None;
+        TargetInteractable = null;
 
         if (workerMovement != null)
         {
