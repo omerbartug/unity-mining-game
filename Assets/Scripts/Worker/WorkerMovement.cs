@@ -68,6 +68,15 @@ public class WorkerMovement : MonoBehaviour
         stats.NotifyStatusChanged();
     }
 
+    public void ReleaseClaim()
+    {
+        if (hasClaimedCell)
+        {
+            OccupiedCells.Remove(currentCell);
+            hasClaimedCell = false;
+        }
+    }
+
     private void Update()
     {
         if (HasReachedTarget)

@@ -70,6 +70,23 @@ public class AutoMiner : Building
             playerInventory.AddItem(miningArea.RewardItem, storage);
             storage = 0;
         }
+        else if (inventory is WorkerInventory workerInventory)
+        {
+            Worker collector = workerInventory.GetComponent<Worker>();
+
+            // KORUMA: Sadece taşıma yapan işçi makineden toplayabilir!
+            if (collector == null || collector.CurrentState != WorkerState.Transporting)
+                return;
+
+            TransportLogic logic = workerInventory.GetComponent<TransportLogic>();
+            ItemData transportItem = logic != null ? logic.TransportItem : null;
+
+            if (transportItem != null && miningArea.RewardItem != transportItem)
+                return;
+
+            int added = workerInventory.AddToOutput(miningArea.RewardItem, storage);
+            storage -= added;
+        }
     }
  
 }

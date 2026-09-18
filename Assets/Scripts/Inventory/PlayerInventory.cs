@@ -119,9 +119,6 @@ public class PlayerInventory : Inventory
     
     public void SelectSlot(int index)
     {
-        if (index == selectedSlotIndex)
-            return;
-
         selectedSlotIndex = index;
         SelectedSlotChanged?.Invoke();
     }

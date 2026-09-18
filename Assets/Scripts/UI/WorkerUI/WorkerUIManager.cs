@@ -7,7 +7,7 @@ public class WorkerUIManager : MonoBehaviour
     [SerializeField] private MiningWorkerPanelUI miningPanel;
     [SerializeField] private OperatingWorkerPanelUI operatingPanel;
     [SerializeField] private ProcessingWorkerPanelUI processingPanel;
-    // [SerializeField] private TransportPanelUI transportPanel;
+    [SerializeField] private TransportingWorkerPanelUI transportPanel;
 
     public void OpenWorkerUI(Worker worker)
     {
@@ -41,9 +41,15 @@ public class WorkerUIManager : MonoBehaviour
                 break;
                 
             case WorkerState.Transporting:
-                Debug.Log("Taşıma paneli henüz yapılmadı!");
+                if (transportPanel != null) transportPanel.Open(worker);
                 break;
         }
+    }
+
+    public void OpenTransportSetup(Worker worker)
+    {
+        CloseAllPanels();
+        if (transportPanel != null) transportPanel.OpenForSetup(worker);
     }
 
     public void CloseAllPanels()
@@ -52,5 +58,6 @@ public class WorkerUIManager : MonoBehaviour
         if (miningPanel != null) miningPanel.Close();
         if (operatingPanel != null) operatingPanel.Close();
         if (processingPanel != null) processingPanel.Close();
+        if (transportPanel != null) transportPanel.Close();
     }
 }

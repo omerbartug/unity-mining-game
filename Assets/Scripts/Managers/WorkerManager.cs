@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,8 +9,13 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] private LayerMask workableLayer;
     [SerializeField] private LayerMask workerLayer;
     [SerializeField] private WorkerUIManager uiManager;
+    [SerializeField] private RouteDrawer routeDrawer;
 
     private bool MoveWorkerMode;
+    private bool isDrawingRoute = false;
+    private Worker pendingTransportWorker;
+    private ItemData pendingTransportItem;
+
     public void SetMoveWorkerMode(bool tf)
     {
         MoveWorkerMode = tf;
@@ -17,8 +23,12 @@ public class WorkerManager : MonoBehaviour
 
     public void HandleLeftClick(Vector2 mousePosition)
     {
-
         if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        if (isDrawingRoute)
         {
             return;
         }
@@ -100,8 +110,54 @@ public class WorkerManager : MonoBehaviour
         uiManager.OpenWorkerUI(worker);
     }
 
-    
-    
+    public void SetTransportMode(Worker worker, ItemData item)
+    {
+        if (worker == null || item == null) return;
 
+        pendingTransportWorker = worker;
+        pendingTransportItem = item;
+        isDrawingRoute = true;
 
+        if (routeDrawer != null)
+        {
+            routeDrawer.StartDrawing(OnRouteCompleted, OnRouteCancelled);
+        }
+    }
+
+    private void OnRouteCompleted(List<Vector3Int> route)
+    {
+        if (pendingTransportWorker != null && pendingTransportItem != null)
+        {
+            if (pendingTransportWorker.Inventory != null && PlayerInventory.Instance != null)
+            {
+                pendingTransportWorker.Inventory.TransferAllToPlayer(PlayerInventory.Instance);
+            }
+
+            pendingTransportWorker.StartTransporting(pendingTransportItem, route);
+            Debug.Log($"{pendingTransportWorker.Name} taşıma görevine başladı! Taşınan: {pendingTransportItem.objectName}");
+        }
+
+        if (uiManager != null)
+        {
+            uiManager.CloseAllPanels();
+        }
+
+        pendingTransportWorker = null;
+        pendingTransportItem = null;
+        isDrawingRoute = false;
+    }
+
+    private void OnRouteCancelled()
+    {
+        Debug.Log("Rota çizimi iptal edildi.");
+
+        if (uiManager != null)
+        {
+            uiManager.CloseAllPanels();
+        }
+
+        pendingTransportWorker = null;
+        pendingTransportItem = null;
+        isDrawingRoute = false;
+    }
 }

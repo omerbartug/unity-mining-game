@@ -30,7 +30,7 @@ public class MiningWorkerPanelUI : MonoBehaviour
     private WorkerInventory currentInventory;
 
     public void Open(Worker worker)
-    {
+   {
         currentWorker = worker;
         currentInventory = worker != null ? worker.Inventory : null;
 

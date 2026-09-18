@@ -64,6 +64,32 @@ public class AutoProcessor : Building
             storage.Clear();
             StorageChanged?.Invoke();
         }
+        else if (inventory is WorkerInventory workerInventory)
+        {
+            Worker collector = workerInventory.GetComponent<Worker>();
+
+            // KORUMA: Sadece taşıma yapan işçi makineden toplayabilir!
+            if (collector == null || collector.CurrentState != WorkerState.Transporting)
+                return;
+
+            TransportLogic logic = workerInventory.GetComponent<TransportLogic>();
+            ItemData transportItem = logic != null ? logic.TransportItem : null;
+
+            if (transportItem == null || !storage.ContainsKey(transportItem) || storage[transportItem] <= 0)
+                return;
+
+            int available = storage[transportItem];
+            int added = workerInventory.AddToOutput(transportItem, available);
+            if (added > 0)
+            {
+                storage[transportItem] -= added;
+                if (storage[transportItem] <= 0)
+                {
+                    storage.Remove(transportItem);
+                }
+                StorageChanged?.Invoke();
+            }
+        }
     }
     
     public void AddInput(Inventory inventory, ItemData item)

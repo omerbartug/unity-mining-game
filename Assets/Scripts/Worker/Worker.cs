@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum WorkerState
 {
@@ -47,6 +48,8 @@ public class Worker : MonoBehaviour, IItemSource
 
     private WorkerInteraction workerInteraction;
     private WorkerMovement workerMovement;
+    private TransportMovement transportMovement;
+    private TransportLogic transportLogic;
 
     public event System.Action OnStatusChanged;
 
@@ -60,7 +63,12 @@ public class Worker : MonoBehaviour, IItemSource
         get
         {
             if (CurrentState == WorkerState.Idle) return "Idle";
-            if (CurrentState == WorkerState.Transporting) return "Transporting";
+            if (CurrentState == WorkerState.Transporting)
+            {
+                if (transportMovement != null && transportMovement.IsMovingToStart)
+                    return "Moving to Route";
+                return "Transporting";
+            }
 
             if (CurrentState == WorkerState.Working)
             {
@@ -96,6 +104,20 @@ public class Worker : MonoBehaviour, IItemSource
         workerInventory = GetComponent<WorkerInventory>();
         workerInteraction = GetComponent<WorkerInteraction>();
         workerMovement = GetComponent<WorkerMovement>();
+        transportMovement = GetComponent<TransportMovement>();
+        transportLogic = GetComponent<TransportLogic>();
+    }
+
+    public void StartTransporting(ItemData item, List<Vector3Int> route)
+    {
+        CurrentState = WorkerState.Transporting;
+        CurrentWorkType = WorkerWorkType.Transporting;
+
+        if (workerMovement != null) workerMovement.ReleaseClaim();
+        if (transportLogic != null) transportLogic.SetTransportItem(item);
+        if (transportMovement != null) transportMovement.SetRoute(route);
+
+        NotifyStatusChanged();
     }
 
     public void StopWorking()
@@ -142,7 +164,10 @@ public class Worker : MonoBehaviour, IItemSource
 
     public void CollectItems(Inventory targetInventory)
     {
-        if (workerInventory != null && targetInventory is PlayerInventory playerInventory)
+        if (workerInventory == null) return;
+
+        // 1. Oyuncu topluyorsa
+        if (targetInventory is PlayerInventory playerInventory)
         {
             if (workerInventory.OutputItems.Count == 0) return;
 
@@ -152,6 +177,27 @@ public class Worker : MonoBehaviour, IItemSource
             }
 
             workerInventory.ClearOutput();
+        }
+        // 2. Başka bir işçi topluyorsa
+        else if (targetInventory is WorkerInventory targetWorkerInventory)
+        {
+            Worker targetWorker = targetWorkerInventory.GetComponent<Worker>();
+
+            // KORUMA 1: Toplayan işçi kesinlikle Transporting durumunda olmalı!
+            if (targetWorker == null || targetWorker.CurrentState != WorkerState.Transporting)
+                return;
+
+            // KORUMA 2: İki transporter birbirinin item'ını alamaz!
+            if (this.CurrentState == WorkerState.Transporting)
+                return;
+
+            TransportLogic logic = targetWorkerInventory.GetComponent<TransportLogic>();
+            ItemData transportItem = logic != null ? logic.TransportItem : null;
+
+            if (transportItem != null)
+            {
+                targetWorkerInventory.TransferFromOutputOf(workerInventory, transportItem);
+            }
         }
     }
 }

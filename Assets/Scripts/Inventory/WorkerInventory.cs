@@ -190,6 +190,21 @@ public class WorkerInventory : Inventory
         return actuallyAdded;
     }
 
+    public int TransferFromOutputOf(WorkerInventory source, InventoryObject item)
+    {
+        if (source == null || item == null) return 0;
+        if (!source.OutputItems.ContainsKey(item) || source.OutputItems[item] <= 0) return 0;
+
+        int available = source.OutputItems[item];
+        int added = AddToOutput(item, available);
+        if (added > 0)
+        {
+            source.RemoveFromOutput(item, added);
+        }
+
+        return added;
+    }
+
     public bool IsFull()
     {
         if (workerStats == null) return false;

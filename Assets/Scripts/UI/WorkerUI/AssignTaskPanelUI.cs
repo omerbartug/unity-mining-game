@@ -88,7 +88,8 @@ public class AssignTaskPanelUI : MonoBehaviour
 
     private void OnTransportButtonClicked()
     {
-        Debug.Log("Taşıma sistemi daha yapılmadı aga, beklemede kal!");
+        if (currentWorker == null) return;
+        uiManager.OpenTransportSetup(currentWorker);
     }
 
     private void OnCloseButtonClicked()
