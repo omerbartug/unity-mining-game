@@ -82,6 +82,12 @@ public class WorkerInventory : Inventory
         if (MaxInputCapacity <= 0) return false;
         if (GetInputTotal() >= MaxInputCapacity) return false;
         if (!inputItems.ContainsKey(item) && inputItems.Count >= MAX_ITEM_TYPES) return false;
+
+        if (workerStats != null && workerStats.CurrentWorkType == WorkerWorkType.Processing)
+        {
+            if (item is not ItemData itemData || !itemData.processable) return false;
+        }
+
         return true;
     }
 
