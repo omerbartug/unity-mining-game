@@ -38,14 +38,15 @@ Oyuncunun satın aldığı/yerleştirdiği binaları yönetir ve otomatik üreti
 
 ### BuildingData.cs
 
-Bir building'in sahip olduğu verileri ve ayarları tutar.
+Bir building'in sahip olduğu temel verileri ve yerleştirme ayarlarını tutan `InventoryObject` türevi ScriptableObject'tir.
 
-**Responsibilities:**
-- Building fiyatını tutar. → `price`
-- Gerçek building prefabını tutar. → `buildingPrefab`
-- Ghost prefabını tutar. → `ghostPrefab`
-- Placement ayarlarını tutar. → `size`, `placementBlockerLayer`, `fineLayer`
-- Production ayarlarını tutar. → `productionTime`, `storageCapacity`
+**Sorumlulukları (Responsibilities):**
+- Bina satın alma fiyatını tutar. → `price`
+- Sahneye yerleştirilecek asıl bina prefabını tutar. → `buildingPrefab`
+- Yerleştirme önizlemesindeki hayalet prefabı tutar. → `ghostPrefab`
+- Grid yerleşim boyutunu tutar. → `size` (Vector2Int)
+- Yerleşimi engelleyen katmanları tutar. → `placementBlockerLayer`
+- Kaynak tespit katmanını tutar (örn. madenci için maden alanı). → `fineLayer`
 
 ---
 

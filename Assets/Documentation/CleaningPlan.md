@@ -1,6 +1,6 @@
 # Kod İnceleme & Dokümantasyon Planı
 
-Mining Tycoon kod tabanının tamamını sistematik, aşağıdan yukarıya doğru inceleyen kapsamlı bir yol haritası. Bu planı takip etmek sana (ve ekibe yeni katılacak herkese) her sistemin, bağımlılıklarının, bilinen sorunlarının ve optimizasyon fırsatlarının tam hakimiyetini kazandıracaktır.
+Mining Tycoon kod tabanının tamamını sistematik, aşağıdan yukarıya doğru inceleyen kapsamlı bir yol haritası. Bu planı takip etmek bana (ve ekibe yeni katılacak herkese) her sistemin, bağımlılıklarının, bilinen sorunlarının ve optimizasyon fırsatlarının tam hakimiyetini kazandıracaktır.
 
 > [!IMPORTANT]
 > **Bu plan nasıl kullanılır:** Fazları sırayla takip et. Her faz bir öncekinin üzerine inşa edilir. Her script için şunları yapacağız:
@@ -173,10 +173,10 @@ graph TD
 **Ne olduğu:** Abstract temel `ScriptableObject` — envanterde var olabilecek her şeyin (item'lar VE binalar) kök tipi.
 
 **İnceleme kontrol listesi:**
-- [ ] Sınıfı oku ve `objectName` ile `icon` alanlarını anla
-- [ ] Neden `abstract` olduğunu anla — doğrudan asla örneklenmez (instantiate edilmez)
-- [ ] Flyweight pattern'ini anla: tek bir SO asset'i tüm referanslar tarafından paylaşılır
-- [ ] Not: alanlar property olmadan `public` — kapsüllemeyi tartış
+- [x] Sınıfı oku ve `objectName` ile `icon` alanlarını anla
+- [x] Neden `abstract` olduğunu anla — doğrudan asla örneklenmez (instantiate edilmez)
+- [x] Flyweight pattern'ini anla: tek bir SO asset'i tüm referanslar tarafından paylaşılır
+- [x] Not: alanlar property olmadan `public` — kapsüllemeyi tartış
 
 **Tartışılacak bilinen sorunlar:**
 - `[field: SerializeField] public string ObjectName { get; private set; }` yerine doğrudan public alanlar kullanılmış
@@ -189,10 +189,10 @@ graph TD
 **Ne olduğu:** Somut item tanımı — ham cevherler, işlenmiş ürünler. Satış fiyatı, işlenebilirlik bayrağı ve 1:1 tarif bağlantısı (`rewardItem`) içerir.
 
 **İnceleme kontrol listesi:**
-- [ ] Her alanı oku: `sellPrice`, `sellable`, `processable`, `rewardItem`
-- [ ] Unity'de gerçek `.asset` dosyalarını aç ve verileri takip et: `rawCoal → processedCoal`, `rawGold → processedGold`, `rawDiamond → processedDiamond`
-- [ ] Kendine referans veren tarif yapısını anla: `ItemData.rewardItem` başka bir `ItemData`'ya işaret eder
-- [ ] Kısıtlamayı tartış: sadece 1:1 tarifler (1 girdi → 1 çıktı, miktar 1)
+- [x] Her alanı oku: `sellPrice`, `sellable`, `processable`, `rewardItem`
+- [x] Unity'de gerçek `.asset` dosyalarını aç ve verileri takip et: `rawCoal → processedCoal`, `rawGold → processedGold`, `rawDiamond → processedDiamond`
+- [x] Kendine referans veren tarif yapısını anla: `ItemData.rewardItem` başka bir `ItemData`'ya işaret eder
+- [x] Kısıtlamayı tartış: sadece 1:1 tarifler (1 girdi → 1 çıktı, miktar 1)
 
 **Tartışılacak bilinen sorunlar:**
 - Katı tarif modeli — çoklu girdi veya çoklu çıktı tariflerini destekleyemez
@@ -206,10 +206,10 @@ graph TD
 **Ne olduğu:** Yerleştirilebilir binaların konfigürasyonu — maliyet, prefab'lar, grid boyutu, yerleştirme kuralları.
 
 **İnceleme kontrol listesi:**
-- [ ] Her alanı oku: `price`, `buildingPrefab`, `ghostPrefab`, `size`, `placementBlockerLayer`, `fineLayer`
-- [ ] `.asset` dosyalarını aç: `Miner.asset`, `Processer.asset`, `Container.asset`
-- [ ] `fineLayer`'ı anla — `AutoMiner` tarafından overlap ile `MiningArea` collider'larını tespit etmek için kullanılır
-- [ ] Ghost/gerçek prefab ayrımını yerleştirme önizlemesi için anla
+- [x] Her alanı oku: `price`, `buildingPrefab`, `ghostPrefab`, `size`, `placementBlockerLayer`, `fineLayer`
+- [x] `.asset` dosyalarını aç: `Miner.asset`, `Processer.asset`, `Container.asset`
+- [x] `fineLayer`'ı anla — `AutoMiner` tarafından overlap ile `MiningArea` collider'larını tespit etmek için kullanılır
+- [x] Ghost/gerçek prefab ayrımını yerleştirme önizlemesi için anla
 
 **Tartışılacak bilinen sorunlar:**
 - `fineLayer` kafa karıştırıcı bir isim — `requiredResourceLayer` veya `resourceDetectionLayer` olmalı
@@ -217,8 +217,8 @@ graph TD
 - `Processer` vs `Processor` tutarsızlığı kafa karışıklığına yol açabilir
 
 **Dokümantasyon çıktısı:**
-- [ ] 3 ScriptableObject sınıfına XML doc comment'leri ekle
-- [ ] `Assets/Documentation/Building.md`'deki BuildingData bölümünü Türkçe güncelle
+- [x] 3 ScriptableObject sınıfına XML doc comment'leri ekle
+- [x] `Assets/Documentation/Building.md`'deki BuildingData bölümünü Türkçe güncelle
 
 ---
 
@@ -234,10 +234,10 @@ graph TD
 **Ne olduğu:** Zamanlı etkileşimin yaşam döngüsünü tanımlayan arayüz: doğrula → ilerleme → tamamla veya iptal et.
 
 **İnceleme kontrol listesi:**
-- [ ] Her üyeyi oku: `WorkType`, `OperationTime`, `TryGetInteractionData()`, `CompleteInteract()`, `CancelInteract()`
-- [ ] Kimin implement ettiğini takip et: `MiningArea`, `ProcessArea`, `ContainerInputArea`, `ProcessorInputArea`
-- [ ] Kimin çağırdığını takip et: `PlayerInteraction`, `WorkerInteraction`
-- [ ] Doğrulama → yürütme → iptal yaşam döngüsünü anla
+- [x] Her üyeyi oku: `WorkType`, `OperationTime`, `TryGetInteractionData()`, `CompleteInteract()`, `CancelInteract()`
+- [x] Kimin implement ettiğini takip et: `MiningArea`, `ProcessArea`, `ContainerInputArea`, `ProcessorInputArea`
+- [x] Kimin çağırdığını takip et: `PlayerInteraction`, `WorkerInteraction`
+- [x] Doğrulama → yürütme → iptal yaşam döngüsünü anla
 
 **Tartışılacak bilinen sorunlar:**
 - `CancelInteract(ProgressBar progress)` — UI tipi (`ProgressBar`) domain arayüzüne sızmış
@@ -251,9 +251,9 @@ graph TD
 **Ne olduğu:** Bir envantere item verebilen her şey için arayüz (binalar, işçiler).
 
 **İnceleme kontrol listesi:**
-- [ ] Tek metodu oku: `CollectItems(Inventory targetInventory)`
-- [ ] Kimin implement ettiğini takip et: `Building` (→ `AutoMiner`, `AutoProcessor`, `CargoContainer`), `Worker`
-- [ ] Kimin çağırdığını takip et: `CollectItem.cs`, `TransportLogic.cs`
+- [x] Tek metodu oku: `CollectItems(Inventory targetInventory)`
+- [x] Kimin implement ettiğini takip et: `Building` (→ `AutoMiner`, `AutoProcessor`, `CargoContainer`), `Worker`
+- [x] Kimin çağırdığını takip et: `CollectItem.cs`, `TransportLogic.cs`
 
 **Tartışılacak bilinen sorunlar:**
 - Implement edenler downcast yapıyor: `if (inventory is PlayerInventory)` — polimorfizmi bozuyor
@@ -266,9 +266,9 @@ graph TD
 **Ne olduğu:** Tüm envanter tipleri için abstract temel sınıf. Şu anda **tamamen boş** — paylaşılan metot veya durum yok.
 
 **İnceleme kontrol listesi:**
-- [ ] Sınıfı oku — sadece `public abstract class Inventory : MonoBehaviour { }`
-- [ ] Neden var olduğunu anla: `IItemSource.CollectItems(Inventory)` metodunun hem oyuncu hem işçiyi kabul etmesini sağlar
-- [ ] Tartış: bu bir "anemik temel sınıf" — paylaşılan hiçbir kontrat sağlamıyor
+- [x] Sınıfı oku — sadece `public abstract class Inventory : MonoBehaviour { }`
+- [x] Neden var olduğunu anla: `IItemSource.CollectItems(Inventory)` metodunun hem oyuncu hem işçiyi kabul etmesini sağlar
+- [x] Tartış: bu bir "anemik temel sınıf" — paylaşılan hiçbir kontrat sağlamıyor
 
 **Tartışılacak bilinen sorunlar:**
 - Paylaşılan `AddItem()`, `RemoveItem()`, `HasItem()` veya `CanAccept()` metotları yok
@@ -276,7 +276,7 @@ graph TD
 - Buraya paylaşılan abstract metotlar eklemek kod tabanındaki downcast'lerin %90'ını ortadan kaldırır
 
 **Dokümantasyon çıktısı:**
-- [ ] `Assets/Documentation/CoreInterfaces.md` oluştur — `IInteractable`, `IItemSource` ve `Inventory`'yi belgele
+- [x] `Assets/Documentation/CoreInterfaces.md` oluştur — `IInteractable`, `IItemSource` ve `Inventory`'yi belgele
 
 ---
 
