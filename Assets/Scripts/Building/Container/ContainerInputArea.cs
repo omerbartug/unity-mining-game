@@ -72,18 +72,7 @@ public class ContainerInputArea : MonoBehaviour, IInteractable
 
         if (container.TryAdd(item, amount))
         {
-            if (inventory is PlayerInventory playerInventory)
-            {
-                playerInventory.RemoveItem(item, amount);
-            }
-            else if (inventory is WorkerInventory workerInventory)
-            {
-                if (workerInventory.InputItems.ContainsKey(item))
-                    workerInventory.RemoveFromInput(item, amount);
-                else if (workerInventory.OutputItems.ContainsKey(item))
-                    workerInventory.RemoveFromOutput(item, amount);
-            }
-
+            inventory?.RemoveItem(item, amount);
             firstInsertDone = true;
         }
     }

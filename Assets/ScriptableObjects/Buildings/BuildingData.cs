@@ -35,7 +35,7 @@ public class BuildingData : InventoryObject
     /// <summary>
     /// Editorde yapilabilecek mantiksal hatalari denetler.
     /// </summary>
-    protected override void OnValidate()
+    protected  void OnValidate()
     {
         base.OnValidate();
 

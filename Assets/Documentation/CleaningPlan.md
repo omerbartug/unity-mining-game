@@ -292,9 +292,9 @@ graph TD
 **Ne olduğu:** Saf C# veri sınıfı — bir `InventoryObject` referansı ve yığın sayısı tutan tek bir slot.
 
 **İnceleme kontrol listesi:**
-- [ ] Oku: `Data`, `Amount`, `Clear()`, `AddAmount()`, `RemoveAmount()`, `SetItem()`
-- [ ] Kapsüllemeyi anla: private setter'lar, public metotlar
-- [ ] Not: bu bir MonoBehaviour DEĞİL — düz bir veri nesnesi
+- [x] Oku: `Data`, `Amount`, `Clear()`, `AddAmount()`, `RemoveAmount()`, `SetItem()`
+- [x] Kapsüllemeyi anla: private setter'lar, public metotlar
+- [x] Not: bu bir MonoBehaviour DEĞİL — düz bir veri nesnesi
 
 **Tartışılacak bilinen sorunlar:**
 - `RemoveAmount()`'ta negatif miktar koruması yok
@@ -309,12 +309,12 @@ graph TD
 **Ne olduğu:** Oyuncunun 8 slotluk hotbar'ını yöneten Singleton. Item ekleme, çıkarma, seçme ve değişiklik event'lerini ateşleme işlemlerini yürütür.
 
 **İnceleme kontrol listesi:**
-- [ ] `Awake()`'teki Singleton pattern'ini oku
-- [ ] `AddItem()`'ı oku — yığınlama vs. boş slot bulma mantığını anla
-- [ ] `RemoveItem()`'ı oku — tek slot araması kısıtlamasını anla
-- [ ] `GetSelectedItem()`, `SelectSlot()` — hotbar seçimini oku
-- [ ] Event'leri oku: `SelectedSlotChanged`, `InventoryChanged`
-- [ ] Bu event'leri kimin dinlediğini takip et
+- [x] `Awake()`'teki Singleton pattern'ini oku
+- [x] `AddItem()`'ı oku — yığınlama vs. boş slot bulma mantığını anla
+- [x] `RemoveItem()`'ı oku — tek slot araması kısıtlamasını anla
+- [x] `GetSelectedItem()`, `SelectSlot()` — hotbar seçimini oku
+- [x] Event'leri oku: `SelectedSlotChanged`, `InventoryChanged`
+- [x] Bu event'leri kimin dinlediğini takip et
 
 **Tartışılacak bilinen sorunlar:**
 - **Çoklu yığın hatası:** `AddItem` taşsa bile ilk eşleşen slotta durur; `RemoveItem` ve `HasItem` sadece tek bir slotu kontrol eder
@@ -329,11 +329,11 @@ graph TD
 **Ne olduğu:** İşçiler için çift tamponlu envanter (Girdi + Çıktı). Kapasite, işçinin mevcut görev türüne göre dinamik olarak hesaplanır.
 
 **İnceleme kontrol listesi:**
-- [ ] Çift dictionary tasarımını oku: `inputItems` ve `outputItems`
-- [ ] Kapasite hesaplamasını oku: `MaxInputCapacity` ve `MaxOutputCapacity` → `WorkerWorkType` üzerinden switch
-- [ ] `CanAddToInput()` / `CanAddToOutput()` — 3 item tipi limiti, kapasite kontrolü
-- [ ] Transfer metotlarını oku: `TransferAllToPlayer()`, `TransferToInputOf()`, `TransferFromOutputOf()`
-- [ ] Event'leri oku: `OnInputChanged`, `OnOutputChanged`
+- [x] Çift dictionary tasarımını oku: `inputItems` ve `outputItems`
+- [x] Kapasite hesaplamasını oku: `MaxInputCapacity` ve `MaxOutputCapacity` → `WorkerWorkType` üzerinden switch
+- [x] `CanAddToInput()` / `CanAddToOutput()` — 3 item tipi limiti, kapasite kontrolü
+- [x] Transfer metotlarını oku: `TransferAllToPlayer()`, `TransferToInputOf()`, `TransferFromOutputOf()`
+- [x] Event'leri oku: `OnInputChanged`, `OnOutputChanged`
 
 **Tartışılacak bilinen sorunlar:**
 - `InputItems` ve `OutputItems` property'leri değiştirilebilir dictionary'leri açığa çıkarıyor — `IReadOnlyDictionary` döndürmeli
@@ -341,7 +341,7 @@ graph TD
 - Kapasite hesaplaması için `Worker` bileşenine sıkı bağımlılık
 
 **Dokümantasyon çıktısı:**
-- [ ] `Assets/Documentation/Inventory.md`'yi güncelle — Türkçe yeniden yaz, WorkerInventory bölümü ekle, bağımlılık diyagramı ekle
+- [x] `Assets/Documentation/Inventory.md`'yi güncelle — Türkçe yeniden yaz, WorkerInventory bölümü ekle, bağımlılık diyagramı ekle
 
 ---
 

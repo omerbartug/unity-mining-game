@@ -58,16 +58,10 @@ public class ProcessArea : MonoBehaviour, IInteractable
 
     public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
-        if (inventory is PlayerInventory playerInventory)
-        {
-            playerInventory.RemoveItem(item, amount);
-            playerInventory.AddItem(item.rewardItem, amount);
-        }
-        else if (inventory is WorkerInventory workerInventory)
-        {
-            workerInventory.RemoveFromInput(item, amount);
-            workerInventory.AddToOutput(item.rewardItem, amount);
-        }
+        if (inventory == null || item == null) return;
+
+        inventory.RemoveItem(item, amount);
+        inventory.AddItem(item.rewardItem, amount);
     }
 
     public void CancelInteract(ProgressBar progress)

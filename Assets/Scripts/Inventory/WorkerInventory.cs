@@ -2,11 +2,16 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// İşçiler için çift hazneli (Girdi / Çıktı) envanter yönetim bileşenidir.
+/// İşçinin çalışma türüne (Madenci, İşleyici, Operatör, Taşıyıcı) göre kapasiteleri dinamik olarak dağıtır.
+/// </summary>
 public class WorkerInventory : Inventory
 {
     private const int MAX_ITEM_TYPES = 3;
 
     private Worker workerStats;
+
     public event Action OnInputChanged;
     public event Action OnOutputChanged;
 
@@ -20,6 +25,64 @@ public class WorkerInventory : Inventory
     {
         workerStats = GetComponent<Worker>();
     }
+
+    // --- ORTAK INVENTORY INTERFACE IMPLEMENTASYONU ---
+
+
+    // İşçinin mevcut görev tipine göre eşyayı kabul edip edemeyeceğini (uygun haznede yer olup olmadığını) sorgular.
+    public override bool CanAccept(InventoryObject item, int amount = 1)
+    {
+        if (item == null || amount <= 0) return false;
+        if (workerStats == null) return CanAddToOutput(item);
+
+        return workerStats.CurrentWorkType switch
+        {
+            WorkerWorkType.Operating => CanAddToInput(item),
+            WorkerWorkType.Processing => (item is ItemData itemData && itemData.processable) 
+                ? CanAddToInput(item) 
+                : CanAddToOutput(item),
+
+            _ => CanAddToOutput(item) // default
+        };
+    }
+
+
+    // İşçinin görev türüne göre eşyayı uygun hazneye (Input veya Output) ekler.
+    public override int AddItem(InventoryObject item, int amount)
+    {
+        if (item == null || amount <= 0) return 0;
+        if (workerStats == null) return AddToOutput(item, amount);
+
+        return workerStats.CurrentWorkType switch
+        {
+            WorkerWorkType.Operating => AddToInput(item, amount),
+            WorkerWorkType.Processing => (item is ItemData itemData && itemData.processable) 
+                ? AddToInput(item, amount) 
+                : AddToOutput(item, amount),
+            _ => AddToOutput(item, amount)
+        };
+    }
+
+    /// <summary>
+    /// Eşyayı işçinin envanterinden çıkarır.
+    /// Operatör işçilerde öncelikle Input'tan, diğer işçilerde ise Output'tan düşer.
+    /// </summary>
+    public override int RemoveItem(InventoryObject item, int amount)
+    {
+        if (item == null || amount <= 0) return 0;
+
+        if (workerStats != null && workerStats.CurrentWorkType == WorkerWorkType.Operating)
+        {
+            if (inputItems.ContainsKey(item)) return RemoveFromInput(item, amount);
+            if (outputItems.ContainsKey(item)) return RemoveFromOutput(item, amount);
+            return 0;
+        }
+
+        if (outputItems.ContainsKey(item)) return RemoveFromOutput(item, amount);
+        if (inputItems.ContainsKey(item)) return RemoveFromInput(item, amount);
+        return 0;
+    }
+
 
     // --- YARDIMCI METOTLAR ---
     public int GetInputTotal()
@@ -36,51 +99,51 @@ public class WorkerInventory : Inventory
         return total;
     }
 
-    public int MaxInputCapacity
+    public int InputCapacity
     {
         get
         {
             if (workerStats == null) return 30;
+
             int total = workerStats.CarryCapacity;
+
             return workerStats.CurrentWorkType switch
             {
                 WorkerWorkType.Mining => 0,
                 WorkerWorkType.Processing => total / 2,
                 WorkerWorkType.Operating => total,
                 WorkerWorkType.Transporting => 0,
-                _ => total / 2
+                _ => total / 2 // default
             };
         }
     }
 
-    public int MaxOutputCapacity
+    public int OutputCapacity
     {
         get
         {
             if (workerStats == null) return 30;
+
             int total = workerStats.CarryCapacity;
+
             return workerStats.CurrentWorkType switch
             {
                 WorkerWorkType.Mining => total,
                 WorkerWorkType.Processing => total / 2,
                 WorkerWorkType.Operating => 0,
                 WorkerWorkType.Transporting => total,
-                _ => total / 2
+                _ => total / 2 //  default
             };
         }
     }
 
-    public int GetCapacity()
-    {
-        return workerStats != null ? workerStats.CarryCapacity : 30;
-    }
 
     // --- KONTROL METOTLARI ---
     public bool CanAddToInput(InventoryObject item)
     {
         if (item == null) return false;
-        if (MaxInputCapacity <= 0) return false;
-        if (GetInputTotal() >= MaxInputCapacity) return false;
+        if (InputCapacity <= 0) return false;
+        if (GetInputTotal() >= InputCapacity) return false;
         if (!inputItems.ContainsKey(item) && inputItems.Count >= MAX_ITEM_TYPES) return false;
 
         if (workerStats != null && workerStats.CurrentWorkType == WorkerWorkType.Processing)
@@ -94,9 +157,10 @@ public class WorkerInventory : Inventory
     public bool CanAddToOutput(InventoryObject item)
     {
         if (item == null) return false;
-        if (MaxOutputCapacity <= 0) return false;
-        if (GetOutputTotal() >= MaxOutputCapacity) return false;
+        if (OutputCapacity <= 0) return false;
+        if (GetOutputTotal() >= OutputCapacity) return false;
         if (!outputItems.ContainsKey(item) && outputItems.Count >= MAX_ITEM_TYPES) return false;
+
         return true;
     }
 
@@ -105,8 +169,9 @@ public class WorkerInventory : Inventory
     {
         if (amount <= 0 || !CanAddToInput(item)) return 0;
 
-        int spaceLeft = MaxInputCapacity - GetInputTotal();
+        int spaceLeft = InputCapacity - GetInputTotal();
         int toAdd = Mathf.Min(amount, spaceLeft);
+
         if (inputItems.ContainsKey(item)) inputItems[item] += toAdd;
         else inputItems.Add(item, toAdd);
 
@@ -120,6 +185,7 @@ public class WorkerInventory : Inventory
 
         int toRemove = Mathf.Min(amount, inputItems[item]);
         inputItems[item] -= toRemove;
+
         if (inputItems[item] <= 0) inputItems.Remove(item);
 
         OnInputChanged?.Invoke();
@@ -138,8 +204,9 @@ public class WorkerInventory : Inventory
     {
         if (amount <= 0 || !CanAddToOutput(item)) return 0;
 
-        int spaceLeft = MaxOutputCapacity - GetOutputTotal();
+        int spaceLeft = OutputCapacity - GetOutputTotal();
         int toAdd = Mathf.Min(amount, spaceLeft);
+
         if (outputItems.ContainsKey(item)) outputItems[item] += toAdd;
         else outputItems.Add(item, toAdd);
 
@@ -153,6 +220,7 @@ public class WorkerInventory : Inventory
 
         int toRemove = Mathf.Min(amount, outputItems[item]);
         outputItems[item] -= toRemove;
+
         if (outputItems[item] <= 0) outputItems.Remove(item);
 
         OnOutputChanged?.Invoke();
@@ -203,6 +271,7 @@ public class WorkerInventory : Inventory
 
         int available = source.OutputItems[item];
         int added = AddToOutput(item, available);
+
         if (added > 0)
         {
             source.RemoveFromOutput(item, added);
@@ -216,9 +285,9 @@ public class WorkerInventory : Inventory
         if (workerStats == null) return false;
 
         if (workerStats.CurrentWorkType == WorkerWorkType.Operating)
-            return GetInputTotal() >= MaxInputCapacity;
+            return GetInputTotal() >= InputCapacity;
 
-        return GetOutputTotal() >= MaxOutputCapacity;
+        return GetOutputTotal() >= OutputCapacity;
     }
 
     public int GetTotalAmount() => GetOutputTotal();

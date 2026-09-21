@@ -133,7 +133,7 @@ public class OperatingWorkerPanelUI : MonoBehaviour
 
         if (inputTotalText != null)
         {
-            inputTotalText.text = $"{currentInventory.GetInputTotal()} / {currentInventory.MaxInputCapacity}";
+            inputTotalText.text = $"{currentInventory.GetInputTotal()} / {currentInventory.InputCapacity}";
         }
 
         if (inputIcon != null)

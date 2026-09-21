@@ -28,7 +28,7 @@ public class ItemData : InventoryObject
     /// <summary>
     /// Editörde veri girişi yaparken ekonomik ve mantıksal tutarsızlıkları denetler.
     /// </summary>
-    protected override void OnValidate()
+    protected  void OnValidate()
     {
         base.OnValidate();
 

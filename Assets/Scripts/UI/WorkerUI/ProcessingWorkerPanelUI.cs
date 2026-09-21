@@ -153,7 +153,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
 
         if (inputTotalText != null)
         {
-            inputTotalText.text = $"{currentInventory.GetInputTotal()} / {currentInventory.MaxInputCapacity}";
+            inputTotalText.text = $"{currentInventory.GetInputTotal()} / {currentInventory.InputCapacity}";
         }
 
         int activeCount = DisplayItems(inputIcons, inputAmounts, currentInventory.InputItems);
@@ -167,7 +167,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
 
         if (outputTotalText != null)
         {
-            outputTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.MaxOutputCapacity}";
+            outputTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.OutputCapacity}";
         }
 
         int activeCount = DisplayItems(outputIcons, outputAmounts, currentInventory.OutputItems);

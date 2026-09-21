@@ -1,77 +1,156 @@
-# Inventory System
+# Envanter Sistemi (Inventory System)
 
-> Oyuncunun sahip olduğu itemleri ve miktarlarını yönetir.
-> Inventory verinin sahibidir; UI sadece bu veriyi gösterir.
+Mining Tycoon projesinde eşyaların depolanmasını, takibini, transferini ve aktörler (Oyuncu & İşçiler) arasındaki lojistik akışını yöneten sistemdir.
 
-## System Structure
+---
 
-### Scripts
+## Sistem Mimarisi
 
-- `Inventory.cs` → Inventory verisini yönetir.
-- `InventorySlot.cs` → Tek bir slotun item ve miktar bilgisini tutar.
-- `InventoryUI.cs` → Inventory verisini ekranda gösterir ve slot seçimini yönetir.
-- `InventorySlotUI.cs` → Tek bir slotun görselini ve tıklamasını yönetir.
+Envanter sistemi, polimorfik bir `Inventory` temel sınıfı üzerine kuruludur. Oyuncu ve işçiler bu sınıfı miras alarak kendi ihtiyaçlarına uygun depolama modelini sunar.
 
-### Structure
+```mermaid
+classDiagram
+    class Inventory {
+        <<abstract>>
+        +CanAccept(InventoryObject, int) bool*
+        +AddItem(InventoryObject, int) int*
+        +RemoveItem(InventoryObject, int) int*
+        +HasItem(InventoryObject, int) bool*
+    }
 
-```text
-Inventory
-│
-├── InventorySlot[]
-│   └── Data + Amount
-│
-└── InventoryUI
-    └── InventorySlotUI[]
+    class PlayerInventory {
+        +const int SLOT_COUNT = 8
+        -InventorySlot[] slots
+        -int selectedSlotIndex
+        +static PlayerInventory Instance
+        +event Action SelectedSlotChanged
+        +event Action InventoryChanged
+        +CanAccept(InventoryObject, int) bool
+        +AddItem(InventoryObject, int) int
+        +RemoveItem(InventoryObject, int) int
+        +HasItem(InventoryObject, int) bool
+        +SelectSlot(int) void
+        +GetSelectedSlot() InventorySlot
+        +GetSelectedItem() InventoryObject
+    }
+
+    class WorkerInventory {
+        -const int MAX_ITEM_TYPES = 3
+        -Dictionary~InventoryObject, int~ inputItems
+        -Dictionary~InventoryObject, int~ outputItems
+        +event Action OnInputChanged
+        +event Action OnOutputChanged
+        +MaxInputCapacity int
+        +MaxOutputCapacity int
+        +CanAccept(InventoryObject, int) bool
+        +AddItem(InventoryObject, int) int
+        +RemoveItem(InventoryObject, int) int
+        +HasItem(InventoryObject, int) bool
+        +TransferAllToPlayer(PlayerInventory) void
+        +TransferToInputOf(WorkerInventory, InventoryObject) int
+        +TransferFromOutputOf(WorkerInventory, InventoryObject) int
+    }
+
+    class InventorySlot {
+        +InventoryObject Data
+        +int Amount
+        +bool IsEmpty
+        +CanAccept(InventoryObject, int) bool
+        +SetItem(InventoryObject) void
+        +AddAmount(int) int
+        +RemoveAmount(int) int
+        +Clear() void
+    }
+
+    Inventory <|-- PlayerInventory
+    Inventory <|-- WorkerInventory
+    PlayerInventory o-- InventorySlot : 8 Yuva
 ```
 
+---
 
-## Script Responsibilities
+## Bileşenler ve Sorumluluklar
 
-### Inventory.cs
+### 1. `Inventory.cs` (Temel Soyutlama)
+Tüm envanterlerin ortak arayüzünü tanımlayan abstract sınıftır (`MonoBehaviour`).
 
-Oyuncunun inventory verisini yönetir.
-
-**Responsibilities:**
-- 8 inventory slotunu yönetir.
-- Item ekler ve çıkarır. `AddItem()` , `RemoveItem()`
-- Oyuncunun belirli bir itema sahip olup olmadığını kontrol eder. `HasItem()`
-- Seçili itema erişim sağlar. `GetSelectedItem()` , `GetSelectedSlot()`
-- Inventory değiştiğinde UI'ın yenilenmesini sağlar. (UI referansindan Refresh() metodu ile)
+* **Sorumlulukları:**
+  * `CanAccept(item, amount)`: Envanterin bu eşyayı alıp alamayacağını doğrular.
+  * `AddItem(item, amount)`: Eşyayı envantere ekler, eklenen miktarı döner.
+  * `RemoveItem(item, amount)`: Eşyayı envanterden eksiltir, eksiltilen miktarı döner.
+* **Sağladığı Fayda:** Maden alanları (`MiningArea`), binalar (`AutoMiner`, `AutoProcessor`, `CargoContainer`) gibi dış sistemlerin oyuncu veya işçi ayrımı yapmadan (*Downcasting olmadan*) polimorfik olarak işlem yapmasını sağlar.
 
 ---
 
-### InventorySlot.cs
- 
-Tek bir inventory slotunun verisini tutar.
+### 2. `InventorySlot.cs` (Yuva Veri Sınıfı)
+Envanterdeki tek bir yuvayı temsil eden saf C# veri sınıfıdır. Kendi iç kurallarını ve tutarlılığını (*Encapsulation*) kendisi korur.
 
-**Contains:**
-- `Data` → Slotta bulunan item.
-- `Amount` → Item miktarı.
-
-**Responsibilities:**
-- O slotun itemini ve amountun gelen emirle degistirmek, metodlarin nedeni encapsulation.
-
----
-
-### InventoryUI.cs
-
-Inventory verisini gorselini yonetir ve seçili slotu yönetir.
-
-**Responsibilities:**
-- 8 adet `InventorySlotUI` oluşturur. (Awake kisminda Instantiate ediyor)
-- Inventory verisini UI'a aktarır. `Refresh()`
-- Slot seçimini yönetir. `SelectSlot()`
-- Slot secimini yonetmesinin sebebi eski secilen slotun indexini bilmesidir.
-- Inventory değiştiğinde UI'ı yeniler.
+* **Özellikleri:**
+  * `Data`: Yuvadaki eşya (`InventoryObject`).
+  * `Amount`: Yuvadaki mevcut miktar.
+  * `IsEmpty`: Slotun boş olup olmadığını (`Data == null || Amount <= 0`) bildirir.
+* **Akıllı Davranışlar:**
+  * **Otomatik Temizleme (Self-Cleaning):** `RemoveAmount(amount)` çağrıldığında miktar 0 veya altına inerse slot otomatik olarak `Clear()` çağırır.
+  * **Negatiflik Koruması:** Miktar hiçbir zaman sıfırın altına düşmez.
 
 ---
 
-### InventorySlotUI.cs
+### 3. `PlayerInventory.cs` (Oyuncu Envanteri & Hotbar)
+Oyuncunun 8 yuvalık hotbar'ını yöneten `Singleton` bileşendir.
 
-Tek bir inventory slotunun görselini yönetir.
+* **Özellikleri:**
+  * `SLOT_COUNT = 8`: Sabit yuva sayısı.
+  * `SelectedSlotChanged`: Oyuncu farklı bir slot seçtiğinde (tıklama veya klavye) tetiklenir.
+  * `InventoryChanged`: Eşya miktarı veya türü değiştiğinde UI'ı güncellemek üzere tetiklenir.
+* **Eşya Ekleme Mantığı:**
+  1. Önce aynı eşyaya sahip mevcut bir slot aranır, varsa üzerine eklenir.
+  2. Yoksa ilk boş slot (`slot.IsEmpty`) bulunup eşya oraya atanır.
+  3. Yer yoksa `0` döner ve konsola uyarı basar.
 
-**Responsibilities:**
-- Item ikonunu gösterir.
-- Item miktarını gösterir.
-- Seçili slotun border'ını gösterir.
-- Slot tıklamasını `InventoryUI`'a bildirir. `OnPointerClick()`   
+---
+
+### 4. `WorkerInventory.cs` (İşçi Envanteri)
+İşçiler için çift hazneli (**Input** ve **Output**) dinamik bir depolama sistemidir.
+
+* **Dinamik Kapasite Dağılımı (`WorkerWorkType`):**
+  * **Mining (Madencilik):** Sadece `Output` aktiftir (Çıkarılan madenler burada birikir).
+  * **Operating (Operatörlük):** Sadece `Input` aktiftir (Makinelere beslenecek hammaddeler taşınır).
+  * **Processing (İşleme):** Kapasite yarı yarıya bölünür (Input: hammadde, Output: işlenmiş ürün).
+  * **Transporting (Taşıma):** `Output` haznesinde kargo taşınır.
+* **Ortak Kontrat Uyumu:**
+  * `AddItem`: İşçinin rolüne göre eşyayı otomatik olarak doğru hazneye yönlendirir.
+  * `RemoveItem`: Operatör işçide öncelikle `Input` haznesinden, diğer işçilerde ise `Output` haznesinden eksiltir.
+* **Lojistik Metotları:**
+  * `TransferAllToPlayer(PlayerInventory)`: İşçinin tüm envanterini oyuncuya boşaltır.
+  * `TransferToInputOf(WorkerInventory, item)`: Başka bir işçinin Input haznesine eşya aktarır.
+  * `TransferFromOutputOf(WorkerInventory, item)`: Başka bir işçinin Output haznesinden eşya çeker.
+
+---
+
+## Eşya Akış Diyagramı (Lojistik Örneği)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as Oyuncu
+    participant MA as MiningArea
+    participant W as Worker (Mining)
+    participant WI as WorkerInventory
+    participant PI as PlayerInventory
+
+    Note over MA, PI: 1. Doğrudan Madencilik Akışı
+    Player->>MA: Etkileşime Gir
+    MA->>PI: CanAccept(Coal, 1) -> true
+    MA->>PI: AddItem(Coal, 1)
+    PI-->>Player: Envantere Eklendi (InventoryChanged)
+
+    Note over MA, PI: 2. İşçi Üzerinden Lojistik Akışı
+    W->>MA: Kazı Yap
+    MA->>WI: CanAccept(Coal, 1) -> true (Output haznesi)
+    MA->>WI: AddItem(Coal, 1) -> OutputItems'a eklendi
+    Player->>W: Yaklaş ve 'R'ye bas (Transfer)
+    W->>WI: TransferAllToPlayer(PI)
+    WI->>PI: AddItem(Coal, miktar)
+    WI-->>W: Hazneler Sıfırlandı
+```
+   

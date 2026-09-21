@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4a4415db11411c87e2aab2749713a, type: 3}
   m_Name: processedCoal
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  displayName: Processed Coal
+  objectName: Processed Coal
   icon: {fileID: -6956579428112251812, guid: cfed192f8ebda4724ac4b61836b94e13, type: 3}
   sellPrice: 30
   sellable: 1

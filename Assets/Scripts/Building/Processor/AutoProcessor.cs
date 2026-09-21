@@ -96,14 +96,7 @@ public class AutoProcessor : Building
     {
         inputQueue.Enqueue(item);
 
-        if (inventory is PlayerInventory playerInventory)
-        {
-            playerInventory.RemoveItem(item, 1);
-        }
-        else if (inventory is WorkerInventory workerInventory)
-        {
-            workerInventory.RemoveFromInput(item, 1);
-        }
+        inventory?.RemoveItem(item, 1);
 
         InputQueueChanged?.Invoke();
     }

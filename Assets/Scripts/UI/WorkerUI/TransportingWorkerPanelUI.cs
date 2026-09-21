@@ -200,7 +200,7 @@ public class TransportingWorkerPanelUI : MonoBehaviour
 
         if (cargoTotalText != null)
         {
-            cargoTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.MaxOutputCapacity}";
+            cargoTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.OutputCapacity}";
         }
 
         ItemData activeItem = (currentTransportLogic != null && currentTransportLogic.TransportItem != null)

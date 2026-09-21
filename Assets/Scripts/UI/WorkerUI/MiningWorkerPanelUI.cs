@@ -112,7 +112,7 @@ public class MiningWorkerPanelUI : MonoBehaviour
 
         if (outputTotalText != null)
         {
-            outputTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.MaxOutputCapacity}";
+            outputTotalText.text = $"{currentInventory.GetOutputTotal()} / {currentInventory.OutputCapacity}";
         }
 
         if (outputIcon != null)

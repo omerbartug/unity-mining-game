@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c4a4415db11411c87e2aab2749713a, type: 3}
   m_Name: processedDiamond
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  displayName: Processed Diamond
+  objectName: Processed Diamond
   icon: {fileID: 6334949773670729262, guid: cfed192f8ebda4724ac4b61836b94e13, type: 3}
   sellPrice: 500
   sellable: 1
