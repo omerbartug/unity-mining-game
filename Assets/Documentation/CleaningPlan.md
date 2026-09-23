@@ -125,13 +125,13 @@ graph TD
 | 12 | 4 | `PlayerStats` | `Assets/Scripts/Player/PlayerStats.cs` |
 | 13 | 5 | `MiningArea` | `Assets/Scripts/Areas/MiningArea.cs` |
 | 14 | 5 | `ProcessArea` | `Assets/Scripts/Areas/ProcessArea.cs` |
-| 15 | 5 | `CollectItem` | `Assets/Scripts/CollectItem.cs` |
+| 15 | 5 | `ItemOutputArea` (eski `CollectItem`) | `Assets/Scripts/Areas/ItemOutputArea.cs` |
 | 16 | 6 | `Building` | `Assets/Scripts/Building/Building.cs` |
-| 17 | 6 | `AutoMiner` | `Assets/Scripts/Building/Miner/AutoMiner.cs` |
-| 18 | 6 | `AutoProcessor` | `Assets/Scripts/Building/Processor/AutoProcessor.cs` |
-| 19 | 6 | `ProcessorInputArea` | `Assets/Scripts/Building/Processor/ProcessInputArea.cs` |
-| 20 | 6 | `CargoContainer` | `Assets/Scripts/Building/Container/CargoContainer.cs` |
-| 21 | 6 | `ContainerInputArea` | `Assets/Scripts/Building/Container/ContainerInputArea.cs` |
+| 17 | 6 | `AutoMiner` | `Assets/Scripts/Building/AutoMiner.cs` |
+| 18 | 6 | `AutoProcessor` | `Assets/Scripts/Building/AutoProcessor.cs` |
+| 19 | 6 | `ProcessorInputArea` | `Assets/Scripts/Areas/ProcessInputArea.cs` |
+| 20 | 6 | `CargoContainer` | `Assets/Scripts/Building/CargoContainer.cs` |
+| 21 | 6 | `ContainerInputArea` | `Assets/Scripts/Areas/ContainerInputArea.cs` |
 | 22 | 7 | `Node` | `Assets/Scripts/PathFinding/Node.cs` |
 | 23 | 7 | `NodeMaker` | `Assets/Scripts/PathFinding/NodeMaker.cs` |
 | 24 | 7 | `Pathfinding` | `Assets/Scripts/PathFinding/PathFinding.cs` |
@@ -357,10 +357,10 @@ graph TD
 **Ne olduğu:** Rigidbody2D ile standart 2D yukarıdan görünüm hareketi. `Update()`'te girdi toplama, `FixedUpdate()`'te fizik uygulama.
 
 **İnceleme kontrol listesi:**
-- [ ] `Update()`'teki girdi toplamayı oku — `GetAxisRaw("Horizontal")`, `GetAxisRaw("Vertical")`
-- [ ] `FixedUpdate()`'teki fiziği oku — `rb.linearVelocity` (Unity 6 API'si)
-- [ ] Sprite çevirme mantığını oku
-- [ ] `EnableMovement()` / `DisableMovement()` — etkileşimler sırasında kullanılır
+- [x] `Update()`'teki girdi toplamayı oku — `GetAxisRaw("Horizontal")`, `GetAxisRaw("Vertical")`
+- [x] `FixedUpdate()`'teki fiziği oku — `rb.linearVelocity` (Unity 6 API'si)
+- [x] Sprite çevirme mantığını oku
+- [x] `EnableMovement()` / `DisableMovement()` — etkileşimler sırasında kullanılır
 
 **Tartışılacak bilinen sorunlar:**
 - Temiz ve iyi yapılandırılmış — diğer script'ler için iyi bir referans
@@ -373,11 +373,11 @@ graph TD
 **Ne olduğu:** Oyuncunun yakınlık trigger'larını, basılı tutarak etkileşim kanallamasını ve işçi item transfer kısayollarını yöneten Singleton.
 
 **İnceleme kontrol listesi:**
-- [ ] Trigger algılamayı oku: `IInteractable` ve `Worker` için `OnTriggerEnter2D` / `OnTriggerExit2D`
-- [ ] `Update()`'teki E basılı tutma etkileşim döngüsünü oku: zamanlayıcı → ilerleme çubuğu → tamamla
-- [ ] İşçi kısayollarını oku: F = item ver, R = item'ları geri al
-- [ ] Etkileşimler sırasında hareketin devre dışı/aktif edilmesini oku
-- [ ] Event'i anla: `OnNearbyWorkerChanged`
+- [x] Trigger algılamayı oku: `IInteractable` ve `Worker` için `OnTriggerEnter2D` / `OnTriggerExit2D`
+- [x] `Update()`'teki E basılı tutma etkileşim döngüsünü oku: zamanlayıcı → ilerleme çubuğu → tamamla
+- [x] İşçi kısayollarını oku: F = item ver, R = item'ları geri al
+- [x] Etkileşimler sırasında hareketin devre dışı/aktif edilmesini oku
+- [x] Event'i anla: `OnNearbyWorkerChanged`
 
 **Tartışılacak bilinen sorunlar:**
 - **God class:** Çevre etkileşimlerini, işçi envanter kısayollarını VE debug tuşlarını (`P` ile para) tek bir script'te yönetiyor
@@ -391,9 +391,9 @@ graph TD
 **Ne olduğu:** Oyuncu parasını depolayan Singleton. Para ekleme/çıkarma metotları.
 
 **İnceleme kontrol listesi:**
-- [ ] Singleton pattern'ini oku
-- [ ] `GetPlayerMoney()`, `AddMoney()`, `RemoveMoney()` metotlarını oku
-- [ ] Kullanılmayan `operationTimer` / `PlayerTimer` alanlarını bul
+- [x] Singleton pattern'ini oku
+- [x] `GetPlayerMoney()`, `AddMoney()`, `RemoveMoney()` metotlarını oku
+- [x] Kullanılmayan `operationTimer` / `PlayerTimer` alanlarını bul
 
 **Tartışılacak bilinen sorunlar:**
 - **Ölü kod:** `operationTimer` ve `PlayerTimer` hiçbir zaman kullanılmıyor
@@ -402,7 +402,7 @@ graph TD
 - Stil: `GetPlayerMoney()` bir property olmalı → `Money { get; }`
 
 **Dokümantasyon çıktısı:**
-- [ ] 3 oyuncu script'ini kapsayan `Assets/Documentation/Player.md` oluştur
+- [x] 3 oyuncu script'ini kapsayan `Assets/Documentation/Player.md` oluştur
 
 ---
 
@@ -418,15 +418,13 @@ graph TD
 **Ne olduğu:** Bir maden düğümü. İçinde durup etkileşimi basılı tutmak, `operationTime` sonrasında `rewardItem` çıkarır.
 
 **İnceleme kontrol listesi:**
-- [ ] `TryGetInteractionData()` — oyuncu vs işçi için farklı doğrulamayı oku
-- [ ] `CompleteInteract()` — item'ları oyuncu vs işçi envanterine nasıl eklediğini oku
-- [ ] `CancelInteract()` — ilerleme çubuğu sıfırlamayı oku
-- [ ] Not: `AutoMiner` bunu `Awake()`'inde `Physics2D.OverlapBox` ile tespit eder
+- [x] `TryGetInteractionData()` — oyuncu vs işçi için farklı doğrulamayı oku
+- [x] `CompleteInteract()` — item'ları oyuncu vs işçi envanterine nasıl eklediğini oku
+- [x] `CancelInteract()` — ilerleme çubuğu sıfırlamayı oku
+- [x] Not: `AutoMiner` bunu `Awake()`'inde `Physics2D.OverlapBox` ile tespit eder
 
 **Tartışılacak bilinen sorunlar:**
-- Downcasting: `if (inventory is PlayerInventory) ... else if (inventory is WorkerInventory) ...`
-- Asimetrik doğrulama: işçi kapasitesi kontrol ediliyor, oyuncu kapasitesi kontrol EDİLMİYOR
-- Yeni bir envanter tipi eklemek bu kodun değiştirilmesini gerektirir (OCP ihlali)
+- Downcasting kaldırıldı: Doğrudan `inventory.CanAccept()` ve `inventory.AddItem()` polimorfizmi kullanılıyor.
 
 ---
 
@@ -435,34 +433,27 @@ graph TD
 **Ne olduğu:** Manuel işleme istasyonu. İşlenebilir bir item'ı tüketir ve onun `rewardItem`'ını üretir.
 
 **İnceleme kontrol listesi:**
-- [ ] `TryGetInteractionData()` — oyuncu seçili item'ı kullanır, işçi tüm girdi'leri tarar
-- [ ] `CompleteInteract()` — girdiyi çıkarır, çıktıyı ekler
-- [ ] `MiningArea` ile karşılaştır — aynı arayüz, farklı davranış
+- [x] `TryGetInteractionData()` — oyuncu seçili item'ı kullanır, işçi tüm girdi'leri tarar
+- [x] `CompleteInteract()` — girdiyi çıkarır, çıktıyı ekler
+- [x] `MiningArea` ile karşılaştır — aynı arayüz, farklı davranış
 
 **Tartışılacak bilinen sorunlar:**
-- Türkçe debug log: `"bu item islenemez"` → İngilizce olmalı
-- `MiningArea` ile aynı downcasting kalıbı
-- Oyuncu `rewardItem` için yer olup olmadığını kontrol etmeden girdiyi çıkarıyor
+- Konsol spam'i kaldırıldı (`Debug.Log` silindi).
+- Oyuncunun envanteri doluyken ödül eşyanın yok olmasını önleyen yer kontrolü eklendi.
 
 ---
 
-#### 15. [CollectItem.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/CollectItem.cs)
+#### 15. [ItemOutputArea.cs (Eski: CollectItem.cs)](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Areas/ItemOutputArea.cs)
 
-**Ne olduğu:** Binalardaki trigger alanı. Oyuncu girdiğinde `IItemSource` aracılığıyla otomatik olarak item toplar.
+**Ne olduğu:** Binalardaki çıktı tetikleme alanı. Oyuncu veya Taşıyıcı İşçi alana girdiğinde `IItemSource` aracılığıyla otomatik olarak ürünleri yükler.
 
 **İnceleme kontrol listesi:**
-- [ ] `Awake()` — üst nesnede `IItemSource` bulur
-- [ ] `OnTriggerStay2D()` — `"Player"` etiketini kontrol eder, `CollectItems()` çağırır
-- [ ] Not: `Enter` değil `Stay` kullanıyor — her fizik tick'inde ateşleniyor
-
-**Tartışılacak bilinen sorunlar:**
-- **Performans:** Trigger içindeyken her fizik tick'inde `GetComponent<Inventory>()` çağrılıyor
-- `OnTriggerStay2D` israf — `OnTriggerEnter2D` + manuel toplama düşünülmeli
-- Kodlanmış string etiket `"Player"` — kırılgan
-- İşçiler bu trigger'ı kullanamıyor (sadece oyuncu)
+- [x] `Awake()` — üst nesnede `IItemSource` bulur
+- [x] `OnTriggerStay2D()` — `"Player"` ve `"Transporting"` işçiyi algılar, `CollectItems()` çağırır
+- [x] İsimlendirme mimariye uygun olarak `ItemOutputArea` yapıldı
 
 **Dokümantasyon çıktısı:**
-- [ ] `MiningArea`, `ProcessArea`, `CollectItem`'ı kapsayan `Assets/Documentation/Areas.md` oluştur
+- [x] `MiningArea`, `ProcessArea`, `ItemOutputArea`'yı kapsayan `Assets/Documentation/Areas.md` oluşturuldu
 
 ---
 

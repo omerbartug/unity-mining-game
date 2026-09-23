@@ -15,7 +15,6 @@ classDiagram
         +CanAccept(InventoryObject, int) bool*
         +AddItem(InventoryObject, int) int*
         +RemoveItem(InventoryObject, int) int*
-        +HasItem(InventoryObject, int) bool*
     }
 
     class PlayerInventory {
@@ -28,7 +27,6 @@ classDiagram
         +CanAccept(InventoryObject, int) bool
         +AddItem(InventoryObject, int) int
         +RemoveItem(InventoryObject, int) int
-        +HasItem(InventoryObject, int) bool
         +SelectSlot(int) void
         +GetSelectedSlot() InventorySlot
         +GetSelectedItem() InventoryObject
@@ -40,12 +38,12 @@ classDiagram
         -Dictionary~InventoryObject, int~ outputItems
         +event Action OnInputChanged
         +event Action OnOutputChanged
-        +MaxInputCapacity int
-        +MaxOutputCapacity int
+        +InputCapacity int
+        +OutputCapacity int
+        +SetCapacities(int, int) void
         +CanAccept(InventoryObject, int) bool
         +AddItem(InventoryObject, int) int
         +RemoveItem(InventoryObject, int) int
-        +HasItem(InventoryObject, int) bool
         +TransferAllToPlayer(PlayerInventory) void
         +TransferToInputOf(WorkerInventory, InventoryObject) int
         +TransferFromOutputOf(WorkerInventory, InventoryObject) int
@@ -110,18 +108,20 @@ Oyuncunun 8 yuvalık hotbar'ını yöneten `Singleton` bileşendir.
 ---
 
 ### 4. `WorkerInventory.cs` (İşçi Envanteri)
-İşçiler için çift hazneli (**Input** ve **Output**) dinamik bir depolama sistemidir.
+İşçiler için çift hazneli (**Input** ve **Output**) modüler depolama sistemidir. `WorkerStats` veya `Worker` sınıfına doğrudan bağımlı değildir; hazne kapasiteleri dışarıdan yapılandırılır (**Push Modeli**).
 
-* **Dinamik Kapasite Dağılımı (`WorkerWorkType`):**
-  * **Mining (Madencilik):** Sadece `Output` aktiftir (Çıkarılan madenler burada birikir).
-  * **Operating (Operatörlük):** Sadece `Input` aktiftir (Makinelere beslenecek hammaddeler taşınır).
-  * **Processing (İşleme):** Kapasite yarı yarıya bölünür (Input: hammadde, Output: işlenmiş ürün).
-  * **Transporting (Taşıma):** `Output` haznesinde kargo taşınır.
+* **Modüler Kapasite Yapılandırması (`SetCapacities`):**
+  * `Worker` bileşeni kendi rolü değiştikçe `inventory.SetCapacities(inputCap, outputCap)` çağırarak envanteri yapılandırır:
+    * **Mining (Madencilik):** `Input: 0`, `Output: CarryCapacity` (Çıkarılan madenler çıktı haznesinde birikir).
+    * **Operating (Operatörlük):** `Input: CarryCapacity`, `Output: 0` (Makineleri beslemek üzere hammadde taşınır).
+    * **Processing (İşleme):** `Input: CarryCapacity / 2`, `Output: CarryCapacity / 2` (Girdide işlenecek hammadde, çıktıda mamul ürün).
+    * **Transporting (Taşıma):** `Input: 0`, `Output: CarryCapacity` (Lojistik rotada kargo taşınır).
 * **Ortak Kontrat Uyumu:**
-  * `AddItem`: İşçinin rolüne göre eşyayı otomatik olarak doğru hazneye yönlendirir.
-  * `RemoveItem`: Operatör işçide öncelikle `Input` haznesinden, diğer işçilerde ise `Output` haznesinden eksiltir.
+  * `CanAccept`: Girdi veya çıktı haznelerinden herhangi birine sığıp sığmadığını denetler. (İşlemci rolünde girdi sadece işlenebilir ham maddeleri kabul eder).
+  * `AddItem`: Rolün uygun haznesine eşyayı otomatik olarak ekler.
+  * `RemoveItem`: Öncelikle `Output` haznesinden, yoksa `Input` haznesinden eksiltir.
 * **Lojistik Metotları:**
-  * `TransferAllToPlayer(PlayerInventory)`: İşçinin tüm envanterini oyuncuya boşaltır.
+  * `TransferAllToPlayer(PlayerInventory)`: İşçinin tüm haznelerini oyuncuya boşaltır.
   * `TransferToInputOf(WorkerInventory, item)`: Başka bir işçinin Input haznesine eşya aktarır.
   * `TransferFromOutputOf(WorkerInventory, item)`: Başka bir işçinin Output haznesinden eşya çeker.
 

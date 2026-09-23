@@ -1,26 +1,28 @@
 using UnityEngine;
 
+// Oyuncunun dünya etkileşimlerini ve yakındaki işçilerle eşya transferini yönetir.
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private ProgressBar progress;
     [SerializeField] private PlayerMovement playerMovement;
-    
-   
+
     private IInteractable currentInteractable;
     private Worker currentNearbyWorker;
-    
-    private float timer = 0f; 
+
+    private float timer = 0f;
 
     public static PlayerInteraction Instance { get; private set; }
     public static event System.Action OnNearbyWorkerChanged;
     public Worker CurrentNearbyWorker => currentNearbyWorker;
 
+    // Singleton referansını kaydeder.
     private void Awake()
     {
         Instance = this;
     }
 
+    // Etkileşim alanlarını veya menzildeki işçileri tespit eder.
     private void OnTriggerEnter2D(Collider2D other)
     {
         IInteractable interactable = other.GetComponent<IInteractable>();
@@ -37,6 +39,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Etkileşim alanından veya işçi menzilinden çıkıldığında durumu sıfırlar.
     private void OnTriggerExit2D(Collider2D other)
     {
         IInteractable interactable = other.GetComponent<IInteractable>();
@@ -55,10 +58,25 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Her karede etkileşim ve işçi transfer mantığını kontrol eder.
     private void Update()
+    {
+        HandleInteraction();
+
+        HandleWorkerTransfer();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log(PlayerStats.Instance.GetPlayerMoney());
+        }
+    }
+
+    // E tuşuna basılı tutularak yapılan zamanlı etkileşim sürecini (kazı, işleme, doldurma) yürütür.
+    private void HandleInteraction()
     {
         if (currentInteractable != null)
         {
+            
             if (Input.GetKey(KeyCode.E) && currentInteractable.TryGetInteractionData(playerInventory, out ItemData item, out int amount))
             {
                 playerMovement.DisableMovement();
@@ -73,14 +91,18 @@ public class PlayerInteraction : MonoBehaviour
                     progress.ResetProgress();
                 }
             }
-            else
+            else if (timer > 0f) // Tuş bırakıldıysa veya etkileşim yarıda kesildiyse bir kere iptal et
             {
                 playerMovement.EnableMovement();
                 currentInteractable.CancelInteract(progress);
                 timer = 0f;
             }
         }
+    }
 
+    // F ve R tuşları ile yakındaki işçinin Input haznesine eşya verme veya geri alma işlemlerini yürütür.
+    private void HandleWorkerTransfer()
+    {
         // --- İŞÇİ İLE INPUT ETKİLEŞİMİ (F ve R) ---
         if (currentNearbyWorker != null && playerInventory != null)
         {
@@ -111,11 +133,6 @@ public class PlayerInteraction : MonoBehaviour
                     currentNearbyWorker.Inventory.ClearInput();
                 }
             }
-        }
-        
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log(PlayerStats.Instance.GetPlayerMoney());
         }
     }
 }

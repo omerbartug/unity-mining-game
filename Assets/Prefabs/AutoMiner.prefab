@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1700477289242800997}
   - component: {fileID: 5915852952210201416}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,9 +235,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoMiner
   buildingData: {fileID: 11400000, guid: c9b345c93949d4f7399890601e5f0676, type: 2}
-  placementBlockerLayer:
-    serializedVersion: 2
-    m_Bits: 72
-  oreLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  productionTime: 2
+  storageCapacity: 20

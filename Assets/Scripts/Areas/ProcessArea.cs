@@ -1,13 +1,14 @@
 using UnityEngine;
+
+// Ham maddelerin işlenerek mamul ürüne dönüştürüldüğü alandır.
 public class ProcessArea : MonoBehaviour, IInteractable
 {
-
     public WorkerWorkType WorkType => WorkerWorkType.Processing;
 
     [SerializeField] private float operationTime = 2f;
     public float OperationTime => operationTime;
 
-
+    // İşlenebilir eşya ve çıkan ürünün envantere sığıp sığmayacağını doğrular.
     public bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount)
     {
         item = null;
@@ -15,23 +16,21 @@ public class ProcessArea : MonoBehaviour, IInteractable
 
         if (inventory is PlayerInventory playerInventory)
         {
-            InventoryObject selectedItem = playerInventory.GetSelectedItem();
-
-            if (selectedItem == null)
-                return false;
+            InventorySlot selectedSlot = playerInventory.GetSelectedSlot();
+            InventoryObject selectedItem = selectedSlot?.Data;
 
             if (selectedItem is not ItemData itemData)
                 return false;
 
             if (!itemData.processable || itemData.rewardItem == null)
-            {
-                Debug.Log("bu item islenemez");
                 return false;
-            }
+
+            // Eğer mevcut slot son eşya değilse (tamamen boşalmayacaksa), çıkan ürün için yer var mı kontrol et
+            if (selectedSlot.Amount > 1 && !playerInventory.CanAccept(itemData.rewardItem, 1))
+                return false;
 
             item = itemData;
             amount = 1;
-
             return true;
         }
         else if (inventory is WorkerInventory workerInventory)
@@ -48,14 +47,12 @@ public class ProcessArea : MonoBehaviour, IInteractable
                     }
                 }
             }
-
-            return false;
         }
 
         return false;
     }
-    
 
+    // Ham maddeyi envanterden siler ve üretilen ödül eşyayı ekler.
     public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
         if (inventory == null || item == null) return;
@@ -64,9 +61,9 @@ public class ProcessArea : MonoBehaviour, IInteractable
         inventory.AddItem(item.rewardItem, amount);
     }
 
+    // Etkileşim iptal edildiğinde ilerleme çubuğunu sıfırlar.
     public void CancelInteract(ProgressBar progress)
     {
-        progress.ResetProgress();
+        progress?.ResetProgress();
     }
-    
 }

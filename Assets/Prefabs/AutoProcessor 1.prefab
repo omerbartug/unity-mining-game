@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 504116615018574805}
   - component: {fileID: 228460483884756589}
   m_Layer: 0
-  m_Name: CollectionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 5790136211099308669}
   - component: {fileID: 2355564199435290043}
   m_Layer: 12
-  m_Name: InteractionArea
+  m_Name: InputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

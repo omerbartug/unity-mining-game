@@ -22,7 +22,18 @@ public class Worker : MonoBehaviour, IItemSource
 
 
     public WorkerState CurrentState { get; set; } = WorkerState.Idle;
-    public WorkerWorkType CurrentWorkType { get; set; } = WorkerWorkType.None;
+
+    private WorkerWorkType currentWorkType = WorkerWorkType.None;
+    public WorkerWorkType CurrentWorkType
+    {
+        get => currentWorkType;
+        set
+        {
+            currentWorkType = value;
+            UpdateInventoryCapacities();
+        }
+    }
+
     public IInteractable TargetInteractable { get; set; }
 
     [SerializeField] private string name = "";
@@ -106,6 +117,34 @@ public class Worker : MonoBehaviour, IItemSource
         workerMovement = GetComponent<WorkerMovement>();
         transportMovement = GetComponent<TransportMovement>();
         transportLogic = GetComponent<TransportLogic>();
+
+        UpdateInventoryCapacities();
+    }
+
+
+    // İşçinin mevcut rolüne göre envanter hazne kapasitelerini dışarıdan belirler.
+    public void UpdateInventoryCapacities()
+    {
+        if (workerInventory == null) return;
+
+        switch (currentWorkType)
+        {
+            case WorkerWorkType.Mining:
+                workerInventory.SetCapacities(inputCap: 0, outputCap: carryCapacity);
+                break;
+            case WorkerWorkType.Processing:
+                workerInventory.SetCapacities(inputCap: carryCapacity / 2, outputCap: carryCapacity / 2);
+                break;
+            case WorkerWorkType.Operating:
+                workerInventory.SetCapacities(inputCap: carryCapacity, outputCap: 0);
+                break;
+            case WorkerWorkType.Transporting:
+                workerInventory.SetCapacities(inputCap: 0, outputCap: carryCapacity);
+                break;
+            default:
+                workerInventory.SetCapacities(inputCap: carryCapacity / 2, outputCap: carryCapacity / 2);
+                break;
+        }
     }
 
     public void StartTransporting(ItemData item, List<Vector3Int> route)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2824324163514331062}
   - component: {fileID: 1768635479920177741}
   m_Layer: 12
-  m_Name: InteractionArea
+  m_Name: InputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
