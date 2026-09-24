@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Ham maddeleri girdi kuyruğuna alıp sırayla işleyen ve mamul ürün üreten otomatik tesistir.
 public class AutoProcessor : Building
 {
     [SerializeField] private float productionTime = 2f;
@@ -11,11 +12,10 @@ public class AutoProcessor : Building
     public int StorageCapacity => storageCapacity;
 
     private float timer;
-    public float Progress => timer / productionTime;
+    public float Progress => Mathf.Clamp01(timer / productionTime);
 
     private Queue<ItemData> inputQueue = new Queue<ItemData>();
     public Queue<ItemData> InputQueue => inputQueue;
-
 
     private ItemData currentItem;
     public ItemData CurrentItem => currentItem;
@@ -37,9 +37,6 @@ public class AutoProcessor : Building
         }
     }
 
-
-
-
     private void Update()
     {
         if (currentItem == null)
@@ -51,56 +48,51 @@ public class AutoProcessor : Building
         ProcessCurrentItem();
     }
 
-
+    // Depodaki işlenmiş ürünleri alabilen envantere (Oyuncu veya Taşıyıcı İşçi) aktarır.
     public override void CollectItems(Inventory inventory)
     {
-        if (inventory is PlayerInventory playerInventory)
-        {
-            foreach (var pair in storage)
-            {
-                playerInventory.AddItem(pair.Key, pair.Value);
-            }
+        if (storage.Count == 0 || inventory == null)
+            return;
 
-            storage.Clear();
+        // Döngü sırasında sözlükten silme yapabilmek için kopyasını geziyoruz
+        var itemsToCollect = new List<KeyValuePair<ItemData, int>>(storage);
+        bool changed = false;
+
+        foreach (var pair in itemsToCollect)
+        {
+            if (inventory.CanAccept(pair.Key))
+            {
+                int added = inventory.AddItem(pair.Key, pair.Value);
+                if (added > 0)
+                {
+                    storage[pair.Key] -= added;
+                    if (storage[pair.Key] <= 0)
+                    {
+                        storage.Remove(pair.Key);
+                    }
+                    changed = true;
+                }
+            }
+        }
+
+        if (changed)
+        {
             StorageChanged?.Invoke();
         }
-        else if (inventory is WorkerInventory workerInventory)
-        {
-            Worker collector = workerInventory.GetComponent<Worker>();
-
-            // KORUMA: Sadece taşıma yapan işçi makineden toplayabilir!
-            if (collector == null || collector.CurrentState != WorkerState.Transporting)
-                return;
-
-            TransportLogic logic = workerInventory.GetComponent<TransportLogic>();
-            ItemData transportItem = logic != null ? logic.TransportItem : null;
-
-            if (transportItem == null || !storage.ContainsKey(transportItem) || storage[transportItem] <= 0)
-                return;
-
-            int available = storage[transportItem];
-            int added = workerInventory.AddToOutput(transportItem, available);
-            if (added > 0)
-            {
-                storage[transportItem] -= added;
-                if (storage[transportItem] <= 0)
-                {
-                    storage.Remove(transportItem);
-                }
-                StorageChanged?.Invoke();
-            }
-        }
     }
-    
-    public void AddInput(Inventory inventory, ItemData item)
+
+    // İşlemci kuyruğuna yeni bir ham madde ekler.
+    public void AddInput(ItemData item, int amount)
     {
-        inputQueue.Enqueue(item);
-
-        inventory?.RemoveItem(item, 1);
-
+        if (item == null) return;
+        for(int i = 0; i < amount; i++)
+        {
+            inputQueue.Enqueue(item);
+        }
         InputQueueChanged?.Invoke();
     }
 
+    // Kuyrukta bekleyen sıradaki ham maddeyi işlemeye alır.
     private void TryStartNextItem()
     {
         if (inputQueue.Count == 0)
@@ -110,13 +102,12 @@ public class AutoProcessor : Building
         }
 
         currentItem = inputQueue.Dequeue();
-
         InputQueueChanged?.Invoke();
         CurrentItemChanged?.Invoke();
-
         timer = 0f;
     }
 
+    // Mevcut ham maddenin üretim süresini ilerletir ve tamamlanınca mamul depoya atar.
     private void ProcessCurrentItem()
     {
         timer += Time.deltaTime;
@@ -125,18 +116,18 @@ public class AutoProcessor : Building
         {
             ItemData output = currentItem.rewardItem;
 
-            if (storage.ContainsKey(output))
-            {storage[output]++;}
+            if (output != null)
+            {
+                if (storage.ContainsKey(output))
+                    storage[output]++;
+                else
+                    storage.Add(output, 1);
 
-            else
-            {storage.Add(output, 1);}
-
-            StorageChanged?.Invoke();
+                StorageChanged?.Invoke();
+            }
 
             currentItem = null;
-            timer = 0;
+            timer = 0f;
         }
     }
-
-
 }

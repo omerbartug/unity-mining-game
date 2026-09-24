@@ -154,6 +154,7 @@ public class Worker : MonoBehaviour, IItemSource
 
         if (workerMovement != null) workerMovement.ReleaseClaim();
         if (transportLogic != null) transportLogic.SetTransportItem(item);
+        if (workerInventory != null) workerInventory.SetTransportFilter(item);
         if (transportMovement != null) transportMovement.SetRoute(route);
 
         NotifyStatusChanged();
@@ -168,6 +169,21 @@ public class Worker : MonoBehaviour, IItemSource
         if (workerMovement != null)
         {
             workerMovement.StopMoving();
+        }
+
+        if (transportMovement != null)
+        {
+            transportMovement.StopPatrol();
+        }
+
+        if (transportLogic != null)
+        {
+            transportLogic.ClearTransportItem();
+        }
+
+        if (workerInventory != null)
+        {
+            workerInventory.ClearTransportFilter();
         }
 
         NotifyStatusChanged();

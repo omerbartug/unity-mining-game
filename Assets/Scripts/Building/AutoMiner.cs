@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Maden alanları üzerine kurulan ve zamanla otomatik olarak maden üreten binadır.
 public class AutoMiner : Building
 {
     [SerializeField] private float productionTime = 2f;
@@ -9,7 +10,7 @@ public class AutoMiner : Building
     public int StorageCapacity => storageCapacity;
 
     private float timer;
-    public float Progress => timer / productionTime;
+    public float Progress => Mathf.Clamp01(timer / productionTime);
 
     private int storage;
     public int StoredItemCount => storage;
@@ -26,6 +27,7 @@ public class AutoMiner : Building
 
     private MiningArea miningArea;
 
+    // Altındaki maden alanını (MiningArea) Physics overlap ile tespit eder.
     private void Awake()
     {
         BoxCollider2D box = GetComponent<BoxCollider2D>();
@@ -43,50 +45,30 @@ public class AutoMiner : Building
         }
     }
 
+    // Maden varsa ve depo dolmamışsa periyodik üretim yapar.
     private void Update()
     {
-        if(miningArea == null) return;
+        if (miningArea == null || storage >= storageCapacity) return;
+
         timer += Time.deltaTime;
 
-        if (timer >= productionTime &&
-            storage < storageCapacity)
+        if (timer >= productionTime)
         {
             storage++;
             timer = 0f;
         }
     }
 
-
-
+    // Depodaki madenleri gelen envantere (Oyuncu veya Taşıyıcı İşçi) aktarır.
     public override void CollectItems(Inventory inventory)
     {
-        if (storage == 0 || miningArea == null)
-        {
+        if (storage == 0 || miningArea == null || inventory == null)
             return;
-        }
 
-        if (inventory is PlayerInventory playerInventory)
+        if (inventory.CanAccept(miningArea.RewardItem, 1))
         {
-            playerInventory.AddItem(miningArea.RewardItem, storage);
-            storage = 0;
-        }
-        else if (inventory is WorkerInventory workerInventory)
-        {
-            Worker collector = workerInventory.GetComponent<Worker>();
-
-            // KORUMA: Sadece taşıma yapan işçi makineden toplayabilir!
-            if (collector == null || collector.CurrentState != WorkerState.Transporting)
-                return;
-
-            TransportLogic logic = workerInventory.GetComponent<TransportLogic>();
-            ItemData transportItem = logic != null ? logic.TransportItem : null;
-
-            if (transportItem != null && miningArea.RewardItem != transportItem)
-                return;
-
-            int added = workerInventory.AddToOutput(miningArea.RewardItem, storage);
+            int added = inventory.AddItem(miningArea.RewardItem, storage);
             storage -= added;
         }
     }
- 
 }

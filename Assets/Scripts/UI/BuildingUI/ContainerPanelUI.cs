@@ -120,8 +120,7 @@ public class ContainerPanelUI : MonoBehaviour
     {
         if (currentContainer == null) return;
 
-        // 500 altın, +10 kapasite, max 60 limit
-        if (currentContainer.TryUpgradeCapacity(500, 10, 60))
+        if (currentContainer.TryUpgradeCapacity())
         {
             Debug.Log($"Kapasite artırıldı! Yeni Kapasite: {currentContainer.StorageCapacity}");
         }

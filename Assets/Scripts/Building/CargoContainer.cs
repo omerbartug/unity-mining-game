@@ -2,12 +2,23 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Satılabilir ürünleri depolayan ve periyodik sevkiyatlarla satışını sağlayan depolama binasıdır.
 public class CargoContainer : Building
 {
     private const int MAX_ITEM_TYPES = 3;
 
     [SerializeField] private int storageCapacity = 30;
     public int StorageCapacity => storageCapacity;
+
+    [Header("Upgrade Settings")]
+    [SerializeField] private int upgradeCost = 500;
+    [SerializeField] private int upgradeAmount = 10;
+    [SerializeField] private int maxCapacityLimit = 60;
+
+    public int UpgradeCost => upgradeCost;
+    public int UpgradeAmount => upgradeAmount;
+    public int MaxCapacityLimit => maxCapacityLimit;
+    public bool IsMaxCapacity => storageCapacity >= maxCapacityLimit;
 
     private Dictionary<ItemData, int> storedItems = new Dictionary<ItemData, int>();
     public Dictionary<ItemData, int> StoredItems => storedItems;
@@ -24,6 +35,7 @@ public class CargoContainer : Building
         ShipmentManager.Unregister(this);
     }
 
+    // Depodaki toplam eşya adedini hesaplar.
     public int GetTotalItemCount()
     {
         int total = 0;
@@ -31,6 +43,7 @@ public class CargoContainer : Building
         return total;
     }
 
+    // Belirtilen eşyanın konteynere sığıp sığmayacağını doğrular.
     public bool CanAdd(ItemData item, int amount = 1)
     {
         if (item == null || !item.sellable) return false;
@@ -42,6 +55,7 @@ public class CargoContainer : Building
         return true;
     }
 
+    // Eşyayı depoya ekler.
     public bool TryAdd(ItemData item, int amount = 1)
     {
         if (!CanAdd(item, amount)) return false;
@@ -55,6 +69,7 @@ public class CargoContainer : Building
         return true;
     }
 
+    // Sevkiyat anında tüm ürünleri satar, toplam kazancı döner ve depoyu sıfırlar.
     public int SellAndClearAll()
     {
         int totalEarnings = 0;
@@ -68,28 +83,49 @@ public class CargoContainer : Building
         return totalEarnings;
     }
 
+    // Depodaki eşyaları alabilen envantere (Oyuncu veya İşçi) kayıpsız şekilde aktarır.
     public override void CollectItems(Inventory inventory)
     {
-        if (inventory is PlayerInventory playerInventory)
+        if (storedItems.Count == 0 || inventory == null) return;
+
+        var itemsToCollect = new List<KeyValuePair<ItemData, int>>(storedItems);
+        bool changed = false;
+
+        foreach (var pair in itemsToCollect)
         {
-            if (storedItems.Count == 0) return;
-
-            foreach (var pair in storedItems)
+            if (inventory.CanAccept(pair.Key, 1))
             {
-                playerInventory.AddItem(pair.Key, pair.Value);
+                int added = inventory.AddItem(pair.Key, pair.Value);
+                if (added > 0)
+                {
+                    storedItems[pair.Key] -= added;
+                    if (storedItems[pair.Key] <= 0)
+                    {
+                        storedItems.Remove(pair.Key);
+                    }
+                    changed = true;
+                }
             }
+        }
 
-            storedItems.Clear();
+        if (changed)
+        {
             OnStorageChanged?.Invoke();
         }
     }
 
-    public bool TryUpgradeCapacity(int cost = 500, int amount = 10, int maxLimit = 60)
+    // Oyuncunun parası yeterliyse konteyner depolama kapasitesini artırır.
+    public bool TryUpgradeCapacity()
+    {
+        return TryUpgradeCapacity(upgradeCost, upgradeAmount, maxCapacityLimit);
+    }
+
+    // Dışarıdan özel parametrelerle kapasite artırımı yapmayı sağlar.
+    public bool TryUpgradeCapacity(int cost, int amount, int maxLimit)
     {
         if (storageCapacity >= maxLimit) return false;
-        if (PlayerStats.Instance.GetPlayerMoney() < cost) return false;
+        if (!PlayerStats.Instance.TrySpendMoney(cost)) return false;
 
-        PlayerStats.Instance.RemoveMoney(cost);
         storageCapacity = Mathf.Min(storageCapacity + amount, maxLimit);
         OnStorageChanged?.Invoke();
         return true;

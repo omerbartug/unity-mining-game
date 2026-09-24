@@ -1,208 +1,168 @@
-# Building System
+# Bina Sistemi (Building System)
 
-Oyuncunun satın aldığı/yerleştirdiği binaları yönetir ve otomatik üretim sisteminin temelini oluşturur.
+Mining Tycoon projesinde otomatik üretimi, işlemeyi ve depolamayı sağlayan binaları (`AutoMiner`, `AutoProcessor`, `CargoContainer`) ve bu binaların girdi/çıktı etkileşim alanlarını yöneten sistemdir.
 
-## System Structure
+---
 
-```text
-                  PlayerInputManager
-                           │
-                           ▼
-                    BuildingManager
-                           │
-                  ┌────────┴────────┐
-                  ▼                 ▼
-            BuildingData         Building
-                  │                 │
-                  │          ┌──────┴──────┐
-                  │          ▼             ▼
-                  │      AutoMiner    AutoProcessor
-                  │                         │
-                  │                         ▼
-                  │                ProcessorInputArea
-                  │
-                  └─────────────────────────────
+## Sistem Mimarisi
+
+Tüm binalar `Building` abstract temel sınıfından türemiştir ve `IItemSource` sözleşmesini uygulayarak envanterlere (oyuncu veya işçi) polimorfik olarak ürün aktarabilir.
+
+```mermaid
+classDiagram
+    class IItemSource {
+        <<interface>>
+        +CollectItems(Inventory) void
+    }
+
+    class Building {
+        <<abstract>>
+        #BuildingData buildingData
+        +BuildingData Data
+        +CollectItems(Inventory)* void
+    }
+
+    class AutoMiner {
+        -float productionTime
+        -int storageCapacity
+        -int storage
+        -MiningArea miningArea
+        +CollectItems(Inventory) void
+    }
+
+    class AutoProcessor {
+        -float productionTime
+        -int storageCapacity
+        -Queue~ItemData~ inputQueue
+        -Dictionary~ItemData, int~ storage
+        +AddInput(ItemData) void
+        +CollectItems(Inventory) void
+    }
+
+    class CargoContainer {
+        -int storageCapacity
+        -Dictionary~ItemData, int~ storedItems
+        +CanAdd(ItemData, int) bool
+        +TryAdd(ItemData, int) bool
+        +SellAndClearAll() int
+        +CollectItems(Inventory) void
+        +TryUpgradeCapacity(int, int, int) bool
+    }
+
+    class ProcessorInputArea {
+        -AutoProcessor processor
+        +TryGetInteractionData(Inventory, out ItemData, out int) bool
+        +CompleteInteract(Inventory, ItemData, int) void
+    }
+
+    class ContainerInputArea {
+        -CargoContainer container
+        +TryGetInteractionData(Inventory, out ItemData, out int) bool
+        +CompleteInteract(Inventory, ItemData, int) void
+    }
+
+    class ItemOutputArea {
+        -IItemSource itemSource
+        -OnTriggerStay2D(Collider2D) void
+    }
+
+    IItemSource <|.. Building
+    Building <|-- AutoMiner
+    Building <|-- AutoProcessor
+    Building <|-- CargoContainer
+    AutoProcessor <-- ProcessorInputArea : Ham madde besler
+    CargoContainer <-- ContainerInputArea : Satılabilir ürün besler
+    Building <-- ItemOutputArea : Ürünleri dışarı aktarır
 ```
 
-### Scripts
+---
 
-- `BuildingData.cs` → Building'in verilerini ve ayarlarını tutar.
-- `Building.cs` → Tüm building'lerin ortak temel sınıfıdır.
-- `AutoMiner.cs` → Otomatik maden üretir ve depolar.
-- `AutoProcessor.cs` → Input itemlarını sırayla işler ve output depolar.
-- `ProcessorInputArea.cs` → Oyuncunun itemları AutoProcessor'a input olarak  vermesini sağlar.
-- `BuildingManager.cs` → Building seçme, yerleştirme ve mevcut building'lere panel etkilesimini yönetir.
+## Bileşenler ve Sorumluluklar
 
-
-## Script Responsibilities
-
-### BuildingData.cs
-
-Bir building'in sahip olduğu temel verileri ve yerleştirme ayarlarını tutan `InventoryObject` türevi ScriptableObject'tir.
-
-**Sorumlulukları (Responsibilities):**
-- Bina satın alma fiyatını tutar. → `price`
-- Sahneye yerleştirilecek asıl bina prefabını tutar. → `buildingPrefab`
-- Yerleştirme önizlemesindeki hayalet prefabı tutar. → `ghostPrefab`
-- Grid yerleşim boyutunu tutar. → `size` (Vector2Int)
-- Yerleşimi engelleyen katmanları tutar. → `placementBlockerLayer`
-- Kaynak tespit katmanını tutar (örn. madenci için maden alanı). → `fineLayer`
+### 1. `BuildingData.cs` (Bina Veri Nesnesi)
+Bir binanın satın alma, yerleştirme ve prefab konfigürasyonunu tutan ScriptableObject'tir (`InventoryObject` türevidir).
+* `price`: Binanın satın alma maliyeti.
+* `buildingPrefab`: Sahneye dikilecek gerçek bina prefabı.
+* `ghostPrefab`: Yerleştirme önizlemesi sırasında fareyi takip eden yarı saydam prefab.
+* `size`: Grid üzerindeki hücre kaplama boyutu (örn: 2x2).
+* `placementBlockerLayer`: Üzerine bina dikilmesini engelleyen katmanlar.
+* `fineLayer`: Madenci binasının altındaki madeni bulmak için kullandığı kaynak algılama katmanı.
 
 ---
 
-### Building.cs
-
-Tüm building'ler için ortak temel sınıfı oluşturur.
-
-**Responsibilities:**
-- BuildingData referansını tutar. → `buildingData`
-- Production timer'ını tutar. → `timer`
-- Production progress'ini sağlar. → `Progress`
-- Alt sınıfların item toplama davranışını tanımlar. → `CollectItems()`
+### 2. `Building.cs` (Temel Soyutlama — Layer Supertype)
+Tüm binaların ortak atasıdır.
+* `Data`: Binaya ait `BuildingData` referansını dışarıya sunar.
+* `CollectItems(Inventory inventory)`: Alt sınıfların depoladıkları eşyaları bir aktörün envanterine vermesini zorunlu kılar.
 
 ---
 
-### AutoMiner.cs
-
-Bağlı olduğu MiningArea'dan otomatik olarak item üretir.
-
-**Responsibilities:**
-- Bağlı olduğu MiningArea'yı bulur. → `Awake()`
-- Üretim timer'ını yönetir. → `Update()`
-- Storage'a üretilen itemı ekler. → `Update()`
-- Biriken itemları Inventory'ye aktarır. → `CollectItems()`
+### 3. `AutoMiner.cs` (Otomatik Madenci)
+Bir `MiningArea` üzerine yerleştirilir. Zamana bağlı olarak otomatik maden kazar ve deposunda biriktirir.
+* **Üretim Döngüsü:** Altındaki madeni `Physics2D.OverlapBox` ile bulur. Depo kapasitesi (`storageCapacity`) dolana kadar her `productionTime` saniyede 1 maden üretir. Depo dolduğunda üretim sayacı durur.
+* **Kayıpsız Toplama (`CollectItems`):** Gelen envanterin kabul edip edemeyeceğini (`inventory.CanAccept`) sorgular. Ne kadar eşya eklenebildiyse (`int added = inventory.AddItem(...)`) depodan sadece o kadarını düşer.
 
 ---
 
-### AutoProcessor.cs
-
-Input itemlarını sırayla işleyerek output üretir.
-
-**Responsibilities:**
-- Input queue'sunu yönetir. → `AddInput()`
-- Sıradaki itemı işler. → `Update()`
-- Üretilen itemları storage'da tutar. → `Update()`
-- Outputları Inventory'ye aktarır. → `CollectItems()`
-- Queue değişikliğini bildirir. → `QueueChanged`
-- İşlenen item değişikliğini bildirir. → `CurrentItemChanged`
-- Output değişikliğini bildirir. → `OutputChanged`
+### 4. `AutoProcessor.cs` (Otomatik Fırın / İşlemci)
+Ham maddeleri sırayla işleyip mamul ürünlere (örn: Kömür -> İşlenmiş Kömür) dönüştürür.
+* **Kuyruk Sistemi (`inputQueue`):** Ham maddeler kuyruğa eklenir (`AddInput`).
+* **İşleme:** Kuyruktan sıradaki eşya çekilir (`currentItem`), `productionTime` süresi sonunda mamul ürünü (`rewardItem`) kendi `storage` sözlüğüne ekler.
+* **Event Odaklı:** UI'ın verimli çalışabilmesi için `InputQueueChanged`, `CurrentItemChanged`, `StorageChanged` event'lerini ateşler.
+* **Modüler `CollectItems`:** Depodaki ürünleri tek tek gezer; oyuncu veya taşıyıcı işçi hangisini alabiliyorsa sadece onu aktarır.
 
 ---
 
-### ProcessorInputArea.cs
-
-Oyuncunun seçtiği processable itemları AutoProcessor'a aktarmasını sağlar.
-
-**Responsibilities:**
-- Oyuncunun seçtiği itemı alır. → `Interact()`
-- Itemın processable olup olmadığını kontrol eder. → `Interact()`
-- Input ekleme süresini yönetir. → `Interact()`
-- Uygun itemı AutoProcessor'a gönderir. → `processor.AddInput()` (AutoProcessor prefabinin alt nesnesi olan InteractableAreanin icindedir bu metod getinparent ile hangi nesneye bagli oldugunu bulur)
-- Etkileşim bırakıldığında timer'ı sıfırlar. → `ResetInteract()`
+### 5. `ProcessorInputArea.cs` (İşlemci Giriş Alanı)
+`AutoProcessor` prefabının bir alt nesnesidir (`IInteractable`).
+* **Akıcı Aktarım:** `operationTime` (0.15s) aralıklarla eşyaları seri şekilde fırına aktarır.
+* **Güvenli Transfer:** Önce aktörün envanterinden ham madde eksiltilir, eksiltme başarılıysa fırına `processor.AddInput(item)` çağrısıyla iletilir.
 
 ---
 
-### BuildingManager.cs
-
-Building seçimini ve placement sistemini yönetir.
-
-**Responsibilities:**
-- Seçili building'i belirler. → `UpdatePlacementMode()`, `SelectBuilding()`
-- Ghost building oluşturur. → `SelectBuilding()`
-- Ghost'u grid üzerinde hareket ettirir. → `MoveGhost()`
-- Placement alanının uygunluğunu kontrol eder. → `CheckPlacement()`
-- Ghost'un rengini günceller. → `UpdateGhostColor()`
-- Gerçek building'i oluşturur. → `HandleLeftClick()`
-- Placement modunu iptal eder. → `CancelPlacementMode()`
-- Mevcut building'i seçip UI'ını açar. → `HandleLeftClick()`
- 
-
-## Dependencies
-
-### BuildingData.cs
-
-**Depends on:**
-- `InventoryObject` → BuildingData'nın inventory itemı olarak kullanılabilmesini sağlar.
-- Unity `GameObject` → Building ve ghost prefablarını tutmak için.
-- Unity `LayerMask` → Placement alanlarını tanımlamak için.
-
-**Used by:**
-- `Building`
-- `BuildingManager`
-- `AutoMiner`
-- `AutoProcessor`
+### 6. `CargoContainer.cs` (Kargo Konteyneri)
+Satılabilir ürünlerin depolandığı ve sevkiyat gemisi geldiğinde topluca satıldığı binadır.
+* **3 Eşya Türü Limiti:** En fazla 3 farklı çeşit satılabilir ürün depolayabilir (`MAX_ITEM_TYPES = 3`).
+* **Sevkiyat Entegrasyonu:** `OnEnable` ile `ShipmentManager`'a kendini kaydeder. Gemi geldiğinde `SellAndClearAll()` çağrılır; toplam para hesaplanıp depodaki ürünler sıfırlanır.
+* **Kapasite Yükseltme (`TryUpgradeCapacity`):** `PlayerStats.Instance.TrySpendMoney(cost)` ile oyuncunun parasını kontrol edip güvenle kapasitesini artırır.
 
 ---
 
-### Building.cs
-
-**Depends on:**
-- `BuildingData` → Building'in verilerine erişmek için.
-- `Inventory` → `CollectItems()` aracılığıyla itemları inventory'ye aktarmak için.
-
-**Used by:**
-- `AutoMiner`
-- `AutoProcessor`
-- `BuildingManager`
+### 7. `ContainerInputArea.cs` (Konteyner Giriş Alanı)
+`CargoContainer` prefabının alt nesnesidir (`IInteractable`).
+* Oyuncunun elindeki veya operatör işçinin çantasındaki satılabilir mamul ürünleri konteynere hızlıca aktarır.
 
 ---
 
-### AutoMiner.cs
+## Malzeme Akış Diyagramı (Production & Logistics Lifecycle)
 
-**Depends on:**
-- `Building` → Ortak building davranışını almak için.
-- `BuildingData` → Production ve storage ayarlarını almak için.
-- `MiningArea` → Üretilecek `RewardItem`ı bulmak için.
-- `Inventory` → Üretilen itemları oyuncuya vermek için.
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as Oyuncu / Taşıyıcı İşçi
+    participant AM as AutoMiner
+    participant PIA as ProcessorInputArea
+    participant AP as AutoProcessor
+    participant CIA as ContainerInputArea
+    participant CC as CargoContainer
+    participant SM as ShipmentManager
 
-**Used by:**
-- `BuildingManager`
-- Building interaction systems
+    Note over AM: 1. Pasif Madencilik
+    AM->>AM: Cevher Üret -> Depoda Biriktir
+    Player->>AM: Çıkış Alanına Adım At
+    AM->>Player: CollectItems -> Ham Maddeyi Sırtla
 
----
+    Note over PIA, AP: 2. İşleme Fabrikası
+    Player->>PIA: Fırına Yaklaş ve E'ye Bas
+    PIA->>Player: RemoveItem(Ham Madde)
+    PIA->>AP: AddInput(Ham Madde)
+    AP->>AP: İşle -> Mamul Ürün Üret
+    Player->>AP: Çıkış Alanından Mamul Ürünü Al (CollectItems)
 
-### AutoProcessor.cs
-
-**Depends on:**
-- `Building` → Ortak building davranışını almak için.
-- `BuildingData` → Production ve storage ayarlarını almak için.
-- `ItemData` → Input ve output itemlarını yönetmek için.
-- `Inventory` → Input almak ve output vermek için.
-- `ProcessorInputArea` → Oyuncudan input almak için.
-
-**Used by:**
-- `ProcessorInputArea`
-- `BuildingManager`
-- Processor UI
-
----
-
-### ProcessorInputArea.cs
-
-**Depends on:**
-- `AutoProcessor` → Input itemlarını processor'a göndermek için.
-- `Inventory` → Oyuncunun seçtiği itemı almak için.
-- `ItemData` → Itemın processable olup olmadığını kontrol etmek için.
-- `ProgressBar` → Input işleminin ilerlemesini göstermek için.
-
-**Used by:**
-- `AutoProcessor`
-- Player interaction system
-
----
-
-### BuildingManager.cs
-
-**Depends on:**
-- `Grid` → Building'i grid üzerine yerleştirmek için.
-- `Inventory` → Seçili building'i almak ve yerleştirilen building'i inventory'den çıkarmak için.
-- `BuildingData` → Placement ve prefab bilgilerine erişmek için.
-- `BuildingUIManager` → Building UI'ını açıp kapatmak için.
-- `Building` → Sahnedeki mevcut building'i bulmak için.
-
-**Used by:**
-- `PlayerInputManager`
-- Building UI / player interaction systems
-- `PlayerInputManager` → Mouse click inputunu BuildingManager'a iletir.
-
-
+    Note over CIA, CC: 3. Depolama & Satış
+    Player->>CIA: Konteynere Yaklaş ve E'ye Bas
+    CIA->>Player: RemoveItem(Mamul Ürün)
+    CIA->>CC: TryAdd(Mamul Ürün)
+    SM->>CC: Sevkiyat Zamanı Geldi -> SellAndClearAll()
+    CC-->>Player: Kasaya Para Eklendi (PlayerStats)
+```

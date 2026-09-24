@@ -469,99 +469,71 @@ graph TD
 **Ne olduğu:** Tüm binalar için abstract temel sınıf. `BuildingData`'ya bağlar ve `IItemSource`'u zorunlu kılar.
 
 **İnceleme kontrol listesi:**
-- [ ] Sınıfı oku: `buildingData` alanı, `Data` property'si, abstract `CollectItems()`
-- [ ] Anla: bu "Layer Supertype" pattern'i — tüm bina tipleri için paylaşılan temel
-- [ ] Not: çok minimal — ortak yaşam döngüsü kancaları (init, destroy callback'leri) yok
+- [x] Sınıfı oku: `buildingData` alanı, `Data` property'si, abstract `CollectItems()`
+- [x] Anla: bu "Layer Supertype" pattern'i — tüm bina tipleri için paylaşılan temel
+- [x] Sade satır içi `//` açıklamaları eklendi
 
 ---
 
-#### 17. [AutoMiner.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/Miner/AutoMiner.cs)
+#### 17. [AutoMiner.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/AutoMiner.cs)
 
 **Ne olduğu:** Bir `MiningArea` üzerine yerleştirilir, zamanlayıcıyla pasif olarak cevher çıkarır ve depolar.
 
 **İnceleme kontrol listesi:**
-- [ ] `Awake()` — altındaki `MiningArea`'yı bulmak için `Physics2D.OverlapBox` kullanır
-- [ ] `Update()` — zamanlayıcı tabanlı üretim, depolama kapasitesi kontrolü
-- [ ] `CollectItems()` — oyuncu hepsini alır, işçi transport item'ına göre filtrelenir
-- [ ] `Progress`, `Status`, `StoredItemCount` property'lerini oku
-
-**Tartışılacak bilinen sorunlar:**
-- Kırılgan `Awake()` — collider'lar henüz kayıt olmadıysa overlap başarısız olur
-- `Update()` depolama doluyken bile her karede zamanlayıcıyı çalıştırıyor — israf
-- `CollectItems()` işçi iç yapısına derinlemesine erişiyor: `GetComponent<Worker>()`, `CurrentState` kontrol ediyor, `TransportLogic` sorguluyor
+- [x] `Awake()` — altındaki `MiningArea`'yı bulmak için `Physics2D.OverlapBox` kullanır
+- [x] `Update()` — zamanlayıcı tabanlı üretim, depolama kapasitesi kontrolü
+- [x] `CollectItems()` — polimorfik `CanAccept` ve `AddItem` ile kayıpsız aktarır
+- [x] Depo doluyken sayacın sonsuza gitmesi düzeltildi
 
 ---
 
-#### 18. [AutoProcessor.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/Processor/AutoProcessor.cs)
+#### 18. [AutoProcessor.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/AutoProcessor.cs)
 
 **Ne olduğu:** Kuyruk tabanlı işleme binası. Item'lar `inputQueue`'ya girer, birer birer işlenir, çıktı `storage`'a gider.
 
 **İnceleme kontrol listesi:**
-- [ ] Kuyruk sistemini oku: `inputQueue`, `currentItem`, `storage` dictionary'si
-- [ ] `AddInput()` — kuyruğa ekler, envanterden çıkarır
-- [ ] `Update()` — kuyruktan çıkar → zamanlayıcı → üret → depola
-- [ ] 3 event'in hepsini oku: `InputQueueChanged`, `CurrentItemChanged`, `StorageChanged`
-- [ ] `CollectItems()` — AutoMiner ile aynı oyuncu/işçi ayrımı
-
-**Tartışılacak bilinen sorunlar:**
-- `InputQueue` ve `Storage` değiştirilebilir koleksiyonları doğrudan açığa çıkarıyor
-- `storageCapacity` GİRDİ kuyruğu için kontrol ediliyor ama ÇIKTI deposunun limiti yok
-- AutoMiner ile aynı derin işçi bağımlılığı
+- [x] Kuyruk sistemini oku: `inputQueue`, `currentItem`, `storage` dictionary'si
+- [x] `AddInput(item)` — kuyruğa ekler, envanterden bağımsızlaştırıldı
+- [x] `Update()` — kuyruktan çıkar → zamanlayıcı → üret → depola
+- [x] `CollectItems()` — `storage.Clear()` eşya silinme hatası çözüldü, modüler `CanAccept` yapısına geçildi
 
 ---
 
-#### 19. [ProcessorInputArea (ProcessInputArea.cs)](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/Processor/ProcessInputArea.cs)
+#### 19. [ProcessorInputArea (ProcessInputArea.cs)](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Areas/ProcessInputArea.cs)
 
 **Ne olduğu:** `AutoProcessor`'a item eklemek için etkileşim bölgesi. Hızlı tekrar zamanlaması (ilk 0.6s, tekrar 0.15s).
 
 **İnceleme kontrol listesi:**
-- [ ] Hızlı tekrar mekanizmasını oku: `firstInsertTime` vs `repeatInsertTime`
-- [ ] `TryGetInteractionData()` — `InputQueue.Count`'a karşı kapasite kontrolü
-- [ ] `CompleteInteract()` — `processor.AddInput()` çağırır
-- [ ] Not: **dosya adı/sınıf adı uyuşmazlığı** — dosya `ProcessInputArea.cs`, sınıf `ProcessorInputArea`
-
-**Tartışılacak bilinen sorunlar:**
-- **Dosya/sınıf adı uyuşmazlığı** — dosya `ProcessorInputArea.cs` olarak yeniden adlandırılmalı
-- Sadece `processable` kontrol ediyor ama `rewardItem != null` kontrol ETMİYOR
-- `firstInsertDone` bileşen başına, aktör başına değil — birden fazla etkileşimci arasında paylaşılıyor
+- [x] Hızlı tekrar mekanizmasını oku: `firstInsertTime` vs `repeatInsertTime`
+- [x] `TryGetInteractionData()` — `InputQueue.Count`'a karşı kapasite kontrolü
+- [x] `CompleteInteract()` — `IInteractable` arayüzüne uyumlu hale getirildi, güvenli eksiltme eklendi
 
 ---
 
-#### 20. [CargoContainer.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/Container/CargoContainer.cs)
+#### 20. [CargoContainer.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/CargoContainer.cs)
 
 **Ne olduğu:** Satılabilir ürünler için depolama binası. Maksimum 3 item tipi, periyodik satışlar için `ShipmentManager`'a kayıt olur.
 
 **İnceleme kontrol listesi:**
-- [ ] Depolamayı oku: `storedItems` dictionary'si, `MAX_ITEM_TYPES = 3`
-- [ ] `CanAdd()` / `TryAdd()` — satılabilirlik kontrolü, tip limiti, kapasite kontrolü
-- [ ] `SellAndClearAll()` — kazancı hesaplar, temizler, event ateşler
-- [ ] `OnEnable()` / `OnDisable()` — `ShipmentManager`'a kendini kayıt/kayıttan çıkarma
-- [ ] `TryUpgradeCapacity()` — varsayılan parametrelerde kodlanmış ekonomi değerleri
-
-**Tartışılacak bilinen sorunlar:**
-- `StoredItems` değiştirilebilir dictionary döndürüyor — `IReadOnlyDictionary` olmalı
-- `TryUpgradeCapacity(cost = 500, amount = 10, maxLimit = 60)` içinde sihirli sayılar
-- `CollectItems()` sadece oyuncu için çalışıyor, işçileri yok sayıyor
+- [x] Depolamayı oku: `storedItems` dictionary'si, `MAX_ITEM_TYPES = 3`
+- [x] `CanAdd()` / `TryAdd()` — satılabilirlik kontrolü, tip limiti, kapasite kontrolü
+- [x] `SellAndClearAll()` — kazancı hesaplar, temizler, event ateşler
+- [x] `CollectItems()` — `storedItems.Clear()` eşya kaybı çözüldü, kayıpsız aktarıma geçildi
+- [x] `TryUpgradeCapacity()` — `PlayerStats.Instance.TrySpendMoney` ile entegre edildi
 
 ---
 
-#### 21. [ContainerInputArea.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Building/Container/ContainerInputArea.cs)
+#### 21. [ContainerInputArea.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/Areas/ContainerInputArea.cs)
 
 **Ne olduğu:** Satılabilir item'ları `CargoContainer`'a yatırmak için etkileşim bölgesi. Aynı hızlı tekrar mekanizması.
 
 **İnceleme kontrol listesi:**
-- [ ] `TryGetInteractionData()` — oyuncu vs işçi item seçimini oku
-- [ ] `CompleteInteract()` — `container.TryAdd()` sonra envanterden çıkar
-- [ ] `ProcessorInputArea` ile karşılaştır — çok benzer kalıp
-
-**Tartışılacak bilinen sorunlar:**
-- `GetComponentInParent<CargoContainer>()` — hiyerarşi değişirse sessiz başarısızlık
-- Aynı `firstInsertDone` paylaşılan durum sorunu
-- Aynı downcasting kalıbı
+- [x] `TryGetInteractionData()` — oyuncu vs işçi item seçimini oku
+- [x] `CompleteInteract()` — güvenli işlem sıralaması (CanAdd -> RemoveItem -> TryAdd) eklendi
 
 **Dokümantasyon çıktısı:**
-- [ ] `Assets/Documentation/Building.md`'yi tamamen Türkçe yeniden yaz
-- [ ] Container ve InputArea bölümlerini ekle
+- [x] `Assets/Documentation/Building.md`'yi tamamen Türkçe yeniden yaz
+- [x] Container ve InputArea bölümlerini ekle
 
 ---
 

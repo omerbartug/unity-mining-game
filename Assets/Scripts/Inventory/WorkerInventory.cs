@@ -25,7 +25,9 @@ public class WorkerInventory : Inventory
     public int InputCapacity => inputCapacity;
     public int OutputCapacity => outputCapacity;
 
-  
+    private ItemData transportFilterItem;
+    public ItemData TransportFilterItem => transportFilterItem;
+
     // Envanterin girdi ve çıktı hazne kapasitelerini günceller
     public void SetCapacities(int inputCap, int outputCap)
     {
@@ -35,18 +37,35 @@ public class WorkerInventory : Inventory
         OnOutputChanged?.Invoke();
     }
 
+    // Taşıyıcı modunda sadece seçili eşyanın kabul edilmesini sağlar
+    public void SetTransportFilter(ItemData item)
+    {
+        transportFilterItem = item;
+    }
+
+    // Taşıyıcı filtresini kaldırır
+    public void ClearTransportFilter()
+    {
+        transportFilterItem = null;
+    }
+
     // --- ORTAK INVENTORY INTERFACE IMPLEMENTASYONU ---
 
     public override bool CanAccept(InventoryObject item, int amount = 1)
     {
         if (item == null || amount <= 0) return false;
 
+        // Taşıyıcı filtresi varsa(isci transportersa) ve gelen eşya seçili eşya değilse reddet
+        if (transportFilterItem != null && item != transportFilterItem)
+        {
+            return false;
+        }
+
         // Girdi haznesi açıksa (Processor sadece işlenmemiş ürün alabilir)
         if (CanAddToInput(item)){return true;}
 
         // Çıktı haznesi açıksa (Miner, Processor, Transporter)
         if (CanAddToOutput(item)){return true;}
-        
 
         return false;
     }
@@ -108,6 +127,7 @@ public class WorkerInventory : Inventory
     public bool CanAddToOutput(InventoryObject item)
     {
         if (item == null) return false;
+        if (transportFilterItem != null && item != transportFilterItem) return false;
         if (OutputCapacity <= 0) return false;
         if (GetOutputTotal() >= OutputCapacity) return false;
         if (!outputItems.ContainsKey(item) && outputItems.Count >= MAX_ITEM_TYPES) return false;

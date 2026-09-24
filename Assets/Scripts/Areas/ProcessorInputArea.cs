@@ -1,10 +1,10 @@
 using UnityEngine;
 
-// Satılabilir ürünlerin kargo konteynerine aktarılmasını sağlayan etkileşim bölgesidir.
-public class ContainerInputArea : MonoBehaviour, IInteractable
+// Ham maddelerin fırına/işlemciye aktarılmasını sağlayan etkileşim bölgesidir.
+public class ProcessorInputArea : MonoBehaviour, IInteractable
 {
     public WorkerWorkType WorkType => WorkerWorkType.Operating;
-    private CargoContainer container;
+    private AutoProcessor processor;
 
     [SerializeField] private float operationTime = 0.15f;
 
@@ -13,29 +13,27 @@ public class ContainerInputArea : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        container = GetComponentInParent<CargoContainer>();
+        processor = GetComponentInParent<AutoProcessor>();
     }
 
-    // Aktörün envanterinde satılabilir bir ürün ve konteynerde boş yer olup olmadığını doğrular.
+    // Aktörün envanterinde işlenebilir bir ham madde ve fırın kuyruğunda yer olup olmadığını doğrular.
     public bool TryGetInteractionData(Inventory inventory, out ItemData item, out int amount)
     {
         item = null;
         amount = 0;
 
-        if (container == null) return false;
+        if (processor == null || processor.InputQueue.Count >= processor.StorageCapacity)
+            return false;
 
         // 1. Oyuncu kontrolü (Seçili slot)
         if (inventory is PlayerInventory playerInventory)
         {
-            InventoryObject selected = playerInventory.GetSelectedItem();
-            if (selected is ItemData itemData && itemData.sellable)
+            InventoryObject selectedItem = playerInventory.GetSelectedItem();
+            if (selectedItem is ItemData itemData && itemData.processable)
             {
-                if (container.CanAdd(itemData, 1))
-                {
-                    item = itemData;
-                    amount = 1;
-                    return true;
-                }
+                item = itemData;
+                amount = 1;
+                return true;
             }
         }
         // 2. Operatör işçi kontrolü (Girdi haznesi)
@@ -43,7 +41,7 @@ public class ContainerInputArea : MonoBehaviour, IInteractable
         {
             foreach (var pair in workerInventory.InputItems)
             {
-                if (pair.Key is ItemData itemData && itemData.sellable && container.CanAdd(itemData, 1))
+                if (pair.Key is ItemData itemData && itemData.processable)
                 {
                     item = itemData;
                     amount = 1;
@@ -55,18 +53,16 @@ public class ContainerInputArea : MonoBehaviour, IInteractable
         return false;
     }
 
-    // Ürünü envanterden düşüp konteyner deposuna aktarır.
+    // Ham maddeyi envanterden eksiltir ve işlemcinin kuyruğuna ekler.
     public void CompleteInteract(Inventory inventory, ItemData item, int amount)
     {
-        if (container == null || item == null || inventory == null) return;
+        if (processor == null || item == null || inventory == null) 
+            return;
 
-        if (container.CanAdd(item, amount))
+        int removed = inventory.RemoveItem(item, amount);
+        if (removed > 0)
         {
-            int removed = inventory.RemoveItem(item, amount);
-            if (removed > 0)
-            {
-                container.TryAdd(item, removed);
-            }
+            processor.AddInput(item, amount);
         }
     }
 
