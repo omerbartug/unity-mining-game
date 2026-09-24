@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 20044757}
   - component: {fileID: 20044756}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2584,6 +2584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038ee79291a4e41b9875969c854ab7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  playerMoney: 0
 --- !u!1 &210212509
 GameObject:
   m_ObjectHideFlags: 0
@@ -5174,7 +5175,7 @@ GameObject:
   - component: {fileID: 471851949}
   - component: {fileID: 471851950}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6870,6 +6871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &584046327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10277,7 +10280,7 @@ GameObject:
   - component: {fileID: 742448171}
   - component: {fileID: 742448172}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10570,7 +10573,7 @@ GameObject:
   - component: {fileID: 769795549}
   - component: {fileID: 769795550}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10949,6 +10952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &820570591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11196,6 +11201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &836405584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12597,7 +12604,7 @@ GameObject:
   - component: {fileID: 948651353}
   - component: {fileID: 948651354}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14089,6 +14096,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &1085097238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15294,6 +15303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &1194434348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21924,7 +21935,7 @@ GameObject:
   - component: {fileID: 1294227946}
   - component: {fileID: 1294227947}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22195,7 +22206,7 @@ GameObject:
   - component: {fileID: 1308859654}
   - component: {fileID: 1308859655}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33233,6 +33244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &1841916522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36806,7 +36819,7 @@ GameObject:
   - component: {fileID: 1955176303}
   - component: {fileID: 1955176302}
   m_Layer: 0
-  m_Name: InteractionArea
+  m_Name: OutputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36994,6 +37007,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &1979783857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57761,6 +57776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a32de85551d4c0495c15d1794c5119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerInventory
+  inputCapacity: 15
+  outputCapacity: 15
 --- !u!114 &2120237764
 MonoBehaviour:
   m_ObjectHideFlags: 0

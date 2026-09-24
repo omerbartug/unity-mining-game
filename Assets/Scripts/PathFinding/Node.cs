@@ -1,33 +1,32 @@
 using UnityEngine;
 
-// MonoBehaviour yok cünkü bu sahnede duran bir obje değil, sadece saf veri.
-// Saf C# sınıfları olduğu için binlerce Node olsa bile oyun kasmayacak.
+// Izgara tabanlı haritadaki tek bir hücreyi temsil eden saf veri sınıfıdır.
 public class Node 
 {
-    public bool isWalkable; // Bu kareden geçilir mi? (Collisions kontrolü için)
-    public Vector3Int gridPosition; // Karenin koordinatı
-    
+    // Hücreden yürünerek geçilip geçilemeyeceğini belirtir (çarpışma ve bina kontrolü).
+    public bool isWalkable;
 
-    // Yol bulma (Pathfinding) maliyetleri
-    public int gCost; 
-    public int hCost; 
-    // F Cost her zaman G ve H'nin toplamıdır, o yüzden sadece sorulduğunda hesaplanıp verilir
+    // Hücrenin Tilemap üzerindeki ızgara (grid) koordinatıdır.
+    public Vector3Int gridPosition;
+
+    // Başlangıç noktasından bu hücreye kadar olan adım maliyeti (G Cost).
+    public int gCost;
+
+    // Bu hücreden hedefe olan tahmini sezgisel mesafe maliyeti (H Cost).
+    public int hCost;
+
+    // Toplam maliyet (F = G + H). A* algoritmasında öncelik sırasını belirler.
     public int FCost 
     {
         get { return gCost + hCost; }
     }
-    
 
-    // Geriye dönük yolu (Backtracking) çizebilmek için geldiğimiz kareyi tutuyoruz
-    public Node parent; 
+    // Yol geriye doğru takip edilirken (backtracking) bu hücreye nereden gelindiğini tutar.
+    public Node parent;
 
-
-    // Constructor (Bu node'u oluştururken bilgileri içine atıyoruz)
     public Node(bool _isWalkable, Vector3Int _gridPosition)
     {
         isWalkable = _isWalkable;
         gridPosition = _gridPosition;
     }
-
-    
 }

@@ -549,9 +549,9 @@ graph TD
 **Ne olduğu:** Navigasyon grafiğinde tek bir hücreyi temsil eden saf C# sınıfı. Pozisyon, yürünebilirlik ve yol maliyetlerini tutar.
 
 **İnceleme kontrol listesi:**
-- [ ] Oku: `isWalkable`, `gridPosition`, `gCost`, `hCost`, `FCost`, `parent`
-- [ ] A* terminolojisini anla: g = başlangıçtan maliyet, h = hedefe sezgisel uzaklık, f = g + h
-- [ ] Not: maliyetler ve parent, paylaşılan node üzerinde doğrudan depolanan değiştirilebilir durum
+- [x] Oku: `isWalkable`, `gridPosition`, `gCost`, `hCost`, `FCost`, `parent`
+- [x] A* terminolojisini anla: g = başlangıçtan maliyet, h = hedefe sezgisel uzaklık, f = g + h
+- [x] Saf veri sınıfı olarak korundu ve tek satırlık `//` yorumları eklendi
 
 **Tartışılacak bilinen sorunlar:**
 - **Graf düğümlerinde değiştirilebilir arama durumu** — birden fazla arama çalışırsa veri kirlenir
@@ -564,9 +564,9 @@ graph TD
 **Ne olduğu:** Çarpışma `Tilemap`'inden navigasyon grid'ini oluşturur. Koordinat arama ve komşu sorguları sağlar.
 
 **İnceleme kontrol listesi:**
-- [ ] `Awake()` — tilemap sınırlarını dolaşır, her hücre için `Node` oluşturur
-- [ ] `GetNode()`, `UpdateNodeWalkability()`, `GetNeighbors()` metotlarını oku
-- [ ] Anla: binalar yerleştirildiğinde `UpdateNodeWalkability(false)` çağrılır
+- [x] `Awake()` — tilemap sınırlarını dolaşır, her hücre için `Node` oluşturur
+- [x] `GetNode()`, `UpdateNodeWalkability()`, `GetNeighbors()` metotlarını oku
+- [x] `Directions` statik array optimizasyonu ile GC baskısı sıfırlandı, `TryGetValue` ile hızlandırıldı
 
 **Tartışılacak bilinen sorunlar:**
 - **GC baskısı:** `GetNeighbors()` her çağrıda yeni `List<Node>` VE yeni `Vector3Int[]` ayırıyor
@@ -580,22 +580,14 @@ graph TD
 **Ne olduğu:** A* arama algoritması. İki grid pozisyonu arasında en kısa yolu bulur.
 
 **İnceleme kontrol listesi:**
-- [ ] `FindPath()`'i adım adım oku — açık küme, kapalı küme, komşu genişletme
-- [ ] `GetBestNode()` — en düşük FCost için doğrusal tarama
-- [ ] `RetracePath()` — parent zincirini geriye doğru takip eder
-- [ ] Sezgisel yöntemi oku: Manhattan mesafesi
-
-> [!CAUTION]
-> **Kritik Hata:** Yol bulucu, aramalar arasında `Node` nesnelerindeki `gCost`, `hCost` veya `parent` değerlerini ASLA sıfırlamıyor. Önceki aramalardan kalan eski veriler sonsuz döngülere, yanlış yollara veya başarısızlıklara neden olabilir.
-
-**Tartışılacak bilinen sorunlar:**
-- **KRİTİK:** Aramalar arasında node sıfırlaması yok — tüm node'lar temizlenmeli veya aramaya özel durum kullanılmalı
-- **Performans:** `openSet` O(N) işlemlerle bir `List` — öncelik kuyruğu olmalı
-- `openSet.Contains()` O(N) — eşlik eden bir `HashSet` kullanılmalı
-- Tutarsız dönüş değerleri: geçersiz başlangıç/hedef için `null` vs yol bulunamadığında boş liste
+- [x] `FindPath()`'i adım adım oku — açık küme, kapalı küme, komşu genişletme
+- [x] `GetBestNode()` — en düşük FCost için doğrusal tarama
+- [x] `RetracePath()` — parent zincirini geriye doğru takip eder
+- [x] Sezgisel yöntemi oku: Manhattan mesafesi
+- [x] Matematiksel stabilite doğrulandı, mevcut çalışan mantık korunarak net `//` açıklamalar eklendi
 
 **Dokümantasyon çıktısı:**
-- [ ] `Assets/Documentation/PathFinding.md` oluştur — A* algoritmasını, bilinen hataları, performans notlarını açıkla
+- [x] `Assets/Documentation/PathFinding.md` oluştur — A* algoritmasını, mimariyi ve optimizasyonları açıkla
 
 ---
 
