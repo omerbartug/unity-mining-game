@@ -603,14 +603,14 @@ graph TD
 **Ne olduğu:** Merkezi işçi varlığı. Durumları (`Idle`, `Working`, `Transporting`), iş tiplerini (`Mining`, `Processing`, `Operating`, `Transporting`) tanımlar, tüm alt bileşenleri koordine eder, geliştirmeleri yönetir.
 
 **İnceleme kontrol listesi:**
-- [ ] Enum'ları oku: `WorkerState`, `WorkerWorkType`
-- [ ] İstatistikleri oku: `name`, `level`, `miningSpeed`, `movementSpeed`, `carryCapacity`
-- [ ] `Awake()` — tüm alt bileşenleri önbelleğe alır
-- [ ] `Status` property'sini oku — karmaşık durum değerlendirmesi
-- [ ] `StartTransporting()` — transport modunu başlatır
-- [ ] `StopWorking()` — idle'a sıfırlar
-- [ ] `CollectItems()` — `IItemSource` implementasyonu
-- [ ] Geliştirme metotlarını oku: `TryUpgradeMiningSpeed()`, `TryUpgradeMovementSpeed()`
+- [x] Enum'ları oku: `WorkerState`, `WorkerWorkType`
+- [x] İstatistikleri oku: `name`, `level`, `miningSpeed`, `movementSpeed`, `carryCapacity`
+- [x] `Awake()` — tüm alt bileşenleri önbelleğe alır
+- [x] `Status` property'sini oku — karmaşık durum değerlendirmesi
+- [x] `StartTransporting()` — transport modunu başlatır
+- [x] `StopWorking()` — idle'a sıfırlar
+- [x] `CollectItems()` — `IItemSource` implementasyonu
+- [x] Geliştirme metotlarını oku: `TryUpgradeMiningSpeed()`, `TryUpgradeMovementSpeed()`
 
 **Tartışılacak bilinen sorunlar:**
 - **Derleyici uyarısı:** `[SerializeField] private string name` → `UnityEngine.Object.name`'i gizliyor

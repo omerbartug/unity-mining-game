@@ -26,6 +26,16 @@ public class WorkerMovement : MonoBehaviour
         stats = GetComponent<Worker>();
     }
 
+    private void Update()
+    {
+        if (HasReachedTarget)
+            return;
+
+        Move();
+    }
+
+    
+
     public bool MoveTo(Vector3Int targetCell)
     {
         if (OccupiedCells.Contains(targetCell))
@@ -77,13 +87,6 @@ public class WorkerMovement : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (HasReachedTarget)
-            return;
-
-        Move();
-    }
 
     private void Move()
     {

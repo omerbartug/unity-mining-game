@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// İşçinin ana yaşam döngüsü durumlarını belirtir.
 public enum WorkerState
 {
     Idle,         
@@ -8,19 +9,17 @@ public enum WorkerState
     Transporting  
 }
 
+// İşçinin bir iş alanında (IInteractable) icra ettiği görev türünü belirtir.
 public enum WorkerWorkType
 {
     None,
     Mining,
     Processing,
-    Operating,
-    Transporting
+    Operating
 }
 
 public class Worker : MonoBehaviour, IItemSource
 {
-
-
     public WorkerState CurrentState { get; set; } = WorkerState.Idle;
 
     private WorkerWorkType currentWorkType = WorkerWorkType.None;
@@ -34,25 +33,31 @@ public class Worker : MonoBehaviour, IItemSource
         }
     }
 
-    public IInteractable TargetInteractable { get; set; }
-
-    [SerializeField] private string name = "";
+    [SerializeField] private new string name = "";
     public string Name => name;
-
 
     [SerializeField] private int level = 1;
     public int Level => level;
 
-
     [SerializeField] private float miningSpeed = 1f;
     public float MiningSpeed => miningSpeed;
 
-
     [SerializeField] private float movementSpeed = 2f;
     public float MovementSpeed => movementSpeed;
-    
+
     [SerializeField] private int carryCapacity = 30;
     public int CarryCapacity => carryCapacity;
+
+    [Header("Upgrade Settings")]
+    [SerializeField] private int miningSpeedUpgradeCost = 500;
+    [SerializeField] private float miningSpeedUpgradeAmount = 0.5f;
+    [SerializeField] private int movementSpeedUpgradeCost = 500;
+    [SerializeField] private float movementSpeedUpgradeAmount = 0.5f;
+
+    public int MiningSpeedUpgradeCost => miningSpeedUpgradeCost;
+    public float MiningSpeedUpgradeAmount => miningSpeedUpgradeAmount;
+    public int MovementSpeedUpgradeCost => movementSpeedUpgradeCost;
+    public float MovementSpeedUpgradeAmount => movementSpeedUpgradeAmount;
 
     private WorkerInventory workerInventory;
     public WorkerInventory Inventory => workerInventory;
@@ -64,16 +69,16 @@ public class Worker : MonoBehaviour, IItemSource
 
     public event System.Action OnStatusChanged;
 
-    public void NotifyStatusChanged()
-    {
-        OnStatusChanged?.Invoke();
-    }
+    // UI panellerine işçinin durumunun güncellendiğini bildirir.
+    public void NotifyStatusChanged() => OnStatusChanged?.Invoke();
 
+    // UI panellerinde gösterilecek anlık durum metnini hiyerarşik olarak belirler.
     public string Status
     {
         get
         {
             if (CurrentState == WorkerState.Idle) return "Idle";
+            
             if (CurrentState == WorkerState.Transporting)
             {
                 if (transportMovement != null && transportMovement.IsMovingToStart)
@@ -122,10 +127,16 @@ public class Worker : MonoBehaviour, IItemSource
     }
 
 
-    // İşçinin mevcut rolüne göre envanter hazne kapasitelerini dışarıdan belirler.
+    // İşçinin mevcut rolüne göre envanter hazne kapasitelerini belirler.
     public void UpdateInventoryCapacities()
     {
         if (workerInventory == null) return;
+
+        if (CurrentState == WorkerState.Transporting)
+        {
+            workerInventory.SetCapacities(inputCap: 0, outputCap: carryCapacity);
+            return;
+        }
 
         switch (currentWorkType)
         {
@@ -138,19 +149,17 @@ public class Worker : MonoBehaviour, IItemSource
             case WorkerWorkType.Operating:
                 workerInventory.SetCapacities(inputCap: carryCapacity, outputCap: 0);
                 break;
-            case WorkerWorkType.Transporting:
-                workerInventory.SetCapacities(inputCap: 0, outputCap: carryCapacity);
-                break;
             default:
                 workerInventory.SetCapacities(inputCap: carryCapacity / 2, outputCap: carryCapacity / 2);
                 break;
         }
     }
 
+    // İşçiyi taşıyıcı rolüne geçirir, rotasını ve taşınacak eşyayı yapılandırır.
     public void StartTransporting(ItemData item, List<Vector3Int> route)
     {
         CurrentState = WorkerState.Transporting;
-        CurrentWorkType = WorkerWorkType.Transporting;
+        CurrentWorkType = WorkerWorkType.None;
 
         if (workerMovement != null) workerMovement.ReleaseClaim();
         if (transportLogic != null) transportLogic.SetTransportItem(item);
@@ -160,98 +169,78 @@ public class Worker : MonoBehaviour, IItemSource
         NotifyStatusChanged();
     }
 
+    // İşçiyi boşa çıkarır (Idle), tüm hareket ve taşıma işlemlerini durdurup filtreleri temizler.
     public void StopWorking()
     {
         CurrentState = WorkerState.Idle;
         CurrentWorkType = WorkerWorkType.None;
-        TargetInteractable = null;
 
-        if (workerMovement != null)
-        {
-            workerMovement.StopMoving();
-        }
-
-        if (transportMovement != null)
-        {
-            transportMovement.StopPatrol();
-        }
-
-        if (transportLogic != null)
-        {
-            transportLogic.ClearTransportItem();
-        }
-
-        if (workerInventory != null)
-        {
-            workerInventory.ClearTransportFilter();
-        }
+        if (workerMovement != null) workerMovement.StopMoving();
+        if (transportMovement != null) transportMovement.StopPatrol();
+        if (transportLogic != null) transportLogic.ClearTransportItem();
+        if (workerInventory != null) workerInventory.ClearTransportFilter();
 
         NotifyStatusChanged();
     }
 
-    public bool TryUpgradeMiningSpeed(int cost = 500, float amount = 0.5f)
+    // Oyuncunun parası yeterliyse işçinin maden kazma hızını yükseltir.
+    public bool TryUpgradeMiningSpeed()
     {
-        if (PlayerStats.Instance.GetPlayerMoney() < cost)
+        return TryUpgradeMiningSpeed(miningSpeedUpgradeCost, miningSpeedUpgradeAmount);
+    }
+
+    // Dışarıdan özel parametrelerle kazma hızı artırımı yapmayı sağlar.
+    public bool TryUpgradeMiningSpeed(int cost, float amount = 0.5f)
+    {
+        if (!PlayerStats.Instance.TrySpendMoney(cost))
         {
             Debug.Log("Yetersiz bakiye! Kazma hızı artırılamadı.");
             return false;
         }
 
-        PlayerStats.Instance.RemoveMoney(cost);
         miningSpeed += amount;
         Debug.Log($"{name} kazma hızı arttı! Yeni hız: {miningSpeed}");
         return true;
     }
 
-    public bool TryUpgradeMovementSpeed(int cost = 500, float amount = 0.5f)
+    // Oyuncunun parası yeterliyse işçinin hareket hızını yükseltir.
+    public bool TryUpgradeMovementSpeed()
     {
-        if (PlayerStats.Instance.GetPlayerMoney() < cost)
+        return TryUpgradeMovementSpeed(movementSpeedUpgradeCost, movementSpeedUpgradeAmount);
+    }
+
+    // Dışarıdan özel parametrelerle hareket hızı artırımı yapmayı sağlar.
+    public bool TryUpgradeMovementSpeed(int cost, float amount = 0.5f)
+    {
+        if (!PlayerStats.Instance.TrySpendMoney(cost))
         {
             Debug.Log("Yetersiz bakiye! Hareket hızı artırılamadı.");
             return false;
         }
 
-        PlayerStats.Instance.RemoveMoney(cost);
         movementSpeed += amount;
         Debug.Log($"{name} hareket hızı arttı! Yeni hız: {movementSpeed}");
         return true;
     }
 
+    // İşçinin çıkış haznesindeki ürünleri gelen envantere (Oyuncu veya Taşıyıcı İşçi) kayıpsız aktarır.
     public void CollectItems(Inventory targetInventory)
     {
-        if (workerInventory == null) return;
+        if (workerInventory == null || targetInventory == null) return;
 
-        // 1. Oyuncu topluyorsa
-        if (targetInventory is PlayerInventory playerInventory)
+        // Taşıyıcı modundaki bir işçiden başka bir taşıyıcı eşya toplayamaz
+        if (this.CurrentState == WorkerState.Transporting) return;
+
+        var itemsToCollect = new List<KeyValuePair<InventoryObject, int>>(workerInventory.OutputItems);
+        foreach (var pair in itemsToCollect)
         {
-            if (workerInventory.OutputItems.Count == 0) return;
-
-            foreach (var pair in workerInventory.OutputItems)
+            if (targetInventory.CanAccept(pair.Key))
             {
-                playerInventory.AddItem(pair.Key, pair.Value);
-            }
-
-            workerInventory.ClearOutput();
-        }
-        // 2. Başka bir işçi topluyorsa
-        else if (targetInventory is WorkerInventory targetWorkerInventory)
-        {
-            Worker targetWorker = targetWorkerInventory.GetComponent<Worker>();
-
-            // KORUMA 1: Toplayan işçi kesinlikle Transporting durumunda olmalı!
-            if (targetWorker == null || targetWorker.CurrentState != WorkerState.Transporting)
-                return;
-
-            // KORUMA 2: İki transporter birbirinin item'ını alamaz!
-            if (this.CurrentState == WorkerState.Transporting)
-                return;
-
-            TransportLogic logic = targetWorkerInventory.GetComponent<TransportLogic>();
-            ItemData transportItem = logic != null ? logic.TransportItem : null;
-
-            if (transportItem != null)
-            {
-                targetWorkerInventory.TransferFromOutputOf(workerInventory, transportItem);
+                int added = targetInventory.AddItem(pair.Key, pair.Value);
+                if (added > 0)
+                {
+                    workerInventory.RemoveFromOutput(pair.Key, added);
+                }
             }
         }
     }

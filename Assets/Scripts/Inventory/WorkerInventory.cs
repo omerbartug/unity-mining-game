@@ -223,29 +223,16 @@ public class WorkerInventory : Inventory
         ClearOutput();
     }
 
-    public int TransferToInputOf(WorkerInventory receiver, InventoryObject item)
+    // Başka bir envantere (işçi veya bina) eşya aktarır.
+    public int TransferToInputOf(Inventory receiver, InventoryObject item)
     {
         if (receiver == null || item == null) return 0;
         if (!outputItems.TryGetValue(item, out int available) || available <= 0) return 0;
 
-        int actuallyAdded = receiver.AddToInput(item, available);
-        if (actuallyAdded > 0)
-        {
-            RemoveFromOutput(item, actuallyAdded);
-        }
-
-        return actuallyAdded;
-    }
-
-    public int TransferFromOutputOf(WorkerInventory source, InventoryObject item)
-    {
-        if (source == null || item == null) return 0;
-        if (!source.OutputItems.TryGetValue(item, out int available) || available <= 0) return 0;
-
-        int added = AddToOutput(item, available);
+        int added = receiver.AddItem(item, available);
         if (added > 0)
         {
-            source.RemoveFromOutput(item, added);
+            RemoveItem(item, added);
         }
 
         return added;
