@@ -22,22 +22,21 @@ public class TransportMovement : MonoBehaviour
     public bool IsMovingToStart => isMovingToStart;
     public List<Vector3Int> RouteCells => routeCells;
 
-    // Gerekli bileşen ve ızgara referanslarını önbelleğe alır.
+    // Gerekli bileşen referansını önbelleğe alır ve eksik atamaları denetler.
     private void Awake()
     {
         worker = GetComponent<Worker>();
-        if (grid == null) grid = FindFirstObjectByType<Grid>();
-        if (pathfinding == null) pathfinding = FindFirstObjectByType<Pathfinding>();
     }
 
     // Belirtilen rotayı kaydeder; başlangıç noktasındaysa devriyeyi başlatır, değilse oraya A* ile yol bulur.
     public void SetRoute(List<Vector3Int> cells)
     {
-        if (cells == null || cells.Count == 0 || grid == null)
+        if (cells == null || cells.Count == 0)
         {
             StopPatrol();
             return;
         }
+
 
         routeCells = new List<Vector3Int>(cells);
         routeIndex = 0;
@@ -53,10 +52,7 @@ public class TransportMovement : MonoBehaviour
         }
 
         // Başka bir yerdeyse, başlangıç noktasına A* ile yol bul
-        if (pathfinding != null)
-        {
-            pathToStart = pathfinding.FindPath(currentCell, routeCells[0]);
-        }
+        pathToStart = pathfinding.FindPath(currentCell, routeCells[0]);
 
         if (pathToStart != null && pathToStart.Count > 0)
         {

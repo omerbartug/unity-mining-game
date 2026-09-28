@@ -150,8 +150,9 @@ Taşıyıcı işçinin oyuncunun çizdiği rota çizgisi üzerinde sürekli git-
 
 ### 5. `TransportLogic.cs` (Lojistik Fizik Tetikleyicisi)
 Taşıyıcı işçinin rotada yürürken 2D Trigger çarpışmaları ile otomatik malzeme alıp vermesini sağlar.
-* **Girdiye Boşaltma:** Çarptığı aktör bir işçi ise ve taşıyıcı değilse (örneğin fırıncı veya operatör), malı onun girdi haznesine teslim eder (`inventory.TransferToInputOf`).
-* **Kaynaktan Toplama:** Çarptığı nesne bir `IItemSource` (Maden veya Madenci) ise eşyayı sırtına yükler (`source.CollectItems(inventory)`).
+* **Erken Katman Filtresi:** Çarpışmalarda sadece `Layer 9 (Worker)` ve `Layer 6 (Building)` katmanları işlenir; harita/zemin/çevre collider'larında sıfır `GetComponent` maliyetiyle anında çıkış yapılır.
+* **Girdiye Boşaltma (Layer 9):** Çarptığı aktör bir işçi ise ve taşıyıcı değilse malı onun girdi haznesine teslim eder (`inventory.TransferToInputOf`) ve hemen çıkar (aynı işçiden eşya çalma ve çift arama bug'ı engellendi).
+* **Kaynaktan Toplama (Layer 6):** Çarptığı nesne bir bina kaynağı ise (`IItemSource`) eşyayı sırtına yükler (`source.CollectItems(inventory)`).
 * **Güvenlik Kalkanı:** İki taşıyıcının birbirinin yükünü çalmasını ve sonsuz döngüye girmesini engeller.
 
 ---

@@ -161,7 +161,7 @@ public class Worker : MonoBehaviour, IItemSource
         CurrentState = WorkerState.Transporting;
         CurrentWorkType = WorkerWorkType.None;
 
-        if (workerMovement != null) workerMovement.ReleaseClaim();
+        if (workerMovement != null) workerMovement.StopMoving();
         if (transportLogic != null) transportLogic.SetTransportItem(item);
         if (workerInventory != null) workerInventory.SetTransportFilter(item);
         if (transportMovement != null) transportMovement.SetRoute(route);

@@ -3,6 +3,9 @@ using UnityEngine;
 // Taşıyıcı işçinin temas ettiği bina ve işçilerle eşya alma/bırakma lojistiğini yönetir.
 public class TransportLogic : MonoBehaviour
 {
+    private const int WorkerLayer = 9;
+    private const int BuildingLayer = 6;
+
     private Worker worker;
     private WorkerInventory inventory;
     private ItemData transportItem;
@@ -28,34 +31,39 @@ public class TransportLogic : MonoBehaviour
         transportItem = null;
     }
 
-    // Temas edilen işçi veya ürün kaynağı ile eşya transferini yürütür.
+    // Temas edilen işçi (Layer 9) veya bina (Layer 6) ile eşya transferini yürütür.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Sadece taşıma modundaki işçi lojistik tetikleyebilir
         if (transportItem == null || worker == null || worker.CurrentState != WorkerState.Transporting)
             return;
 
-        // 1. Karşıdaki başka bir işçiyse: Taşıdığı ürünü onun girdi haznesine boşalt
-        Worker otherWorker = other.GetComponentInParent<Worker>();
-        if (otherWorker != null && otherWorker != worker)
+        int layer = other.gameObject.layer;
+        if (layer != WorkerLayer && layer != BuildingLayer)
         {
-            // KORUMA: Karşıdaki de bir transporter ise birbirlerine item vermesinler!
-            // Sadece normal işçilere (Operating, Processing vb.) input boşaltabilir.
-            if (otherWorker.CurrentState != WorkerState.Transporting && otherWorker.Inventory != null)
-            {
-                inventory.TransferToInputOf(otherWorker.Inventory, transportItem);
-            }
+            if (other.transform.parent != null)
+                layer = other.transform.parent.gameObject.layer;
+
+            if (layer != WorkerLayer && layer != BuildingLayer)
+                return;
         }
 
-        // 2. Karşı taraf bir ürün kaynağıysa (IItemSource): Eşyayı sırtına topla
-        IItemSource source = other.GetComponentInParent<IItemSource>();
-        if (source != null && (source as Worker) != worker)
+        if (layer == WorkerLayer)
         {
-            // KORUMA: Karşıdaki kaynak başka bir transporter ise onun yükünü çalmasın!
-            if (source is Worker srcWorker && srcWorker.CurrentState == WorkerState.Transporting)
-                return;
+            Worker otherWorker = other.GetComponentInParent<Worker>();
+            if (otherWorker != null && otherWorker != worker)
+            {
+                if (otherWorker.CurrentState != WorkerState.Transporting && otherWorker.Inventory != null)
+                {
+                    inventory.TransferToInputOf(otherWorker.Inventory, transportItem);
+                }
+            }
+            return;
+        }
 
-            source.CollectItems(inventory);
+        if (layer == BuildingLayer)
+        {
+            IItemSource source = other.GetComponentInParent<IItemSource>();
+            source?.CollectItems(inventory);
         }
     }
 }
