@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// İşçinin grid üzerinde A* algoritması ile hedefe yürümesini ve hücre rezervasyonunu yönetir.
 public class WorkerMovement : MonoBehaviour
 {
     private Worker stats;
 
+    // Tüm işçilerin paylaştığı, rezerve edilmiş hedef hücreler (çakışmayı önler).
     public static HashSet<Vector3Int> OccupiedCells = new HashSet<Vector3Int>();
 
     [SerializeField] private Grid grid;
@@ -18,12 +20,14 @@ public class WorkerMovement : MonoBehaviour
     private Vector3 currentWaypoint;
     private Vector3Int currentCell;
 
-
-   
-
     private void Awake()
     {
         stats = GetComponent<Worker>();
+    }
+
+    private void OnDestroy()
+    {
+        ReleaseClaim();
     }
 
     private void Update()
@@ -34,36 +38,30 @@ public class WorkerMovement : MonoBehaviour
         Move();
     }
 
-    
-
+    // Hedef hücre boşsa ve yol bulunabiliyorsa hücreyi rezerve edip hareketi başlatır.
     public bool MoveTo(Vector3Int targetCell)
     {
         if (OccupiedCells.Contains(targetCell))
         {
-            Debug.Log("bura dolu");
+            Debug.Log("Hedef hücre dolu!");
             return false;
         }
 
         Vector3Int startCell = grid.WorldToCell(transform.position);
         currentPath = pathfinding.FindPath(startCell, targetCell);
 
-        
         if (currentPath == null || currentPath.Count == 0)
         {
             Debug.Log("Oraya giden bir yol yok!");
             return false;
         }
 
-        if (hasClaimedCell)
-        {
-            OccupiedCells.Remove(currentCell);
-        }
-
+        // Önceki rezervasyonu bırak ve yeni hedefi rezerve et
+        ReleaseClaim();
         OccupiedCells.Add(targetCell);
         currentCell = targetCell;
         hasClaimedCell = true;
 
-        // Start Move
         pathIndex = 0;
         currentWaypoint = grid.GetCellCenterWorld(currentPath[pathIndex].gridPosition);
         HasReachedTarget = false;
@@ -71,13 +69,16 @@ public class WorkerMovement : MonoBehaviour
         return true;
     }
 
+    // İşçinin hareketini durdurur, rotayı temizler ve hedef hücre rezervasyonunu serbest bırakır.
     public void StopMoving()
     {
         currentPath = null;
         HasReachedTarget = true;
+        ReleaseClaim();
         stats.NotifyStatusChanged();
     }
 
+    // İşçinin tuttuğu hedef hücre rezervasyonunu boşa çıkarır.
     public void ReleaseClaim()
     {
         if (hasClaimedCell)
@@ -87,22 +88,21 @@ public class WorkerMovement : MonoBehaviour
         }
     }
 
-
+    // A* rotasındaki ara noktaları (waypoint) sırayla takip ederek hedefe yürütür.
     private void Move()
     {
-        
+        if (currentPath == null) return;
+
         transform.position = Vector2.MoveTowards(
             transform.position,
             currentWaypoint,
             stats.MovementSpeed * Time.deltaTime
         );
 
-        
         if (Vector2.Distance(transform.position, currentWaypoint) < 0.01f)
         {
-            pathIndex++; 
+            pathIndex++;
 
-            
             if (pathIndex >= currentPath.Count)
             {
                 transform.position = currentWaypoint;

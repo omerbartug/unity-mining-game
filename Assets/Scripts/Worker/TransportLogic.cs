@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Taşıyıcı işçinin temas ettiği bina ve işçilerle eşya alma/bırakma lojistiğini yönetir.
 public class TransportLogic : MonoBehaviour
 {
     private Worker worker;
@@ -8,29 +9,33 @@ public class TransportLogic : MonoBehaviour
 
     public ItemData TransportItem => transportItem;
 
+    // Gerekli bileşen referanslarını önbelleğe alır.
     private void Awake()
     {
         worker = GetComponent<Worker>();
         inventory = GetComponent<WorkerInventory>();
     }
 
+    // Taşınacak filtrelenmiş eşya türünü belirler.
     public void SetTransportItem(ItemData item)
     {
         transportItem = item;
     }
 
+    // Taşınan eşya filtresini temizler.
     public void ClearTransportItem()
     {
         transportItem = null;
     }
 
+    // Temas edilen işçi veya ürün kaynağı ile eşya transferini yürütür.
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Sadece taşıma modundaki işçi lojistik tetikleyebilir
         if (transportItem == null || worker == null || worker.CurrentState != WorkerState.Transporting)
             return;
 
-        // 1. Karşıdaki başka bir işçiyse
+        // 1. Karşıdaki başka bir işçiyse: Taşıdığı ürünü onun girdi haznesine boşalt
         Worker otherWorker = other.GetComponentInParent<Worker>();
         if (otherWorker != null && otherWorker != worker)
         {
@@ -42,7 +47,7 @@ public class TransportLogic : MonoBehaviour
             }
         }
 
-        // 2. Karşı taraf bir IItemSource ise (İşçi veya Makine)
+        // 2. Karşı taraf bir ürün kaynağıysa (IItemSource): Eşyayı sırtına topla
         IItemSource source = other.GetComponentInParent<IItemSource>();
         if (source != null && (source as Worker) != worker)
         {

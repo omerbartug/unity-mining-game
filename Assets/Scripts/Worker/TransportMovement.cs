@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Taşıyıcı işçinin rota üzerindeki devriye hareketini ve başlangıç noktasına intikalini yönetir.
 public class TransportMovement : MonoBehaviour
 {
     [SerializeField] private Grid grid;
@@ -11,8 +12,8 @@ public class TransportMovement : MonoBehaviour
     private int routeIndex = 0;
     private int direction = 1; // +1: ileri, -1: geri
     private Vector3 currentTarget;
-    private bool isPatrolling = false;
 
+    private bool isPatrolling = false;
     private bool isMovingToStart = false;
     private List<Node> pathToStart;
     private int pathToStartIndex = 0;
@@ -21,25 +22,18 @@ public class TransportMovement : MonoBehaviour
     public bool IsMovingToStart => isMovingToStart;
     public List<Vector3Int> RouteCells => routeCells;
 
+    // Gerekli bileşen ve ızgara referanslarını önbelleğe alır.
     private void Awake()
     {
         worker = GetComponent<Worker>();
-
-        // Eğer Inspector'dan Grid atanmadıysa sahneden otomatik bulalım
-        if (grid == null)
-        {
-            grid = FindFirstObjectByType<Grid>();
-        }
-
-        if (pathfinding == null)
-        {
-            pathfinding = FindFirstObjectByType<Pathfinding>();
-        }
+        if (grid == null) grid = FindFirstObjectByType<Grid>();
+        if (pathfinding == null) pathfinding = FindFirstObjectByType<Pathfinding>();
     }
 
+    // Belirtilen rotayı kaydeder; başlangıç noktasındaysa devriyeyi başlatır, değilse oraya A* ile yol bulur.
     public void SetRoute(List<Vector3Int> cells)
     {
-        if (cells == null || cells.Count == 0)
+        if (cells == null || cells.Count == 0 || grid == null)
         {
             StopPatrol();
             return;
@@ -49,25 +43,16 @@ public class TransportMovement : MonoBehaviour
         routeIndex = 0;
         direction = 1;
 
-        if (grid == null)
-        {
-            StopPatrol();
-            return;
-        }
-
         Vector3Int currentCell = grid.WorldToCell(transform.position);
 
-        // Eğer işçi zaten rotanın ilk noktasındaysa direkt devriyeye başla
+        // Zaten rotanın ilk noktasındaysa direkt devriyeye başla
         if (currentCell == routeCells[0])
         {
-            isMovingToStart = false;
-            isPatrolling = true;
-            routeIndex = (routeCells.Count > 1) ? 1 : 0;
-            currentTarget = grid.GetCellCenterWorld(routeCells[routeIndex]);
+            StartPatrol();
             return;
         }
 
-        // İşçi başka bir yerdeyse, rotanın ilk noktasına pathfinding ile yol bul
+        // Başka bir yerdeyse, başlangıç noktasına A* ile yol bul
         if (pathfinding != null)
         {
             pathToStart = pathfinding.FindPath(currentCell, routeCells[0]);
@@ -82,11 +67,12 @@ public class TransportMovement : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{worker.Name}: Rota başlangıç noktasına ulaşılamıyor!");
+            Debug.LogWarning($"{worker?.Name}: Rota başlangıç noktasına ulaşılamıyor!");
             StopPatrol();
         }
     }
 
+    // Taşıma devriyesini durdurur, rotayı ve geçici yolları sıfırlar.
     public void StopPatrol()
     {
         isPatrolling = false;
@@ -98,51 +84,47 @@ public class TransportMovement : MonoBehaviour
         direction = 1;
     }
 
+    // Rota başlangıcına ulaşıldığında devriye durumunu ve ilk hedef noktayı kurar.
+    private void StartPatrol()
+    {
+        isMovingToStart = false;
+        isPatrolling = true;
+        routeIndex = (routeCells.Count > 1) ? 1 : 0;
+        currentTarget = grid.GetCellCenterWorld(routeCells[routeIndex]);
+        if (worker != null) worker.NotifyStatusChanged();
+    }
+
+    // Taşıyıcı durumunu kontrol eder; başlangıca intikali veya devriye hareketini işletir.
     private void Update()
     {
         if (worker != null && worker.CurrentState != WorkerState.Transporting)
         {
-            if (isPatrolling || isMovingToStart)
-            {
-                StopPatrol();
-            }
+            if (isPatrolling || isMovingToStart) StopPatrol();
             return;
         }
 
         if (isMovingToStart)
         {
-            MoveTowardsStart();
+            MoveAlongPathToStart();
             return;
         }
 
-        if (!isPatrolling || routeCells == null || routeCells.Count <= 1)
-            return;
-
-        MoveTowardsTarget();
+        if (isPatrolling && routeCells != null && routeCells.Count > 1)
+        {
+            MoveAlongPatrolRoute();
+        }
     }
 
-    private void MoveTowardsStart()
+    // Rota başlangıç noktasına doğru A* yolu üzerinden adım adım yürütür.
+    private void MoveAlongPathToStart()
     {
-        float speed = worker != null ? worker.MovementSpeed : 2f;
-
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            currentTarget,
-            speed * Time.deltaTime
-        );
-
-        if (Vector2.Distance(transform.position, currentTarget) < 0.01f)
+        if (MoveTowards(currentTarget))
         {
-            transform.position = currentTarget;
             pathToStartIndex++;
 
             if (pathToStartIndex >= pathToStart.Count)
             {
-                isMovingToStart = false;
-                isPatrolling = true;
-                routeIndex = (routeCells.Count > 1) ? 1 : 0;
-                currentTarget = grid.GetCellCenterWorld(routeCells[routeIndex]);
-                if (worker != null) worker.NotifyStatusChanged();
+                StartPatrol();
             }
             else
             {
@@ -151,46 +133,51 @@ public class TransportMovement : MonoBehaviour
         }
     }
 
-    private void MoveTowardsTarget()
+    // Devriye rotasındaki hedef hücreye doğru hareket eder.
+    private void MoveAlongPatrolRoute()
     {
-        float speed = worker != null ? worker.MovementSpeed : 2f;
-
-        transform.position = Vector2.MoveTowards(
-            transform.position,
-            currentTarget,
-            speed * Time.deltaTime
-        );
-
-        // Hedefe ulaşıldı mı kontrolü
-        if (Vector2.Distance(transform.position, currentTarget) < 0.01f)
+        if (MoveTowards(currentTarget))
         {
-            transform.position = currentTarget;
             AdvanceToNextWaypoint();
         }
     }
 
+    // Rota üzerinde iki uç arasında ileri-geri (ping-pong) devriye indeksini ilerletir.
     private void AdvanceToNextWaypoint()
     {
-        // Rota tek noktadan ibaretse hareket gerekmez
         if (routeCells.Count <= 1) return;
 
         routeIndex += direction;
 
-        // Sona geldiysek yönü tersine çevir (-1)
+        // Sona geldiysek yönü geri çevir (-1)
         if (routeIndex >= routeCells.Count)
         {
             direction = -1;
-            routeIndex = routeCells.Count - 2; // Bir önceki noktaya dön
+            routeIndex = routeCells.Count - 2;
         }
         // Başa geldiysek yönü ileri çevir (+1)
         else if (routeIndex < 0)
         {
             direction = 1;
-            routeIndex = 1; // İkinci noktaya doğru git
+            routeIndex = 1;
         }
 
-        // Sınır güvenliği (tekrar taşma olmaması için)
         routeIndex = Mathf.Clamp(routeIndex, 0, routeCells.Count - 1);
         currentTarget = grid.GetCellCenterWorld(routeCells[routeIndex]);
+    }
+
+    // Verilen hedefe doğru adım atar, hedefe ulaşıldığında true döner.
+    private bool MoveTowards(Vector3 target)
+    {
+        float speed = worker != null ? worker.MovementSpeed : 2f;
+        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, target) < 0.01f)
+        {
+            transform.position = target;
+            return true;
+        }
+
+        return false;
     }
 }

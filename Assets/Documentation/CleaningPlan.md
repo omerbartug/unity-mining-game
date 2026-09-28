@@ -625,10 +625,10 @@ graph TD
 **Ne olduğu:** Standart işçi görevleri için grid tabanlı yol bulma hareketi. Hücre çakışmasını önlemek için statik `OccupiedCells` kullanır.
 
 **İnceleme kontrol listesi:**
-- [ ] `MoveTo()` — doluluk kontrolü → yol bul → hücre talep et → harekete başla
-- [ ] `Update()` — ara nokta ara nokta `MoveTowards`
-- [ ] `StopMoving()`, `ReleaseClaim()` metotlarını oku
-- [ ] Statik `OccupiedCells` — tüm işçiler arasında paylaşılır
+- [x] `MoveTo()` — doluluk kontrolü → yol bul → hücre talep et → harekete başla
+- [x] `Update()` — ara nokta ara nokta `MoveTowards`
+- [x] `StopMoving()`, `ReleaseClaim()` metotlarını oku
+- [x] Statik `OccupiedCells` — tüm işçiler arasında paylaşılır
 
 > [!WARNING]
 > **Kritik Hata:** `OccupiedCells` statik ve `OnDestroy()` veya sahne yeniden yüklemesinde ASLA temizlenmiyor. Bir işçi talep tutarken yok edilirse, o hücre kalıcı olarak kilitlenir.
@@ -645,10 +645,10 @@ graph TD
 **Ne olduğu:** Sürekli etkileşim sürücüsü. İşçi hedefe ulaştığında, `IInteractable` ile zamanlayıcı tabanlı etkileşim döngüsü başlatır.
 
 **İnceleme kontrol listesi:**
-- [ ] Trigger algılamayı oku: `IInteractable` için `OnTriggerEnter2D` / `OnTriggerExit2D`
-- [ ] `Update()`'teki etkileşim döngüsünü oku: doğrula → zamanlayıcı → ilerleme → tamamla → tekrarla
-- [ ] `isInteracting` bayrağını ve durum geçişlerini oku
-- [ ] Bağımlılığı anla: hem trigger çakışması HEM DE `HasReachedTarget` gerektirir
+- [x] Trigger algılamayı oku: `IInteractable` için `OnTriggerEnter2D` / `OnTriggerExit2D`
+- [x] `Update()`'teki etkileşim döngüsünü oku: doğrula → zamanlayıcı → ilerleme → tamamla → tekrarla
+- [x] `isInteracting` bayrağını ve durum geçişlerini oku
+- [x] Bağımlılığı anla: hem trigger çakışması HEM DE `HasReachedTarget` gerektirir
 
 **Tartışılacak bilinen sorunlar:**
 - Kırılgan bağımlılık: trigger örtüşmesi VE `HasReachedTarget` gerektirir — yol bulma hedefi trigger sınırlarının biraz dışındaysa işçi sonsuza kadar takılır
@@ -661,10 +661,10 @@ graph TD
 **Ne olduğu:** Çizilen rota boyunca ping-pong devriye hareketi. Rota başlangıcına ulaşmak için isteğe bağlı yol bulma.
 
 **İnceleme kontrol listesi:**
-- [ ] `SetRoute()` — gerekirse başlangıca yol bul, sonra devriye başlat
-- [ ] `Update()` — yol bulma düğümleri ile başlangıca git, sonra rota hücreleri ile devriye yap
-- [ ] `AdvanceToNextWaypoint()` — uç noktalarda yön çevirme
-- [ ] `StopPatrol()` — temizlik
+- [x] `SetRoute()` — gerekirse başlangıca yol bul, sonra devriye başlat
+- [x] `Update()` — yol bulma düğümleri ile başlangıca git, sonra rota hücreleri ile devriye yap
+- [x] `AdvanceToNextWaypoint()` — uç noktalarda yön çevirme
+- [x] `StopPatrol()` — temizlik
 
 **Tartışılacak bilinen sorunlar:**
 - `WorkerMovement` ile tekrarlanmış `MoveTowards` mantığı
@@ -678,11 +678,11 @@ graph TD
 **Ne olduğu:** Taşıma işçileri için trigger tabanlı item transfer mantığı. Kaynaklardan alır, diğer işçilere teslim eder.
 
 **İnceleme kontrol listesi:**
-- [ ] `OnTriggerEnter2D()` — çekirdek transfer mantığını oku
-- [ ] Guard clause'ları oku: kendini atla, diğer taşımacıları atla, durumu kontrol et
-- [ ] Teslim: `TransferToInputOf()` — item'ları diğer işçinin girdisine aktar
-- [ ] Yükleme: `IItemSource` aracılığıyla `CollectItems()` — binalardan/işçilerden yükle
-- [ ] `SetTransportItem()` / `ClearTransportItem()` metotlarını oku
+- [x] `OnTriggerEnter2D()` — çekirdek transfer mantığını oku
+- [x] Guard clause'ları oku: kendini atla, diğer taşımacıları atla, durumu kontrol et
+- [x] Teslim: `TransferToInputOf()` — item'ları diğer işçinin girdisine aktar
+- [x] Yükleme: `IItemSource` aracılığıyla `CollectItems()` — binalardan/işçilerden yükle
+- [x] `SetTransportItem()` / `ClearTransportItem()` metotlarını oku
 
 **Tartışılacak bilinen sorunlar:**
 - Fizik tabanlı transferler yüksek hızda veya tutarsız collider kurulumlarında ıskalanabilir
@@ -690,7 +690,7 @@ graph TD
 - Transferlerde bekleme süresi veya hız sınırlaması yok
 
 **Dokümantasyon çıktısı:**
-- [ ] `Assets/Documentation/Worker.md` oluştur (şu anda boş) — İşçi durum makinesi, hareket, etkileşim, taşıma ve envanteri tam Türkçe belgele
+- [x] `Assets/Documentation/Worker.md` oluştur (şu anda boş) — İşçi durum makinesi, hareket, etkileşim, taşıma ve envanteri tam Türkçe belgele
 
 ---
 
@@ -905,6 +905,15 @@ graph TD
 | 🟡 YÜKSEK | Event abonelikleri yok edildiğinde asla iptal edilmiyor | `InventoryUI.cs`, `BuildingManager.cs` |
 | 🟡 YÜKSEK | `CollectItem` her fizik tick'inde `GetComponent` çağırıyor | `CollectItem.cs` |
 | 🟡 YÜKSEK | Statik `activeContainers` listesi sahneler arasında kalıcı | `ShipmentManager.cs` |
+
+> [!IMPORTANT]
+> ### 🚨 GELECEK BÜYÜK MİMARİ REFACTOR: BİNA ENVANTERLERİNİN AYRIŞTIRILMASI (`INVENTORY` TÜREVLERİ)
+> **Hedef:** Binaların kendi içlerinde manuel `Dictionary` ve `storageCapacity` tutması yerine, her bina tipine özel `Inventory`'den türeyen bağımsız script'ler yazılması:
+> 1. `ContainerInventory : Inventory` -> `CargoContainer` için (kapasite, yükseltme, sevkiyat satış mantığı ile).
+> 2. `ProcessorInventory : Inventory` -> `AutoProcessor` için (kuyruk ve mamul ürün çift hazne yönetimi ile).
+> 3. `Inventory` temel sınıfına genel `TransferTo(Inventory target, ...)` eklenerek oyuncu, işçi ve bina arasındaki aktarımların tek tipe indirilmesi.
+> 
+> **Zamanlama:** Sahne (`SampleScene.unity`) üzerindeki GameObject bileşenlerini ve UI panellerini etkilediği için Faz 8 (İşçiler) tamamlandıktan sonra bağımsız bir refactor paketi olarak uygulanacaktır.
 
 ### 11.5 — En İyi Optimizasyon Fırsatları
 
