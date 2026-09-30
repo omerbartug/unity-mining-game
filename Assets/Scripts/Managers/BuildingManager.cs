@@ -1,186 +1,151 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingManager : MonoBehaviour
+// Oyuncunun bina seçme, envanterden düşme ve bina UI etkileşimlerini yönetir.
+public class BuildingManager : MonoBehaviour, IObjectInputManager
 {   
-
-    [SerializeField] private Grid grid;
+    [Header("Dependencies")]
+    [SerializeField] private GhostPreview ghostPreview;
     [SerializeField] private NodeMaker nodes;
     [SerializeField] private PlayerInventory inventory;
-    [SerializeField] private InventoryObject initialItem;
-    [SerializeField] private InventoryObject initialItem2;
-    [SerializeField] private InventoryObject initialItem3;
     [SerializeField] private BuildingUIManager buildingUI;
     [SerializeField] private LayerMask buildingLayer;
 
+    private BuildingData selectedBuildingData;
 
-    private BuildingData selectedBuilding;
-    private GameObject ghostBuilding;
-    private SpriteRenderer ghostRenderer;
-
-    private bool canPlace;
-
-    private readonly Color canPlaceColor = new Color(0.5f, 1f, 0.5f, 0.5f);
-    private readonly Color cantPlaceColor = new Color(1f, 0.5f, 0.5f, 0.5f);
-
-    private void Start(){
-
-        inventory.SelectedSlotChanged += UpdatePlacementMode;
-        inventory.InventoryChanged += UpdatePlacementMode;
-
-        Application.targetFrameRate = 120;
-
-        inventory.AddItem(initialItem,40);
-        inventory.AddItem(initialItem2,2);
-        inventory.AddItem(initialItem3,2);
+    // Gerekli bileşenleri hazırlar ve hayalet önizleme bileşenini doğrular.
+    private void Awake()
+    {
+        if (ghostPreview == null)
+            ghostPreview = GetComponent<GhostPreview>() ?? gameObject.AddComponent<GhostPreview>();
     }
 
+    // Event aboneliklerini kurar.
+    private void Start()
+    {
+        if (ghostPreview != null)
+            ghostPreview.OnPlacementConfirmed += HandlePlaced;
 
+        if (inventory == null)
+            inventory = PlayerInventory.Instance;
+
+        if (inventory != null)
+        {
+            inventory.SelectedSlotChanged += UpdatePlacementMode;
+            inventory.InventoryChanged += UpdatePlacementMode;
+        }
+    }
+
+    // Bellek sızıntılarını önlemek için event aboneliklerini temizler.
+    private void OnDestroy()
+    {
+        if (ghostPreview != null)
+            ghostPreview.OnPlacementConfirmed -= HandlePlaced;
+
+        if (inventory != null)
+        {
+            inventory.SelectedSlotChanged -= UpdatePlacementMode;
+            inventory.InventoryChanged -= UpdatePlacementMode;
+        }
+    }
+
+    // Yerleştirme modundaysa farenin anlık pozisyonunu hayalet önizlemeye iletir.
     private void Update()
     {
+        if (!IsPlacementMode) return;
 
-        if(!IsPlacementMode()){
-            return;
+        if (PlayerInputManager.Instance != null && ghostPreview != null)
+        {
+            ghostPreview.UpdatePreview(PlayerInputManager.Instance.MouseWorldPosition);
         }
-
-        MoveGhost();
-        CheckPlacement();
-        UpdateGhostColor();
     }
 
-
-    private void MoveGhost()
-    {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-
-        Vector3Int cellPosition = grid.WorldToCell(mousePos);
-        ghostBuilding.transform.position = grid.GetCellCenterWorld(cellPosition);
-    }
-
-
-    private void CheckPlacement()
-    {
-        Collider2D blocker = Physics2D.OverlapBox(
-            ghostBuilding.transform.position,
-            selectedBuilding.size,
-            0,
-            selectedBuilding.placementBlockerLayer
-        );
-
-        Collider2D fine = Physics2D.OverlapBox(
-            ghostBuilding.transform.position,
-            selectedBuilding.size,
-            0,
-            selectedBuilding.fineLayer
-        );
-
-        canPlace = blocker == null && fine != null;
-    }
-
-
-
-    private void UpdateGhostColor()
-    {
-        ghostRenderer.color = canPlace ? canPlaceColor : cantPlaceColor;
-    }
-
-
+    // Hayalet önizleme üzerinden bina yerleştirme modunu başlatır.
     public void SelectBuilding(BuildingData building)
     {
-        if (ghostBuilding != null)
-            Destroy(ghostBuilding);
+        selectedBuildingData = building;
+        if (selectedBuildingData == null || ghostPreview == null) return;
 
-        selectedBuilding = building;
-
-        ghostBuilding = Instantiate(selectedBuilding.ghostPrefab);
-
-        ghostRenderer = ghostBuilding.GetComponent<SpriteRenderer>();
-        ghostRenderer.color = cantPlaceColor;
+        ghostPreview.Show(
+            selectedBuildingData.ghostPrefab,
+            selectedBuildingData.size,
+            selectedBuildingData.placementBlockerLayer,
+            selectedBuildingData.fineLayer
+        );
     }
 
+    /// INTERFACE METODLARI
+    /// -----------------------------------------------------------------------------------
 
-    public void CancelPlacementMode()
-    {
-        if (ghostBuilding != null)
-        {
-            Destroy(ghostBuilding);
-
-            ghostBuilding = null;
-            ghostRenderer = null;
-        }
-
-        selectedBuilding = null;
-    }
-
-
+    // Fare sol tıkını yerleştirme veya bina paneli açma amacıyla işler.
     public void HandleLeftClick(Vector2 mousePosition)
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
-        
-       
-        if (IsPlacementMode())
+
+        if (IsPlacementMode)
         {
-            TryPlaceBuilding();
+            ghostPreview.TryConfirmPlacement();
             return;
         }
 
-        TryOpenBuildingUI(mousePosition);
-
+        TryOpenUI(mousePosition);
     }
-    private void TryPlaceBuilding()
+
+    // Yerleşim onaylandığında binayı sahnede oluşturur, ızgarayı günceller ve envanterden düşer.
+    public void HandlePlaced(Vector3 worldPos, Vector3Int cellPosition)
     {
-        if (!canPlace)
-            return;
+        if (selectedBuildingData == null) return;
 
-        Instantiate(
-            selectedBuilding.buildingPrefab,
-            ghostBuilding.transform.position,
-            Quaternion.identity
-        );
+        Instantiate(selectedBuildingData.buildingPrefab, worldPos, Quaternion.identity);
 
-        
+        int startX = -selectedBuildingData.size.x / 2;
+        int startY = -selectedBuildingData.size.y / 2;
 
-        Vector3Int cellPosition = grid.WorldToCell(ghostBuilding.transform.position);
-
-        int startX = -selectedBuilding.size.x / 2;
-        int startY = -selectedBuilding.size.y / 2;
-
-        for (int x = 0; x < selectedBuilding.size.x; x++)
+        if (nodes != null)
         {
-            for (int y = 0; y < selectedBuilding.size.y; y++)
+            for (int x = 0; x < selectedBuildingData.size.x; x++)
             {
-                Vector3Int nodePos = cellPosition + new Vector3Int(startX + x, startY + y, 0);
-                nodes.UpdateNodeWalkability(nodePos, false);
+                for (int y = 0; y < selectedBuildingData.size.y; y++)
+                {
+                    Vector3Int nodePos = cellPosition + new Vector3Int(startX + x, startY + y, 0);
+                    nodes.UpdateNodeWalkability(nodePos, false);
+                }
             }
         }
 
-        inventory.RemoveItem(selectedBuilding, 1);
+        if (inventory != null)
+        {
+            inventory.RemoveItem(selectedBuildingData, 1);
+        }
     }
-    private void TryOpenBuildingUI(Vector2 mousePosition)
+
+    // Tıklanan noktada bina varsa panelini açar, yoksa açık paneli kapatır.
+    public void TryOpenUI(Vector2 mousePosition)
     {
         Collider2D hit = Physics2D.OverlapPoint(mousePosition, buildingLayer);
 
         if (hit == null)
         {
-            buildingUI.Close();
+            buildingUI?.Close();
             return;
         }
 
         Building building = hit.GetComponentInParent<Building>();
-
         if (building == null)
         {
-            buildingUI.Close();
+            buildingUI?.Close();
             return;
         }
 
-        buildingUI.Open(building);
+        buildingUI?.Open(building);
     }
 
+    // Seçili envanter slotuna göre yerleştirme modunu açar veya kapatır.
+    public void UpdatePlacementMode()
+    {
+        if (inventory == null) return;
 
-    private void UpdatePlacementMode(){
         InventoryObject selectedObject = inventory.GetSelectedItem();
 
         if (!(selectedObject is BuildingData building))
@@ -188,14 +153,22 @@ public class BuildingManager : MonoBehaviour
             CancelPlacementMode();
             return;
         }
-        if (selectedBuilding != building)
+
+        if (selectedBuildingData != building)
         {
             SelectBuilding(building);
         }
     }
 
-    private bool IsPlacementMode()
+    // Oyuncunun şu anda bir binayı yerleştirme aşamasında olup olmadığını döner.
+    public bool IsPlacementMode => selectedBuildingData != null;
+
+    // Yerleştirme modunu iptal eder ve hayaleti gizler.
+    public void CancelPlacementMode()
     {
-        return selectedBuilding != null;
+        selectedBuildingData = null;
+        ghostPreview?.Hide();
     }
+
+    //------------------------------------------------------------------------------
 }

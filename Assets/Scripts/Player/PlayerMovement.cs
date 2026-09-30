@@ -16,13 +16,12 @@ public class PlayerMovement : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    // Hareket girdilerini toplar ve sprite yönünü günceller.
+    // Girdi yöneticisinden hareket vektörünü alır ve sprite yönünü günceller.
     private void Update()
     {
         if (CanMove)
         {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            movement = PlayerInputManager.Instance != null ? PlayerInputManager.Instance.MovementInput : Vector2.zero;
             if (movement.x > 0)
                 sr.flipX = false;
             else if (movement.x < 0)

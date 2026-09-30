@@ -33,6 +33,7 @@ public class OperatingWorkerPanelUI : MonoBehaviour
     private Worker currentWorker;
     private WorkerInventory currentInventory;
 
+    // Paneli açar, girdi envanteri ve durum eventlerini dinler, butonları kurar.
     public void Open(Worker worker)
     {
         currentWorker = worker;
@@ -87,6 +88,7 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Paneli kapatır, tüm event aboneliklerini sonlandırır.
     public void Close()
     {
         if (currentInventory != null)
@@ -110,6 +112,13 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // Panel yok edilirken aktif event aboneliklerini temizler.
+    private void OnDestroy()
+    {
+        Close();
+    }
+
+    // İşçinin genel istatistik metinlerini günceller.
     private void RefreshGeneralStats()
     {
         if (currentWorker == null) return;
@@ -121,12 +130,14 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         if (moveSpeedText != null) moveSpeedText.text = $"Move Speed : {currentWorker.MovementSpeed}";
     }
 
+    // İşçinin güncel durum metnini günceller.
     private void RefreshStatus()
     {
         if (currentWorker == null) return;
         if (statusText != null) statusText.text = "Status : " + currentWorker.Status;
     }
 
+    // İşçinin girdi haznesindeki ürün miktarını ve ikonunu günceller.
     private void RefreshInput()
     {
         if (currentInventory == null || currentWorker == null) return;
@@ -160,16 +171,19 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         UpdateButtonStates();
     }
 
+    // Oyuncunun işçinin etkileşim menzilinde olup olmadığını kontrol eder.
     private bool IsPlayerNearby()
     {
         return PlayerInteraction.Instance != null && PlayerInteraction.Instance.CurrentNearbyWorker == currentWorker;
     }
 
+    // Oyuncu yakındaki işçi menziline girdiğinde veya çıktığında buton durumlarını yeniler.
     private void HandleNearbyWorkerChanged()
     {
         UpdateButtonStates();
     }
 
+    // Oyuncunun yakınlık durumuna ve hazne doluluğuna göre girdi butonlarının etkileşimini ayarlar.
     private void UpdateButtonStates()
     {
         bool isNearby = IsPlayerNearby();
@@ -177,6 +191,7 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         if (retrieveInputButton != null) retrieveInputButton.interactable = isNearby && (currentInventory != null && currentInventory.GetInputTotal() > 0);
     }
 
+    // Oyuncunun elindeki seçili eşyayı işçinin girdi haznesine aktarır.
     private void OnAddInputClicked()
     {
         if (!IsPlayerNearby() || currentInventory == null) return;
@@ -195,6 +210,7 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // İşçinin girdi haznesindeki tüm eşyaları oyuncunun envanterine geri alır.
     private void OnRetrieveInputClicked()
     {
         if (!IsPlayerNearby() || currentInventory == null) return;
@@ -211,24 +227,27 @@ public class OperatingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // İşçinin maden kazma hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeWorkSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMiningSpeed(500))
+        if (currentWorker.TryUpgradeMiningSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // İşçinin hareket hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeMoveSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMovementSpeed(500))
+        if (currentWorker.TryUpgradeMovementSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // İşçiyi çalışmaktan alıkoyup boş (Idle) moda geçirir ve görev atama panelini açar.
     private void OnStopButtonClicked()
     {
         if (currentWorker == null) return;

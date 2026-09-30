@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+// Oyuncu envanterindeki tek bir hücrenin (slot) simgesini, miktarını ve seçim durumunu görselleştirir.
 public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image icon;
@@ -12,10 +13,17 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     private int slotIndex;
     private PlayerInventory inventory;
 
+    // Slotun indeks numarasını ve bağlı olduğu envanter referansını kaydeder.
+    public void Initialize(int index, PlayerInventory inventory)
+    {
+        slotIndex = index;
+        this.inventory = inventory;
+    }
 
+    // Slottaki eşya verisine göre simgeyi ve miktar metnini günceller.
     public void Refresh(InventorySlot slot)
     {
-        if (slot.Data == null)
+        if (slot == null || slot.Data == null)
         {
             icon.enabled = false;
             amountText.text = "";
@@ -24,27 +32,18 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 
         icon.enabled = true;
         icon.sprite = slot.Data.icon;
-
-        if (slot.Amount > 1){
-            amountText.text = "x" + slot.Amount;}
-        else{
-            amountText.text = "";}
-
+        amountText.text = slot.Amount > 1 ? $"x{slot.Amount}" : "";
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    // Bu slotun seçili olup olmadığını belirten sarı çerçeveyi açar veya kapatır.
+    public void SetSelected(bool selected)
     {
-        inventory.SelectSlot(slotIndex);
-    }
-
-    public void Initialize(int index, PlayerInventory inventory)
-    {
-        slotIndex = index;
-        this.inventory = inventory;
-    }
-
-    public void SetSelected(bool selected){
         selectionBorder.enabled = selected;
     }
-    
+
+    // Slota tıklandığında envanter üzerinde bu slotun seçilmesini sağlar.
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        inventory?.SelectSlot(slotIndex);
+    }
 }

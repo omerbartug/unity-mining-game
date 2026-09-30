@@ -29,7 +29,8 @@ classDiagram
         +static event Action OnNearbyWorkerChanged
         +Worker CurrentNearbyWorker
         -HandleInteraction() void
-        -HandleWorkerTransfer() void
+        -HandleGiveToWorker() void
+        -HandleTakeFromWorker() void
     }
 
     class PlayerStats {
@@ -43,10 +44,21 @@ classDiagram
         +TrySpendMoney(int) bool
     }
 
+    class PlayerInputManager {
+        +static PlayerInputManager Instance
+        +static event Action OnGiveToWorker
+        +static event Action OnTakeFromWorker
+        +bool IsInteractingHeld
+        +Vector2 MovementInput
+        +Vector2 MouseWorldPosition
+    }
+
+    PlayerInputManager --> PlayerMovement : Hareket vektörünü besler
+    PlayerInputManager --> PlayerInteraction : E durumu ve F/R event'lerini iletir
     PlayerInteraction --> PlayerMovement : Hareketi kilitler / açar
-    PlayerInteraction --> PlayerStats : Para sorgular (Debug)
-    PlayerInteraction ..> IInteractable : E ile etkileşime girer
-    PlayerInteraction ..> Worker : F / R ile eşya aktarır
+    PlayerInteraction --> PlayerStats : Para sorgular
+    PlayerInteraction ..> IInteractable : Etkileşime girer
+    PlayerInteraction ..> Worker : İşçiye eşya aktarır / çeker
 ```
 
 ---
@@ -57,7 +69,7 @@ classDiagram
 Oyuncunun 2D yukarıdan bakış (Top-Down) hareketini ve yönelimini yönetir.
 
 * **Fizik Entegrasyonu:** Unity 6'nın yeni `rb.linearVelocity` API'si üzerinden fizik hızını uygular.
-* **Girdi Toplama:** `Update` içinde `Horizontal` ve `Vertical` eksenlerini okur; hareket yönüne göre sprite'ı yatayda aynalar (`sr.flipX`).
+* **Girdi Ayrıştırması:** Doğrudan klavyeden okumak yerine `PlayerInputManager.Instance.MovementInput` vektörünü okur; hareket yönüne göre sprite'ı yatayda aynalar (`sr.flipX`).
 * **Hareket Kilidi:**
   * `DisableMovement()`: Oyuncu bir maden kazarken veya makine çalıştırırken hareketi dondurur (`linearVelocity = Vector2.zero`).
   * `EnableMovement()`: Etkileşim bittiğinde veya iptal edildiğinde oyuncunun yeniden serbestçe hareket etmesini sağlar.
@@ -65,19 +77,21 @@ Oyuncunun 2D yukarıdan bakış (Top-Down) hareketini ve yönelimini yönetir.
 ---
 
 ### 2. `PlayerInteraction.cs`
-Oyuncunun çevresindeki etkileşim noktalarını algılayan ve klavye girdilerine göre aksiyonları yürüten merkez bileşendir (`Singleton`).
+Oyuncunun çevresindeki etkileşim noktalarını algılayan ve `PlayerInputManager` event'lerine göre aksiyonları yürüten merkez bileşendir (`Singleton`).
 
 * **Algılama (Trigger):**
   * `IInteractable`: Yaklaşılan maden alanı, işleme alanı veya konteyner girdi alanını yakalar.
   * `Worker`: Yaklaşılan işçiyi yakalar ve `OnNearbyWorkerChanged` event'ini tetikler (UI butonlarının açılıp kapanmasını sağlar).
-* **Zamanlı Etkileşim (`E` Tuşu):**
+* **Zamanlı Etkileşim (`E` Durumu):**
+  * `PlayerInputManager.Instance.IsInteractingHeld` property'sini okuyarak etkileşimin sürdürüldüğünü denetler.
   * `currentInteractable.TryGetInteractionData()` ile oyuncunun envanterinde bu etkileşim için gerekli şartların varlığını doğrular.
   * Oyuncunun hareketini kilitler, `ProgressBar` üzerinde ilerlemeyi doldurur.
   * Süre (`OperationTime`) dolduğunda `CompleteInteract()` çağrılarak işlem tamamlanır.
   * Tuş bırakılırsa veya etkileşim koşulu bozulursa `CancelInteract()` çağrılarak ilerleme sıfırlanır ve hareket açılır.
-* **İşçi Eşya Transferi (`F` ve `R` Tuşları):**
-  * **`F` Tuşu:** Oyuncunun seçili hotbar slotundaki eşyayı yakındaki işçinin `Input` haznesine aktarır (`AddToInput`).
-  * **`R` Tuşu:** Yakındaki işçinin `Input` haznesindeki tüm eşyaları oyuncunun envanterine geri aktarır (`ClearInput`).
+* **İşçi Eşya Transferi (`HandleGiveToWorker` & `HandleTakeFromWorker`):**
+  * `Update()` içinde sürekli `KeyCode` sorgulamak yerine `PlayerInputManager` event'lerine (`OnEnable` / `OnDisable`) abone olunmuştur.
+  * **`OnGiveToWorker` (F Tuşu):** `HandleGiveToWorker()` tetiklenir; oyuncunun seçili hotbar slotundaki eşyayı yakındaki işçinin `Input` haznesine aktarır (`AddToInput`).
+  * **`OnTakeFromWorker` (R Tuşu):** `HandleTakeFromWorker()` tetiklenir; yakındaki işçinin `Input` haznesindeki tüm eşyaları oyuncunun envanterine geri toplar (`ClearInput`).
 
 ---
 

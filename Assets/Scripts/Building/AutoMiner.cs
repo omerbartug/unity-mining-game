@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Maden alanları üzerine kurulan ve zamanla otomatik olarak maden üreten binadır.
@@ -14,6 +15,8 @@ public class AutoMiner : Building
 
     private int storage;
     public int StoredItemCount => storage;
+
+    public event Action OnStorageChanged;
 
     public string Status
     {
@@ -56,6 +59,7 @@ public class AutoMiner : Building
         {
             storage++;
             timer = 0f;
+            OnStorageChanged?.Invoke();
         }
     }
 
@@ -69,6 +73,7 @@ public class AutoMiner : Building
         {
             int added = inventory.AddItem(miningArea.RewardItem, storage);
             storage -= added;
+            OnStorageChanged?.Invoke();
         }
     }
 }

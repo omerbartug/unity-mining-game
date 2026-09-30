@@ -4,18 +4,39 @@ using UnityEngine;
 // İki ızgara hücresi arasında A* algoritmasını kullanarak en kısa yolu hesaplayan bileşendir.
 public class Pathfinding : MonoBehaviour
 {
-    private NodeMaker grid;
+    public static Pathfinding Instance { get; private set; }
 
+    [SerializeField] private Grid grid;
+    private NodeMaker nodeMaker;
+
+    public Grid Grid => grid;
+    public NodeMaker NodeMaker => nodeMaker;
+
+    // Singleton örneğini kaydeder ve ızgara bileşenlerini önbelleğe alır.
     private void Awake()
     {
-        grid = GetComponent<NodeMaker>();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        nodeMaker = GetComponent<NodeMaker>();
+        if (grid == null)
+        {
+            grid = FindFirstObjectByType<Grid>();
+        }
     }
 
     // Başlangıç ve hedef koordinatları arasında A* ile en kısa rotayı bulur.
     public List<Node> FindPath(Vector3Int startPos, Vector3Int targetPos)
     {
-        Node startNode = grid.GetNode(startPos);
-        Node targetNode = grid.GetNode(targetPos);
+        Node startNode = nodeMaker.GetNode(startPos);
+        Node targetNode = nodeMaker.GetNode(targetPos);
 
         // Hedef yoksa veya yürünemez bir engelse (duvar/bina) arama yapma
         if (startNode == null || targetNode == null || !targetNode.isWalkable)
@@ -94,7 +115,7 @@ public class Pathfinding : MonoBehaviour
     // Mevcut hücrenin komşularını inceler; daha ucuz rota varsa maliyetleri güncelleyip openSet'e ekler.
     private void CheckNeighbors(Node currentNode, Node targetNode, List<Node> openSet, HashSet<Node> closedSet)
     {
-        foreach (Node neighbor in grid.GetNeighbors(currentNode))
+        foreach (Node neighbor in nodeMaker.GetNeighbors(currentNode))
         {
             // Yürünemez hücreleri ve daha önce incelenmişleri atla
             if (!neighbor.isWalkable || closedSet.Contains(neighbor))

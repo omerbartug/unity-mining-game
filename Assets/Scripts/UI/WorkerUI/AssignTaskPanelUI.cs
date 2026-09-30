@@ -26,11 +26,11 @@ public class AssignTaskPanelUI : MonoBehaviour
 
     private Worker currentWorker;
 
+    // Paneli açar, işçi bilgilerini bağlar ve buton dinleyicilerini kurar.
     public void Open(Worker worker)
     {
         currentWorker = worker;
 
-        // Buton eventlerini temizle ve yeniden bağla (eski tıklamalar üst üste binmesin diye)
         workButton.onClick.RemoveAllListeners();
         workButton.onClick.AddListener(OnWorkButtonClicked);
 
@@ -56,60 +56,62 @@ public class AssignTaskPanelUI : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Paneli kapatır ve seçili işçi referansını sıfırlar.
     public void Close()
     {
         currentWorker = null;
         panel.SetActive(false);
     }
 
+    // İşçinin güncel adı, seviyesi ve hız değerlerini arayüze yansıtır.
     private void UpdateUI()
     {
         if (currentWorker == null) return;
 
         nameText.text = $"{currentWorker.Name}";
         statusText.text = "Waiting for assignment (Idle)";
-        
         levelText.text = $"({currentWorker.Level} lvl)";
-
         WorkSpeedText.text = $"Work Speed : {currentWorker.MiningSpeed}";
-
         MoveSpeedText.text = $"Move Speed : {currentWorker.MovementSpeed}";
     }
 
+    // İşçiyi çalıştırma (hedefe gönderme) modunu başlatır.
     private void OnWorkButtonClicked()
     {
         if (currentWorker == null) return;
 
-
         workerManager.SetMoveWorkerMode(true);
         uiManager.CloseAllPanels();
-        
     }
 
+    // İşçi için taşıma kurulum panelini açar.
     private void OnTransportButtonClicked()
     {
         if (currentWorker == null) return;
         uiManager.OpenTransportSetup(currentWorker);
     }
 
+    // Paneli kapatır.
     private void OnCloseButtonClicked()
     {
         uiManager.CloseAllPanels();
     }
 
+    // İşçinin maden kazma hızını yükseltir ve arayüzü günceller.
     private void OnUpgradeMiningSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMiningSpeed(500))
+        if (currentWorker.TryUpgradeMiningSpeed())
         {
             UpdateUI();
         }
     }
 
+    // İşçinin hareket hızını yükseltir ve arayüzü günceller.
     private void OnUpgradeMovementSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMovementSpeed(500))
+        if (currentWorker.TryUpgradeMovementSpeed())
         {
             UpdateUI();
         }

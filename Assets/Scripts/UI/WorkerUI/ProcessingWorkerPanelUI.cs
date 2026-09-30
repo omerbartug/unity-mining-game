@@ -32,11 +32,11 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
     [SerializeField] private Button retrieveInputButton;
     [SerializeField] private Button stopButton;
 
-    [SerializeField] private WorkerManager workerManager;
     [SerializeField] private WorkerUIManager uiManager;
     private Worker currentWorker;
     private WorkerInventory currentInventory;
 
+    // Paneli açar, envanter ve durum eventlerini dinler, buton dinleyicilerini kurar.
     public void Open(Worker worker)
     {
         currentWorker = worker;
@@ -93,6 +93,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Paneli kapatır, tüm event aboneliklerini sonlandırır ve referansları temizler.
     public void Close()
     {
         if (currentInventory != null)
@@ -113,6 +114,13 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         if (panel != null) panel.SetActive(false);
     }
 
+    // Panel yok edilirken aktif event aboneliklerini temizler.
+    private void OnDestroy()
+    {
+        Close();
+    }
+
+    // İşçinin genel istatistik metinlerini günceller.
     private void RefreshGeneralStats()
     {
         if (currentWorker == null) return;
@@ -124,22 +132,26 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         if (moveSpeedText != null) moveSpeedText.text = $"Move Speed : {currentWorker.MovementSpeed}";
     }
 
+    // İşçinin güncel durum metnini günceller.
     private void RefreshStatus()
     {
         if (currentWorker == null) return;
         if (statusText != null) statusText.text = "Status : " + currentWorker.Status;
     }
 
+    // Oyuncunun işçinin etkileşim menzilinde olup olmadığını kontrol eder.
     private bool IsPlayerNearby()
     {
         return PlayerInteraction.Instance != null && PlayerInteraction.Instance.CurrentNearbyWorker == currentWorker;
     }
 
+    // Oyuncu yakındaki işçi menziline girdiğinde veya çıktığında buton durumlarını yeniler.
     private void HandleNearbyWorkerChanged()
     {
         UpdateButtonStates();
     }
 
+    // Oyuncunun yakınlık durumuna göre girdi butonlarının etkileşimini ayarlar.
     private void UpdateButtonStates()
     {
         bool isNearby = IsPlayerNearby();
@@ -147,6 +159,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         if (retrieveInputButton != null) retrieveInputButton.interactable = isNearby;
     }
 
+    // İşçinin girdi haznesindeki ürünleri ve toplam miktarı arayüze yansıtır.
     private void RefreshInput()
     {
         if (currentInventory == null || currentWorker == null) return;
@@ -161,6 +174,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         RefreshStatus();
     }
 
+    // İşçinin çıktı haznesindeki ürünleri ve toplam miktarı arayüze yansıtır.
     private void RefreshOutput()
     {
         if (currentInventory == null || currentWorker == null) return;
@@ -175,6 +189,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         RefreshStatus();
     }
 
+    // Belirtilen yuvalara eşya ikonlarını ve adetlerini yerleştirir.
     private int DisplayItems(Image[] icons, TMP_Text[] amounts, Dictionary<InventoryObject, int> items)
     {
         int slotIndex = 0;
@@ -201,6 +216,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         return slotIndex;
     }
 
+    // Boşta kalan eşya yuvalarını gizler.
     private void ClearEmptySlots(Image[] icons, TMP_Text[] amounts, int startIndex)
     {
         for (int i = startIndex; i < icons.Length; i++)
@@ -218,24 +234,27 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // İşçinin maden kazma hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeMiningSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMiningSpeed(500))
+        if (currentWorker.TryUpgradeMiningSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // İşçinin hareket hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeMovementSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMovementSpeed(500))
+        if (currentWorker.TryUpgradeMovementSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // Oyuncunun elindeki seçili eşyayı işçinin girdi haznesine aktarır.
     private void OnAddInputClicked()
     {
         if (!IsPlayerNearby()) return;
@@ -255,6 +274,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // İşçinin girdi haznesindeki tüm eşyaları oyuncunun envanterine geri aktarır.
     private void OnRetrieveInputClicked()
     {
         if (!IsPlayerNearby()) return;
@@ -272,6 +292,7 @@ public class ProcessingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // İşçiyi çalışmaktan alıkoyup boş (Idle) moda geçirir ve görev atama panelini açar.
     private void OnStopButtonClicked()
     {
         if (currentWorker == null) return;

@@ -2,13 +2,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+// Kargo konteyneri (CargoContainer) binasının depolanan ürünlerini, kapasitesini ve toplama butonlarını yöneten arayüzdür.
 public class ContainerPanelUI : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] private TMP_Text titleText;
-    [SerializeField] private TMP_Text capacityText; // "57 / 60"
-    [SerializeField] private Button upgradeButton;  // "+" Butonu
-    [SerializeField] private Button collectAllButton; // "Collect All" Butonu
+    [SerializeField] private TMP_Text capacityText;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button collectAllButton;
 
     [Header("Storage Slots (3 Slot)")]
     [SerializeField] private Image[] slotIcons = new Image[3];
@@ -16,6 +17,7 @@ public class ContainerPanelUI : MonoBehaviour
 
     private CargoContainer currentContainer;
 
+    // Konteyner panelini açar, event aboneliğini ve buton dinleyicilerini kurar.
     public void Open(CargoContainer container)
     {
         currentContainer = container;
@@ -41,6 +43,7 @@ public class ContainerPanelUI : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    // Konteyner panelini kapatır ve event aboneliğini temizler.
     public void Close()
     {
         if (currentContainer != null)
@@ -52,6 +55,7 @@ public class ContainerPanelUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // Depolanan ürünleri, kapasite oranını ve toplama butonu görünürlüğünü günceller.
     private void RefreshUI()
     {
         if (currentContainer == null) return;
@@ -65,6 +69,7 @@ public class ContainerPanelUI : MonoBehaviour
         }
     }
 
+    // Mevcut doluluk ve maksimum kapasite metnini yeniler.
     private void RefreshCapacityText()
     {
         if (capacityText != null && currentContainer != null)
@@ -73,10 +78,12 @@ public class ContainerPanelUI : MonoBehaviour
         }
     }
 
+    // Depodaki ürünleri slot ikonlarına ve miktarlarına yansıtır.
     private void RefreshStorage()
     {
-        int slotIndex = 0;
+        if (currentContainer == null || slotIcons == null || slotAmounts == null) return;
 
+        int slotIndex = 0;
         foreach (var pair in currentContainer.StoredItems)
         {
             if (slotIndex >= slotIcons.Length) break;
@@ -99,8 +106,11 @@ public class ContainerPanelUI : MonoBehaviour
         ClearEmptySlots(slotIndex);
     }
 
+    // Boş kalan slotların ikonlarını ve metinlerini temizler.
     private void ClearEmptySlots(int startIndex)
     {
+        if (slotIcons == null || slotAmounts == null) return;
+
         for (int i = startIndex; i < slotIcons.Length; i++)
         {
             if (slotIcons[i] != null)
@@ -116,6 +126,7 @@ public class ContainerPanelUI : MonoBehaviour
         }
     }
 
+    // Konteyner kapasite artırma butonuna tıklandığında yükseltmeyi dener.
     private void OnUpgradeClicked()
     {
         if (currentContainer == null) return;
@@ -130,6 +141,7 @@ public class ContainerPanelUI : MonoBehaviour
         }
     }
 
+    // Tümünü Topla butonuna tıklandığında konteynerdeki eşyaları oyuncu envanterine aktarır.
     private void OnCollectAllClicked()
     {
         if (currentContainer == null) return;

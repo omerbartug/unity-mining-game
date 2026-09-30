@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Belirli aralıklarla kargo konteynerlerindeki ürünleri toptan satıp parayı oyuncuya aktaran zamanlayıcıdır.
 public class ShipmentManager : MonoBehaviour
 {
     public static ShipmentManager Instance { get; private set; }
@@ -16,6 +17,7 @@ public class ShipmentManager : MonoBehaviour
 
     public static event Action<int> OnShipmentCompleted;
 
+    // Singleton örneğini kaydeder ve sevkiyat zamanlayıcısını başlatır.
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,6 +30,17 @@ public class ShipmentManager : MonoBehaviour
         currentTimer = shipmentInterval;
     }
 
+    // Sahne geçişlerinde bellek sızıntısını önlemek için statik listeyi ve referansı temizler.
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+            activeContainers.Clear();
+        }
+    }
+
+    // Her karede sevkiyat süresini geri sayar ve süre dolduğunda sevkiyatı tetikler.
     private void Update()
     {
         currentTimer -= Time.deltaTime;
@@ -39,6 +52,7 @@ public class ShipmentManager : MonoBehaviour
         }
     }
 
+    // Yeni oluşturulan veya aktifleşen konteyneri sevkiyat listesine kaydeder.
     public static void Register(CargoContainer container)
     {
         if (container != null && !activeContainers.Contains(container))
@@ -47,6 +61,7 @@ public class ShipmentManager : MonoBehaviour
         }
     }
 
+    // Devre dışı kalan veya silinen konteyneri sevkiyat listesinden çıkarır.
     public static void Unregister(CargoContainer container)
     {
         if (container != null)
@@ -55,6 +70,7 @@ public class ShipmentManager : MonoBehaviour
         }
     }
 
+    // Tüm aktif konteynerlerdeki ürünleri satar ve kazanılan parayı oyuncuya aktarır.
     public void ExecuteShipment()
     {
         int totalEarnings = 0;
@@ -70,7 +86,10 @@ public class ShipmentManager : MonoBehaviour
 
         if (totalEarnings > 0)
         {
-            PlayerStats.Instance.AddMoney(totalEarnings);
+            if (PlayerStats.Instance != null)
+            {
+                PlayerStats.Instance.AddMoney(totalEarnings);
+            }
             Debug.Log($"[ShipmentManager] Gemi geldi! {totalEarnings}$ kazanıldı.");
         }
         else

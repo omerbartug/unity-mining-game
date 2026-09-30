@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93639f3ea50a949cc9b738a6faeea4a8, type: 3}
+  m_Name: Worker
+  m_EditorClassIdentifier: Assembly-CSharp::WorkerData
+  objectName: Worker
+  icon: {fileID: 963453013, guid: 28e17befec6da40d9a8908f9e86388f2, type: 3}
+  price: 1000
+  workerPrefab: {fileID: 7915426855337078516, guid: d28714bd881c84930a5f6fb0f81320c6, type: 3}
+  ghostPrefab: {fileID: 4947816228630835766, guid: 9161f5bdce22940ed9178823681462ad, type: 3}
+  size: {x: 1, y: 1}
+  placementBlockerLayer:
+    serializedVersion: 2
+    m_Bits: 840
+  fineLayer:
+    serializedVersion: 2
+    m_Bits: 1024

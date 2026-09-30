@@ -4,8 +4,8 @@ using UnityEngine;
 // Taşıyıcı işçinin rota üzerindeki devriye hareketini ve başlangıç noktasına intikalini yönetir.
 public class TransportMovement : MonoBehaviour
 {
-    [SerializeField] private Grid grid;
-    [SerializeField] private Pathfinding pathfinding;
+    private Grid grid;
+    private Pathfinding pathfinding;
 
     private Worker worker;
     private List<Vector3Int> routeCells = new List<Vector3Int>();
@@ -26,6 +26,20 @@ public class TransportMovement : MonoBehaviour
     private void Awake()
     {
         worker = GetComponent<Worker>();
+    }
+
+    // Eksik ızgara ve yol bulma referanslarını Singleton üzerinden çözer.
+    private void Start()
+    {
+        if (pathfinding == null && Pathfinding.Instance != null)
+        {
+            pathfinding = Pathfinding.Instance;
+        }
+
+        if (grid == null && pathfinding != null)
+        {
+            grid = pathfinding.Grid;
+        }
     }
 
     // Belirtilen rotayı kaydeder; başlangıç noktasındaysa devriyeyi başlatır, değilse oraya A* ile yol bulur.

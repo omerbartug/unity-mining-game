@@ -9,16 +9,18 @@ public class WorkerUIManager : MonoBehaviour
     [SerializeField] private ProcessingWorkerPanelUI processingPanel;
     [SerializeField] private TransportingWorkerPanelUI transportPanel;
 
+    // İşçinin durumuna ve iş türüne göre uygun paneli açar.
     public void OpenWorkerUI(Worker worker)
     {
         CloseAllPanels();
+        if (worker == null) return;
 
         switch (worker.CurrentState)
         {
             case WorkerState.Idle:
                 if (assignPanel != null) assignPanel.Open(worker);
                 break;
-                
+
             case WorkerState.Working:
                 switch (worker.CurrentWorkType)
                 {
@@ -39,19 +41,22 @@ public class WorkerUIManager : MonoBehaviour
                         break;
                 }
                 break;
-                
+
             case WorkerState.Transporting:
                 if (transportPanel != null) transportPanel.Open(worker);
                 break;
         }
     }
 
+    // Taşıma rotası kurulumu için taşıma panelini açar.
     public void OpenTransportSetup(Worker worker)
     {
         CloseAllPanels();
+        if (worker == null) return;
         if (transportPanel != null) transportPanel.OpenForSetup(worker);
     }
 
+    // Tüm işçi UI panellerini kapatır.
     public void CloseAllPanels()
     {
         if (assignPanel != null) assignPanel.Close();

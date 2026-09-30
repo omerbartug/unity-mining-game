@@ -58,26 +58,34 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    // Her karede etkileşim ve işçi transfer mantığını kontrol eder.
+    // Girdi yöneticisindeki işçi etkileşim event'lerine abone olur.
+    private void OnEnable()
+    {
+        PlayerInputManager.OnGiveToWorker += HandleGiveToWorker;
+        PlayerInputManager.OnTakeFromWorker += HandleTakeFromWorker;
+    }
+
+    // Olası bellek sızıntılarını önlemek için event aboneliklerini temizler.
+    private void OnDisable()
+    {
+        PlayerInputManager.OnGiveToWorker -= HandleGiveToWorker;
+        PlayerInputManager.OnTakeFromWorker -= HandleTakeFromWorker;
+    }
+
+    // Her karede dünya etkileşim sürecini kontrol eder.
     private void Update()
     {
         HandleInteraction();
-
-        HandleWorkerTransfer();
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log(PlayerStats.Instance.GetPlayerMoney());
-        }
     }
 
-    // E tuşuna basılı tutularak yapılan zamanlı etkileşim sürecini (kazı, işleme, doldurma) yürütür.
+    // Etkileşim tuşuna basılı tutularak yapılan zamanlı süreci (kazı, işleme, doldurma) yürütür.
     private void HandleInteraction()
     {
         if (currentInteractable != null)
         {
-            
-            if (Input.GetKey(KeyCode.E) && currentInteractable.TryGetInteractionData(playerInventory, out ItemData item, out int amount))
+            bool isInteractingHeld = PlayerInputManager.Instance != null && PlayerInputManager.Instance.IsInteractingHeld;
+
+            if (isInteractingHeld && currentInteractable.TryGetInteractionData(playerInventory, out ItemData item, out int amount))
             {
                 playerMovement.DisableMovement();
 
@@ -91,7 +99,7 @@ public class PlayerInteraction : MonoBehaviour
                     progress.ResetProgress();
                 }
             }
-            else if (timer > 0f) // Tuş bırakıldıysa veya etkileşim yarıda kesildiyse bir kere iptal et
+            else if (timer > 0f) // Tuş bırakıldıysa veya etkileşim yarıda kesildiyse iptal et
             {
                 playerMovement.EnableMovement();
                 currentInteractable.CancelInteract(progress);
@@ -100,39 +108,35 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    // F ve R tuşları ile yakındaki işçinin Input haznesine eşya verme veya geri alma işlemlerini yürütür.
-    private void HandleWorkerTransfer()
+    // Seçili eşyayı yakındaki işçinin girdi haznesine aktarır (F tuşu tetikleyicisi).
+    private void HandleGiveToWorker()
     {
-        // --- İŞÇİ İLE INPUT ETKİLEŞİMİ (F ve R) ---
-        if (currentNearbyWorker != null && playerInventory != null)
-        {
-            // F: Seçili eşyayı işçinin Input'una ver
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                InventoryObject selected = playerInventory.GetSelectedItem();
-                if (selected != null)
-                {
-                    int amount = playerInventory.GetSelectedSlot().Amount;
-                    int added = currentNearbyWorker.Inventory.AddToInput(selected, amount);
-                    if (added > 0)
-                    {
-                        playerInventory.RemoveItem(selected, added);
-                    }
-                }
-            }
+        if (currentNearbyWorker == null || playerInventory == null) return;
 
-            // R: İşçinin Input'undaki tüm eşyaları geri al
-            if (Input.GetKeyDown(KeyCode.R))
+        InventoryObject selected = playerInventory.GetSelectedItem();
+        if (selected != null)
+        {
+            int amount = playerInventory.GetSelectedSlot().Amount;
+            int added = currentNearbyWorker.Inventory.AddToInput(selected, amount);
+            if (added > 0)
             {
-                if (currentNearbyWorker.Inventory.InputItems.Count > 0)
-                {
-                    foreach (var pair in currentNearbyWorker.Inventory.InputItems)
-                    {
-                        playerInventory.AddItem(pair.Key, pair.Value);
-                    }
-                    currentNearbyWorker.Inventory.ClearInput();
-                }
+                playerInventory.RemoveItem(selected, added);
             }
+        }
+    }
+
+    // Yakındaki işçinin girdi haznesindeki tüm eşyaları geri toplar (R tuşu tetikleyicisi).
+    private void HandleTakeFromWorker()
+    {
+        if (currentNearbyWorker == null || playerInventory == null) return;
+
+        if (currentNearbyWorker.Inventory.InputItems.Count > 0)
+        {
+            foreach (var pair in currentNearbyWorker.Inventory.InputItems)
+            {
+                playerInventory.AddItem(pair.Key, pair.Value);
+            }
+            currentNearbyWorker.Inventory.ClearInput();
         }
     }
 }

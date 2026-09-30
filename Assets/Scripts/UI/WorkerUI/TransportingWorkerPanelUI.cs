@@ -32,6 +32,7 @@ public class TransportingWorkerPanelUI : MonoBehaviour
     private ItemData selectedItem;
     private bool isSetupMode = false;
 
+    // İşçi için eşya seçme ve rota çizme kurulum modunu açar.
     public void OpenForSetup(Worker worker)
     {
         Close();
@@ -69,6 +70,7 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Taşıma yapan işçinin bilgi panelini açar ve rotasını haritada gösterir.
     public void Open(Worker worker)
     {
         Close();
@@ -115,6 +117,7 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Paneli kapatır, çizili rotayı gizler ve event aboneliklerini temizler.
     public void Close()
     {
         if (RouteDrawer.Instance != null)
@@ -149,6 +152,13 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // Panel yok edilirken aktif event aboneliklerini temizler.
+    private void OnDestroy()
+    {
+        Close();
+    }
+
+    // Kurulum modundayken envanterden taşınacak eşya seçildiğinde tetiklenir.
     private void OnInventorySlotSelected()
     {
         if (!isSetupMode || currentWorker == null) return;
@@ -178,6 +188,7 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // İşçinin genel istatistik metinlerini günceller.
     private void RefreshGeneralStats()
     {
         if (currentWorker == null) return;
@@ -188,12 +199,14 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         if (moveSpeedText != null) moveSpeedText.text = $"Move Speed : {currentWorker.MovementSpeed}";
     }
 
+    // İşçinin güncel durum metnini günceller.
     private void RefreshStatus()
     {
         if (currentWorker == null) return;
         if (statusText != null && !isSetupMode) statusText.text = "Status : " + currentWorker.Status;
     }
 
+    // Taşınan yük miktarını ve eşya ikonunu günceller.
     private void RefreshCargo()
     {
         if (currentInventory == null || currentWorker == null) return;
@@ -228,15 +241,17 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         RefreshStatus();
     }
 
+    // İşçinin hareket hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeMoveSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMovementSpeed(500))
+        if (currentWorker.TryUpgradeMovementSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // İşçiyi çalışmaktan alıkoyup boş (Idle) moda geçirir ve görev atama panelini açar.
     private void OnStopButtonClicked()
     {
         if (currentWorker == null) return;
@@ -254,6 +269,7 @@ public class TransportingWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // Rota ve eşya kurulumunu iptal edip işçinin görev atama paneline geri döner.
     private void OnCancelSetupClicked()
     {
         Worker worker = currentWorker;

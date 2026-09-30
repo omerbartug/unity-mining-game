@@ -9,8 +9,8 @@ public class WorkerMovement : MonoBehaviour
     // Tüm işçilerin paylaştığı, rezerve edilmiş hedef hücreler (çakışmayı önler).
     public static HashSet<Vector3Int> OccupiedCells = new HashSet<Vector3Int>();
 
-    [SerializeField] private Grid grid;
-    [SerializeField] private Pathfinding pathfinding;
+    private Grid grid;
+    private Pathfinding pathfinding;
 
     public bool HasReachedTarget { get; private set; } = true;
     private bool hasClaimedCell = false;
@@ -23,6 +23,20 @@ public class WorkerMovement : MonoBehaviour
     private void Awake()
     {
         stats = GetComponent<Worker>();
+    }
+
+    // Eksik ızgara ve yol bulma referanslarını Singleton üzerinden çözer.
+    private void Start()
+    {
+        if (pathfinding == null && Pathfinding.Instance != null)
+        {
+            pathfinding = Pathfinding.Instance;
+        }
+
+        if (grid == null && pathfinding != null)
+        {
+            grid = pathfinding.Grid;
+        }
     }
 
     private void OnDestroy()

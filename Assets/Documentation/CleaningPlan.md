@@ -140,7 +140,7 @@ graph TD
 | 27 | 8 | `WorkerInteraction` | `Assets/Scripts/Worker/WorkerInteraction.cs` |
 | 28 | 8 | `TransportMovement` | `Assets/Scripts/Worker/TransportMovement.cs` |
 | 29 | 8 | `TransportLogic` | `Assets/Scripts/Worker/TransportLogic.cs` |
-| 30 | 9 | `PlayerInputManager` | `Assets/Scripts/Managers/PlayerClickManager.cs` |
+| 30 | 9 | `PlayerInputManager` | `Assets/Scripts/Managers/PlayerInputManager.cs` |
 | 31 | 9 | `BuildingManager` | `Assets/Scripts/Managers/BuildingManager.cs` |
 | 32 | 9 | `WorkerManager` | `Assets/Scripts/Managers/WorkerManager.cs` |
 | 33 | 9 | `ShipmentManager` | `Assets/Scripts/Managers/ShipmentManager.cs` |
@@ -745,10 +745,10 @@ graph TD
 **Ne olduğu:** İşçi seçimini, iş atamasını ve transport rota oluşturmayı koordine eder.
 
 **İnceleme kontrol listesi:**
-- [ ] `HandleLeftClick()` — işçi seç VEYA iş hedefine ata
-- [ ] `SetMoveWorkerMode()` — işçi yerleştirme moduna girer
-- [ ] `SetTransportMode()` — transport yolu için `RouteDrawer` başlatır
-- [ ] `OnRouteCompleted()` / `OnRouteCancelled()` — `RouteDrawer`'dan callback'ler
+- [x] `HandleLeftClick()` — işçi seç VEYA iş hedefine ata
+- [x] `SetMoveWorkerMode()` — işçi yerleştirme moduna girer
+- [x] `SetTransportMode()` — transport yolu için `RouteDrawer` başlatır
+- [x] `OnRouteCompleted()` / `OnRouteCancelled()` — `RouteDrawer`'dan callback'ler
 
 **Tartışılacak bilinen sorunlar:**
 - Tutarsız alan adlandırması: `MoveWorkerMode` PascalCase (camelCase olmalı)
@@ -762,9 +762,9 @@ graph TD
 **Ne olduğu:** Tüm `CargoContainer` içeriklerini periyodik olarak satan ve oyuncu parasına aktaran Singleton zamanlayıcı.
 
 **İnceleme kontrol listesi:**
-- [ ] Statik kayıt defterini oku: `CargoContainer` için `Register()` / `Unregister()`
-- [ ] `Update()` — geri sayım zamanlayıcısı → `ExecuteShipment()`
-- [ ] `ExecuteShipment()` — konteynerleri dolaşır, hepsini satar, `OnShipmentCompleted` ateşler
+- [x] Statik kayıt defterini oku: `CargoContainer` için `Register()` / `Unregister()`
+- [x] `Update()` — geri sayım zamanlayıcısı → `ExecuteShipment()`
+- [x] `ExecuteShipment()` — konteynerleri dolaşır, hepsini satar, `OnShipmentCompleted` ateşler
 
 **Tartışılacak bilinen sorunlar:**
 - `static List<CargoContainer> activeContainers` sahne geçişlerinde kalıcı — bellek sızıntısı riski
@@ -777,10 +777,10 @@ graph TD
 **Ne olduğu:** `LineRenderer` kullanarak tıkla-ve-sürükle rota çizimi yapan Singleton. `NodeMaker` ile yürünebilirliği doğrular.
 
 **İnceleme kontrol listesi:**
-- [ ] `StartDrawing()` — callback'lerle çizim modunu aktive eder
-- [ ] `Update()` — sol tık sürükle ile hücre ekle, bırak ile tamamla, sağ tık ile iptal et
-- [ ] `TryAddCellsTo()` — hızlı sürükleme için boşluk doldurma mantığı
-- [ ] `ShowRoute()` / `HideRoute()` — mevcut rotayı görüntüle
+- [x] `StartDrawing()` — callback'lerle çizim modunu aktive eder
+- [x] `HandlePointerDown/Drag/Up` — donanım Input yerine `PlayerInputManager` üzerinden yönlendirilen girdi yönetimi
+- [x] `TryAddCellsTo()` — hızlı sürükleme için boşluk doldurma mantığı
+- [x] `ShowRoute()` / `HideRoute()` — mevcut rotayı görüntüle
 
 **Tartışılacak bilinen sorunlar:**
 - `routeCells.Contains(next)` O(N) — eşlik eden `HashSet<Vector3Int>` kullanılmalı
@@ -788,7 +788,7 @@ graph TD
 - Adım adım ortogonal interpolasyon merdiven basamağı artefaktları oluşturabilir
 
 **Dokümantasyon çıktısı:**
-- [ ] 5 yönetici script'ini kapsayan `Assets/Documentation/Managers.md` oluştur
+- [x] 5 yönetici script'ini kapsayan `Assets/Documentation/Managers.md` oluştur
 
 ---
 
@@ -802,18 +802,18 @@ graph TD
 #### 35. [ProgressBar.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/UI/ProgressBar.cs)
 
 **İnceleme kontrol listesi:**
-- [ ] `SetProgress()`, `ResetProgress()` — `Image.fillAmount`'ı sürer
-- [ ] Not: temiz, tek sorumluluk bileşeni
-- [ ] Eksik: `Mathf.Clamp01(progress)` — çağırana güveniyor
+- [x] `SetProgress()`, `ResetProgress()` — `Image.fillAmount`'ı sürer
+- [x] Not: temiz, tek sorumluluk bileşeni
+- [x] `Mathf.Clamp01(progress)` eklendi — güvenli aralık garantilendi
 
 ---
 
 #### 36–37. [InventorySlotUI.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/UI/InventorySlotUI.cs) & [InventoryUI.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/UI/InventoryUI.cs)
 
 **İnceleme kontrol listesi:**
-- [ ] `InventorySlotUI` oku: `Initialize()`, `Refresh()`, `OnPointerClick()`, `SetSelected()`
-- [ ] `InventoryUI` oku: `Start()`'taki slot örneklemesi, `Refresh()`, `SetSelectionBorder()`
-- [ ] Event aboneliklerini oku: `InventoryChanged`, `SelectedSlotChanged`
+- [x] `InventorySlotUI` oku: `Initialize()`, `Refresh()`, `OnPointerClick()`, `SetSelected()`
+- [x] `InventoryUI` oku: dinamik slot örneklemesi, `Refresh()`, `SetSelectionBorder()`
+- [x] Event aboneliklerini oku: `InventoryChanged`, `SelectedSlotChanged` ve `OnDestroy` temizliği
 
 **Tartışılacak bilinen sorunlar:**
 - `InventoryUI` `new InventorySlotUI[8]` kodluyor — `PlayerInventory` ile dinamik olarak eşleşmeli
@@ -831,10 +831,10 @@ graph TD
 | [ContainerPanelUI.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/UI/BuildingUI/ContainerPanelUI.cs) | CargoContainer | Observer pattern; kodlanmış geliştirme değerleri |
 
 **İnceleme kontrol listesi:**
-- [ ] `BuildingUIManager.Open()` — doğru panele tip-switch yönlendirme
-- [ ] Her panelin `Open()` / `Close()` yaşam döngüsünü oku
-- [ ] Event abonelik kalıplarını karşılaştır: Miner polling yapıyor, diğerleri event kullanıyor
-- [ ] `MinerPanelUI` tutarsızlığına dikkat et — diğerleri gibi event kullanmalı
+- [x] `BuildingUIManager.Open()` — doğru panele tip-switch yönlendirme ve null güvenliği
+- [x] Her panelin `Open()` / `Close()` yaşam döngüsü ve event abonelikleri
+- [x] `MinerPanelUI` event tabanlı hale getirildi (`AutoMiner.OnStorageChanged`)
+- [x] `ProcessorPanelUI` gereksiz log temizliği ve tek satır yorumlar
 
 ---
 
@@ -850,21 +850,15 @@ graph TD
 | [TransportingWorkerPanelUI.cs](file:///Users/bartug/Mining%20Tycoon/Assets/Scripts/UI/WorkerUI/TransportingWorkerPanelUI.cs) | Transporting | Kurulum sihirbazı + aktif izleme |
 
 **İnceleme kontrol listesi:**
-- [ ] `WorkerUIManager.OpenWorkerUI()` — state + work type üzerinde iç içe switch
-- [ ] Her panelin `Open()` / `Close()` — event yaşam döngüsünü oku
-- [ ] Mining/Operating/Processing panellerindeki **devasa kod tekrarını** tespit et (~%70 aynı)
-- [ ] `TransportingWorkerPanelUI` — çift modu var: `OpenForSetup()` vs `Open()`
-- [ ] Operating/Processing panellerindeki yakınlık koşullu butonları oku — `PlayerInteraction.OnNearbyWorkerChanged`
-
-**Tartışılacak bilinen sorunlar:**
-- 3 işçi panelinde **~%70 tekrarlanan kod** → `WorkerPanelUIBase` çıkar
-- **UI'da iş mantığı:** Operating ve Processing panelleri buton callback'lerinde doğrudan envanterleri manipüle ediyor
-- Sihirli sayılar: her yerde `500` geliştirme maliyeti
-- `TransportingWorkerPanelUI` kurulum sihirbazı + izleyiciyi karıştırıyor — ayrılmalı
-- `ProcessingWorkerPanelUI.cs` içinde eski `WorkModePanelUI` sınıfı kalıntısı
+- [x] `WorkerUIManager.OpenWorkerUI()` — state + work type yönlendirmesi ve null kontrolleri
+- [x] Her panelin `Open()` / `Close()` — event yaşam döngüsü ve `OnDestroy` temizliği
+- [x] Hardcoded `500` upgrade maliyetleri `Worker` üzerindeki parametresiz metotlara bağlandı
+- [x] `TransportingWorkerPanelUI` — çift modlu (`OpenForSetup()` vs `Open()`) yapı korundu ve `OnDestroy` temizliği eklendi
+- [x] Operating/Processing panellerindeki `PlayerInteraction.OnNearbyWorkerChanged` event'i güvenle dinlenip çözüldü
+- [x] Tüm Worker UI metotlarına tek satırlık temiz açıklamalar eklendi
 
 **Dokümantasyon çıktısı:**
-- [ ] Tüm UI bileşenlerini, kalıpları ve bilinen sorunları kapsayan `Assets/Documentation/UI.md` oluştur
+- [x] Tüm UI bileşenlerini, kalıpları ve mimariyi kapsayan `Assets/Documentation/UI.md` oluşturuldu
 
 ---
 
@@ -874,7 +868,7 @@ graph TD
 
 ### 11.1 — Dosya/Sınıf Adı Düzeltmeleri
 - [ ] `ProcessInputArea.cs` → `ProcessorInputArea.cs` olarak yeniden adlandır
-- [ ] `PlayerClickManager.cs` → `PlayerInputManager.cs` olarak yeniden adlandır
+- [x] `PlayerClickManager.cs` → `PlayerInputManager.cs` olarak yeniden adlandır
 - [ ] `Processer.asset` → `Processor.asset` olarak yeniden adlandır
 - [ ] `rawDiaomnd.asset` → `rawDiamond.asset` düzelt (SO asset'indeki yazım hatası)
 

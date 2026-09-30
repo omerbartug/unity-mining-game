@@ -29,8 +29,9 @@ public class MiningWorkerPanelUI : MonoBehaviour
     private Worker currentWorker;
     private WorkerInventory currentInventory;
 
+    // Paneli açar, işçi envanteri ve durum eventlerini dinler, butonları bağlar.
     public void Open(Worker worker)
-   {
+    {
         currentWorker = worker;
         currentInventory = worker != null ? worker.Inventory : null;
 
@@ -68,6 +69,7 @@ public class MiningWorkerPanelUI : MonoBehaviour
         panel.SetActive(true);
     }
 
+    // Paneli kapatır, event dinleyicilerini çözer ve referansları sıfırlar.
     public void Close()
     {
         if (currentInventory != null)
@@ -89,6 +91,13 @@ public class MiningWorkerPanelUI : MonoBehaviour
         }
     }
 
+    // Panel yok edilirken aktif event aboneliklerini temizler.
+    private void OnDestroy()
+    {
+        Close();
+    }
+
+    // İşçinin genel istatistik metinlerini günceller.
     private void RefreshGeneralStats()
     {
         if (currentWorker == null) return;
@@ -100,12 +109,14 @@ public class MiningWorkerPanelUI : MonoBehaviour
         if (moveSpeedText != null) moveSpeedText.text = $"Move Speed : {currentWorker.MovementSpeed}";
     }
 
+    // İşçinin güncel durum metnini günceller.
     private void RefreshStatus()
     {
         if (currentWorker == null) return;
         if (statusText != null) statusText.text = "Status : " + currentWorker.Status;
     }
 
+    // İşçinin çıkış haznesindeki ürün miktarını ve ikonunu günceller.
     private void RefreshOutput()
     {
         if (currentInventory == null || currentWorker == null) return;
@@ -138,24 +149,27 @@ public class MiningWorkerPanelUI : MonoBehaviour
         RefreshStatus();
     }
 
+    // İşçinin maden kazma hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeWorkSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMiningSpeed(500))
+        if (currentWorker.TryUpgradeMiningSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // İşçinin hareket hızını yükseltir ve arayüzü yeniler.
     private void OnUpgradeMoveSpeedClicked()
     {
         if (currentWorker == null) return;
-        if (currentWorker.TryUpgradeMovementSpeed(500))
+        if (currentWorker.TryUpgradeMovementSpeed())
         {
             RefreshGeneralStats();
         }
     }
 
+    // İşçiyi çalışmaktan alıkoyup boş (Idle) moda geçirir ve görev atama panelini açar.
     private void OnStopButtonClicked()
     {
         if (currentWorker == null) return;

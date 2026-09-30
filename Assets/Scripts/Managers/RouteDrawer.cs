@@ -1,23 +1,27 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
+// Taşıyıcı işçiler için harita üzerinde çizgi ile yürünebilir rota çizen ve yöneten bileşendir.
 public class RouteDrawer : MonoBehaviour
 {
+    public static RouteDrawer Instance { get; private set; }
+
     [SerializeField] private Grid grid;
     [SerializeField] private NodeMaker nodeMaker;
     [SerializeField] private LineRenderer lineRenderer;
 
-    private List<Vector3Int> routeCells = new List<Vector3Int>();
+    private readonly List<Vector3Int> routeCells = new List<Vector3Int>();
     private bool isDrawing = false;
     private bool isActive = false;
 
     private Action<List<Vector3Int>> onRouteCompleted;
     private Action onRouteCancelled;
 
-    public static RouteDrawer Instance { get; private set; }
+    public bool IsActive => isActive;
+    public bool IsDrawing => isDrawing;
 
+    // Singleton örneğini ve ızgara bileşenlerini hazırlar.
     private void Awake()
     {
         if (Instance == null)
@@ -30,11 +34,16 @@ public class RouteDrawer : MonoBehaviour
             return;
         }
 
+        if (grid == null && Pathfinding.Instance != null) grid = Pathfinding.Instance.Grid;
         if (grid == null) grid = FindFirstObjectByType<Grid>();
+
+        if (nodeMaker == null && Pathfinding.Instance != null) nodeMaker = Pathfinding.Instance.NodeMaker;
         if (nodeMaker == null) nodeMaker = FindFirstObjectByType<NodeMaker>();
+        
         if (lineRenderer == null) lineRenderer = GetComponent<LineRenderer>();
     }
 
+    // Belirtilen hücre listesini LineRenderer ile sahnede görselleştirir.
     public void ShowRoute(List<Vector3Int> cells)
     {
         if (lineRenderer == null || grid == null || cells == null || cells.Count == 0)
@@ -52,6 +61,7 @@ public class RouteDrawer : MonoBehaviour
         }
     }
 
+    // Çizilmiş olan rotayı gizler ve çizgi noktalarını temizler.
     public void HideRoute()
     {
         if (lineRenderer != null)
@@ -60,6 +70,7 @@ public class RouteDrawer : MonoBehaviour
         }
     }
 
+    // Rota çizim modunu aktif hale getirir ve tamamlanma/iptal callback'lerini kaydeder.
     public void StartDrawing(Action<List<Vector3Int>> onCompleted, Action onCancelled)
     {
         isActive = true;
@@ -71,6 +82,7 @@ public class RouteDrawer : MonoBehaviour
         HideRoute();
     }
 
+    // Aktif çizimi iptal eder, rotayı temizler ve iptal callback'ini tetikler.
     public void CancelDrawing()
     {
         isActive = false;
@@ -82,68 +94,56 @@ public class RouteDrawer : MonoBehaviour
         onRouteCancelled?.Invoke();
     }
 
-    private void Update()
+    // Sol tık basıldığında tıklanan hücre yürünebilirse çizimi başlatır.
+    public void HandlePointerDown(Vector2 worldPos)
     {
-        if (!isActive) return;
+        if (!isActive || grid == null) return;
 
-        // Sağ tık: Çizimi iptal et
-        if (Input.GetMouseButtonDown(1))
+        Vector3Int cell = grid.WorldToCell(worldPos);
+        if (IsWalkable(cell))
         {
-            CancelDrawing();
-            return;
-        }
+            isDrawing = true;
+            routeCells.Clear();
+            if (lineRenderer != null) lineRenderer.positionCount = 0;
 
-        // Sol tık basıldı: Çizimi başlat
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cell = grid.WorldToCell(mouseWorld);
-
-            if (IsWalkable(cell))
-            {
-                isDrawing = true;
-                routeCells.Clear();
-                if (lineRenderer != null) lineRenderer.positionCount = 0;
-
-                routeCells.Add(cell);
-                AppendCellToLine(cell);
-            }
-        }
-
-        // Sol tık basılı tutuluyor: Sürükleyerek çizmeye devam et
-        if (Input.GetMouseButton(0) && isDrawing)
-        {
-            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cell = grid.WorldToCell(mouseWorld);
-
-            if (routeCells.Count > 0 && cell != routeCells[routeCells.Count - 1])
-            {
-                TryAddCellsTo(cell);
-            }
-        }
-
-        // Sol tık bırakıldı: Çizimi tamamla
-        if (Input.GetMouseButtonUp(0) && isDrawing)
-        {
-            isDrawing = false;
-            isActive = false;
-
-            if (routeCells.Count >= 2)
-            {
-                List<Vector3Int> completedRoute = new List<Vector3Int>(routeCells);
-                HideRoute();
-                onRouteCompleted?.Invoke(completedRoute);
-            }
-            else
-            {
-                CancelDrawing();
-            }
+            routeCells.Add(cell);
+            AppendCellToLine(cell);
         }
     }
 
+    // Fare basılı tutularak sürüklendiğinde rotayı ara hücrelerle genişletir.
+    public void HandlePointerDrag(Vector2 worldPos)
+    {
+        if (!isActive || !isDrawing || grid == null) return;
+
+        Vector3Int cell = grid.WorldToCell(worldPos);
+        if (routeCells.Count > 0 && cell != routeCells[routeCells.Count - 1])
+        {
+            TryAddCellsTo(cell);
+        }
+    }
+
+    // Sol tık bırakıldığında rota geçerliyse tamamlar, değilse iptal eder.
+    public void HandlePointerUp()
+    {
+        if (!isActive || !isDrawing) return;
+
+        isDrawing = false;
+        isActive = false;
+
+        if (routeCells.Count >= 2)
+        {
+            List<Vector3Int> completedRoute = new List<Vector3Int>(routeCells);
+            HideRoute();
+            onRouteCompleted?.Invoke(completedRoute);
+        }
+        else
+        {
+            CancelDrawing();
+        }
+    }
+
+    // Mevcut hücreden hedef hücreye kadar yürünebilir hücreleri rotaya ve çizgiye ekler.
     private void TryAddCellsTo(Vector3Int target)
     {
         Vector3Int current = routeCells[routeCells.Count - 1];
@@ -175,6 +175,7 @@ public class RouteDrawer : MonoBehaviour
         }
     }
 
+    // Belirtilen hücrenin yürünebilir olup olmadığını doğrular.
     private bool IsWalkable(Vector3Int cell)
     {
         if (nodeMaker == null) return true;
@@ -182,6 +183,7 @@ public class RouteDrawer : MonoBehaviour
         return node != null && node.isWalkable;
     }
 
+    // Verilen hücreyi LineRenderer pozisyon listesine ekler.
     private void AppendCellToLine(Vector3Int cell)
     {
         if (lineRenderer == null || grid == null) return;

@@ -2,9 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+// Otomatik işleyici (AutoProcessor) binasının girdi kuyruğunu, işlenen eşyasını, çıktısını ve ilerlemesini gösteren kullanıcı arayüzüdür.
 public class ProcessorPanelUI : MonoBehaviour
 {
-
     [Header("General")]
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text statusText;
@@ -22,18 +22,19 @@ public class ProcessorPanelUI : MonoBehaviour
     [SerializeField] private Image[] outputIcons;
     [SerializeField] private TMP_Text[] outputAmounts;
 
-
     private AutoProcessor currentProcessor;
 
+    // İşleyici panelini açar, event aboneliklerini kurar ve tüm alanları yeniler.
     public void Open(AutoProcessor processor)
     {
         currentProcessor = processor;
 
-        currentProcessor.InputQueueChanged += RefreshInput;
-        currentProcessor.CurrentItemChanged += RefreshCurrentItem;
-        currentProcessor.StorageChanged += RefreshOutput;
-        currentProcessor.InputQueueChanged += RefreshStatus;
-        currentProcessor.CurrentItemChanged += RefreshStatus;
+        if (currentProcessor != null)
+        {
+            currentProcessor.InputQueueChanged += HandleInputQueueChanged;
+            currentProcessor.CurrentItemChanged += HandleCurrentItemChanged;
+            currentProcessor.StorageChanged += RefreshOutput;
+        }
 
         RefreshCurrentItem();
         RefreshInput();
@@ -42,30 +43,45 @@ public class ProcessorPanelUI : MonoBehaviour
 
         gameObject.SetActive(true);
     }
+
+    // İşleyici panelini kapatır ve event aboneliklerini temizler.
     public void Close()
     {
         if (currentProcessor != null)
         {
-            currentProcessor.InputQueueChanged -= RefreshInput;
-            currentProcessor.CurrentItemChanged -= RefreshCurrentItem;
+            currentProcessor.InputQueueChanged -= HandleInputQueueChanged;
+            currentProcessor.CurrentItemChanged -= HandleCurrentItemChanged;
             currentProcessor.StorageChanged -= RefreshOutput;
-            currentProcessor.InputQueueChanged -= RefreshStatus;
-            currentProcessor.CurrentItemChanged -= RefreshStatus;
         }
 
         currentProcessor = null;
         gameObject.SetActive(false);
     }
 
-
+    // İlerleme çubuğunu her karede işleyicinin anlık ilerleme oranına göre günceller.
     private void Update()
     {
         if (!gameObject.activeSelf || currentProcessor == null)
             return;
-  
+
         RefreshProgressBar();
     }
 
+    // Girdi kuyruğu değiştiğinde kuyruk slotlarını ve çalışma durumunu günceller.
+    private void HandleInputQueueChanged()
+    {
+        RefreshInput();
+        RefreshStatus();
+    }
+
+    // İşlenen mevcut eşya değiştiğinde ilgili kartı ve çalışma durumunu günceller.
+    private void HandleCurrentItemChanged()
+    {
+        RefreshCurrentItem();
+        RefreshStatus();
+    }
+
+    // İşleyicinin anlık çalışma durum metnini günceller.
     private void RefreshStatus()
     {
         if (statusText != null && currentProcessor != null)
@@ -74,65 +90,89 @@ public class ProcessorPanelUI : MonoBehaviour
         }
     }
 
-
-    private void RefreshProgressBar(){
-
-        progressBar.SetProgress(currentProcessor.Progress);
-
+    // İlerleme çubuğunun doluluk oranını ayarlar.
+    private void RefreshProgressBar()
+    {
+        if (progressBar != null && currentProcessor != null)
+        {
+            progressBar.SetProgress(currentProcessor.Progress);
+        }
     }
 
-
-    private void RefreshCurrentItem(){
-        Debug.Log(currentProcessor.CurrentItem);
+    // O anda fırında/işleyicide işlem gören eşyanın görselini ve adını günceller.
+    private void RefreshCurrentItem()
+    {
+        if (currentProcessor == null) return;
 
         if (currentProcessor.CurrentItem == null)
         {
-            currentItemIcon.enabled = false;
-            currentItemName.text = "No Item";
+            if (currentItemIcon != null) currentItemIcon.enabled = false;
+            if (currentItemName != null) currentItemName.text = "No Item";
         }
         else
         {
-            currentItemIcon.enabled = true;
-            currentItemIcon.sprite = currentProcessor.CurrentItem.icon;
-            currentItemName.text = currentProcessor.CurrentItem.objectName;
+            if (currentItemIcon != null)
+            {
+                currentItemIcon.enabled = true;
+                currentItemIcon.sprite = currentProcessor.CurrentItem.icon;
+            }
+            if (currentItemName != null)
+            {
+                currentItemName.text = currentProcessor.CurrentItem.objectName;
+            }
         }
-
     }
 
-
+    // İşlenmek üzere bekleyen girdi kuyruğu slotlarını günceller.
     private void RefreshInput()
     {
         int slotIndex = DisplayQueueItems();
-
         ClearEmptyQueueSLots(slotIndex);
         UpdateQueueMoreText(slotIndex);
     }
+
+    // Kuyruk eşyalarını slot ikonlarına doldurur.
     private int DisplayQueueItems()
     {
-        int slotIndex = 0;
+        if (currentProcessor == null || queueSlots == null) return 0;
 
+        int slotIndex = 0;
         foreach (ItemData item in currentProcessor.InputQueue)
         {
             if (slotIndex >= queueSlots.Length)
                 break;
 
-            queueSlots[slotIndex].enabled = true;
-            queueSlots[slotIndex].sprite = item.icon;
+            if (queueSlots[slotIndex] != null)
+            {
+                queueSlots[slotIndex].enabled = true;
+                queueSlots[slotIndex].sprite = item.icon;
+            }
 
             slotIndex++;
         }
 
         return slotIndex;
     }
+
+    // Eşya bulunmayan boş kuyruk slotlarını gizler.
     private void ClearEmptyQueueSLots(int slotIndex)
     {
+        if (queueSlots == null) return;
+
         for (int i = slotIndex; i < queueSlots.Length; i++)
         {
-            queueSlots[i].enabled = false;
+            if (queueSlots[i] != null)
+            {
+                queueSlots[i].enabled = false;
+            }
         }
     }
+
+    // Slot kapasitesinden fazla bekleyen eşya varsa fazlalık adedini (+N) gösterir.
     private void UpdateQueueMoreText(int slotIndex)
     {
+        if (queueMoreText == null || currentProcessor == null) return;
+
         int extraCount = currentProcessor.InputQueue.Count - slotIndex;
 
         if (extraCount <= 0)
@@ -145,41 +185,59 @@ public class ProcessorPanelUI : MonoBehaviour
         queueMoreText.text = $"+{extraCount}";
     }
 
-
+    // Üretilmiş ve depolanmış çıktı eşyalarını yeniler.
     private void RefreshOutput()
     {
         int slotIndex = DisplayOutputItems();
-
         ClearOutputSlots(slotIndex);
     }
+
+    // Depodaki çıktı eşyalarını ikon ve miktar metinleriyle gösterir.
     private int DisplayOutputItems()
     {
-        int slotIndex = 0;
+        if (currentProcessor == null || outputIcons == null || outputAmounts == null) return 0;
 
+        int slotIndex = 0;
         foreach (var pair in currentProcessor.Storage)
         {
             if (slotIndex >= outputIcons.Length)
                 break;
 
-            outputIcons[slotIndex].enabled = true;
-            outputIcons[slotIndex].sprite = pair.Key.icon;
+            if (outputIcons[slotIndex] != null)
+            {
+                outputIcons[slotIndex].enabled = true;
+                outputIcons[slotIndex].sprite = pair.Key.icon;
+            }
 
-            outputAmounts[slotIndex].gameObject.SetActive(true);
-            outputAmounts[slotIndex].text = $"x{pair.Value}";
+            if (outputAmounts[slotIndex] != null)
+            {
+                outputAmounts[slotIndex].gameObject.SetActive(true);
+                outputAmounts[slotIndex].text = $"x{pair.Value}";
+            }
 
             slotIndex++;
         }
 
         return slotIndex;
     }
+
+    // Boşta kalan çıktı slotlarını temizler ve gizler.
     private void ClearOutputSlots(int slotIndex)
     {
+        if (outputIcons == null || outputAmounts == null) return;
+
         for (int i = slotIndex; i < outputIcons.Length; i++)
         {
-            outputIcons[i].enabled = false;
+            if (outputIcons[i] != null)
+            {
+                outputIcons[i].enabled = false;
+            }
 
-            outputAmounts[i].text = "";
-            outputAmounts[i].gameObject.SetActive(false);
+            if (outputAmounts[i] != null)
+            {
+                outputAmounts[i].text = "";
+                outputAmounts[i].gameObject.SetActive(false);
+            }
         }
     }
 }
