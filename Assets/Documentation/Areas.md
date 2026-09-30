@@ -36,6 +36,22 @@ classDiagram
         +CancelInteract(ProgressBar) void
     }
 
+    class ProcessorInputArea {
+        -AutoProcessor processor
+        -float operationTime
+        +TryGetInteractionData(Inventory, out ItemData, out int) bool
+        +CompleteInteract(Inventory, ItemData, int) void
+        +CancelInteract(ProgressBar) void
+    }
+
+    class ContainerInputArea {
+        -CargoContainer container
+        -float operationTime
+        +TryGetInteractionData(Inventory, out ItemData, out int) bool
+        +CompleteInteract(Inventory, ItemData, int) void
+        +CancelInteract(ProgressBar) void
+    }
+
     class ItemOutputArea {
         -IItemSource itemSource
         -OnTriggerStay2D(Collider2D) void
@@ -43,6 +59,8 @@ classDiagram
 
     IInteractable <|.. MiningArea
     IInteractable <|.. ProcessArea
+    IInteractable <|.. ProcessorInputArea
+    IInteractable <|.. ContainerInputArea
 ```
 
 ---
@@ -81,6 +99,24 @@ Binaların (`AutoMiner`, `AutoProcessor`) önünde yer alan tetikleyici kutudur.
   * Bağlı olduğu binanın `IItemSource.CollectItems()` metodunu çağırarak depodaki ürünleri aktörün envanterine yükler.
 * **Sağladığı Fayda:**
   * Eski `CollectItem` sadece oyuncuyu kabul edip işçileri dışlıyordu. Yenilenen `ItemOutputArea`, taşıyıcı işçileri de kabul ederek binalardan eşya çekme sorumluluğunu tek bir merkezde toplar.
+
+---
+
+### 4. `ProcessorInputArea.cs` (İşlemci / Fırın Girdi Alanı)
+`AutoProcessor` binasının girdi besleme bölgesidir (`IInteractable`).
+
+* **Sorumlulukları:**
+  * Oyuncunun seçili slotundaki veya operatör işçinin çantasındaki işlenebilir ham maddeleri (`processable == true`) doğrular.
+  * Eşyayı aktörün envanterinden eksiltip fırının işleme kuyruğuna (`processor.AddInput`) aktarır.
+
+---
+
+### 5. `ContainerInputArea.cs` (Konteyner Girdi Alanı)
+`CargoContainer` binasının ürün kabul bölgesidir (`IInteractable`).
+
+* **Sorumlulukları:**
+  * Oyuncunun veya operatör işçinin envanterindeki satılabilir mamul ürünleri (`sellable == true`) doğrular.
+  * Ürünleri konteynerin depolama haznesine (`container.TryAdd`) yükler.
 
 ---
 

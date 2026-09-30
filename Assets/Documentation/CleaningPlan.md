@@ -867,28 +867,28 @@ graph TD
 > **Hedef:** Her şeyi inceledikten sonra, proje genelinde iyileştirmeler uygula.
 
 ### 11.1 — Dosya/Sınıf Adı Düzeltmeleri
-- [ ] `ProcessInputArea.cs` → `ProcessorInputArea.cs` olarak yeniden adlandır
-- [x] `PlayerClickManager.cs` → `PlayerInputManager.cs` olarak yeniden adlandır
-- [ ] `Processer.asset` → `Processor.asset` olarak yeniden adlandır
-- [ ] `rawDiaomnd.asset` → `rawDiamond.asset` düzelt (SO asset'indeki yazım hatası)
+- [x] `ProcessInputArea.cs` → `ProcessorInputArea.cs` olarak yeniden adlandırıldı ve sınıf adıyla eşitlendi
+- [x] `PlayerClickManager.cs` → `PlayerInputManager.cs` olarak yeniden adlandırıldı
+- [x] `Processer.asset` → `Processor.asset` olarak yeniden adlandırıldı
+- [x] `rawDiaomnd.asset` → `rawDiamond.asset` düzeltildi (SO asset'indeki yazım hatası)
 
 ### 11.2 — Proje Geneli README
-- [ ] `README.md`'yi tam Türkçe proje genel bakışı, mimari diyagram, kurulum talimatları, klasör yapısı rehberi ile yeniden yaz
+- [ ] `README.md` — Oynanabilir Alpha 1.0.0 sürümü (Market/Shop mekaniği ve build alımı) ile birlikte oyuncu/kurulum odaklı olarak yazılacak
 
-### 11.3 — Oluşturulacak/Güncellenecek Dokümantasyon Dosyaları
+### 11.3 — Dokümantasyon Dosyaları Durumu
 
 | Dosya | Durum | Kapsam |
 |-------|-------|--------|
-| `Assets/Documentation/CoreInterfaces.md` | **YENİ** | `IInteractable`, `IItemSource`, `Inventory` temeli |
-| `Assets/Documentation/Inventory.md` | **YENİDEN YAZ** | Tam Türkçe yeniden yazım + `WorkerInventory` |
-| `Assets/Documentation/Player.md` | **YENİ** | `PlayerMovement`, `PlayerInteraction`, `PlayerStats` |
-| `Assets/Documentation/Areas.md` | **YENİ** | `MiningArea`, `ProcessArea`, `CollectItem` |
-| `Assets/Documentation/Building.md` | **YENİDEN YAZ** | Tam Türkçe yeniden yazım + Container + InputAreas |
-| `Assets/Documentation/PathFinding.md` | **YENİ** | A* algoritması, `Node`, `NodeMaker`, bilinen hatalar |
-| `Assets/Documentation/Worker.md` | **YENİDEN YAZ** | Tam sistem dokümantasyonu (şu anda boş) |
-| `Assets/Documentation/Managers.md` | **YENİ** | 5 yönetici script'inin tamamı |
-| `Assets/Documentation/UI.md` | **YENİ** | Tüm UI bileşenleri |
-| `README.md` | **YENİDEN YAZ** | Proje genel bakışı, mimari, kurulum |
+| `Assets/Documentation/CoreInterfaces.md` | **GÜNCEL** | `IInteractable`, `IItemSource`, `Inventory`, `IObjectInputManager` |
+| `Assets/Documentation/Inventory.md` | **GÜNCEL** | `Inventory`, `PlayerInventory`, `WorkerInventory`, `InventorySlot` |
+| `Assets/Documentation/Player.md` | **GÜNCEL** | `PlayerMovement`, `PlayerInteraction`, `PlayerStats` |
+| `Assets/Documentation/Areas.md` | **GÜNCEL** | `MiningArea`, `ProcessArea`, `ItemOutputArea`, `ProcessorInputArea`, `ContainerInputArea` |
+| `Assets/Documentation/Building.md` | **GÜNCEL** | `Building`, `AutoMiner`, `AutoProcessor`, `CargoContainer` |
+| `Assets/Documentation/PathFinding.md` | **GÜNCEL** | A* algoritması, `Node`, `NodeMaker`, `Pathfinding` Singleton |
+| `Assets/Documentation/Worker.md` | **GÜNCEL** | Durum makinesi, 5 işçi bileşeni, navigasyon ve transfer döngüleri |
+| `Assets/Documentation/Managers.md` | **GÜNCEL** | 5 yönetici bileşeni, `PlayerInputManager`, `GhostPreview`, `RouteDrawer` |
+| `Assets/Documentation/UI.md` | **GÜNCEL** | Tüm HUD, Bina ve İşçi UI panelleri, olay tabanlı akış |
+| `README.md` | **ALPHA 1.0.0** | Oynanabilir Alpha sürümünde market mekaniğiyle birlikte yazılacak |
 
 ### 11.4 — En Öncelikli Düzeltilecek Hatalar
 

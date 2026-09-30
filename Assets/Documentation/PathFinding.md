@@ -33,7 +33,9 @@ classDiagram
     }
 
     class Pathfinding {
-        -NodeMaker grid
+        +static Pathfinding Instance
+        +Grid Grid
+        +NodeMaker NodeMaker
         +FindPath(Vector3Int, Vector3Int) List~Node~
         -RetracePath(Node, Node) List~Node~
         -GetDistance(Node, Node) int
@@ -72,6 +74,7 @@ Haritanın koordinat sistemini ve komşuluk ilişkilerini kurar.
 
 ### 3. `Pathfinding.cs` (A* Arama Algoritması)
 İki ızgara hücresi arasındaki en kısa yolu hesaplar.
+* **Singleton Mimarisi (`Pathfinding.Instance`):** Sahnedeki `Grid` ve `NodeMaker` referanslarını üzerinde önbelleğe alarak `WorkerMovement` ve `TransportMovement` gibi navigasyon bileşenlerinin `Start()` içinde otomatik bağlanmasını sağlar (Inspector'dan manuel bağlantı ihtiyacını ortadan kaldırır).
 * **Açık Küme (`openSet`):** İncelenmeye aday hücrelerin listesidir. Her adımda $F$ maliyeti en düşük hücre seçilir (`GetBestNode`).
 * **Kapalı Küme (`closedSet`):** Ziyaret edilmiş ve komşuları taranmış hücrelerin kümesidir (`HashSet<Node>`). Tekrar incelenmelerini önler.
 * **Manhattan Mesafesi (`GetDistance`):** 4 yönlü (çapraz olmayan) ızgara hareketinde gerçek adım mesafesini yansıtır:

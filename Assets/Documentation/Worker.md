@@ -120,6 +120,7 @@ stateDiagram-v2
 
 ### 2. `WorkerMovement.cs` (Grid & A* Navigasyonu)
 İşçinin maden damarlarına veya binalara tekil hücre hedefli yürümesini yönetir.
+* **Oto-Bağlantı:** `Start()` anında sahnedeki `Pathfinding.Instance` üzerinden yol bulucu ve grid referanslarını otomatik çözer; Inspector'dan manuel referans taşıma yükünü kaldırır.
 * **Hücre Rezervasyonu (`OccupiedCells`):** Birden fazla işçinin aynı kareye gidip üst üste çakışmasını engellemek için statik bir `HashSet` kullanır.
 * **Kilitlenme Önleme:** İşçi sahneden yok edildiğinde (`OnDestroy`) veya durdurulduğunda (`StopMoving`), rezerve ettiği hücreyi `ReleaseClaim()` ile boşa çıkarır. Böylece harita hücreleri kalıcı olarak kilitlenmez.
 
@@ -143,6 +144,7 @@ stateDiagram-v2
 
 ### 4. `TransportMovement.cs` (Ping-Pong Rota Devriyesi)
 Taşıyıcı işçinin oyuncunun çizdiği rota çizgisi üzerinde sürekli git-gel devriye atmasını sağlar.
+* **Oto-Bağlantı:** `Start()` anında `Pathfinding.Instance` ve `Pathfinding.Instance.Grid` referanslarını otomatik çözer.
 * **İki Aşamalı Hareket:**
   1. *Başlangıca İntikal:* İşçi rotanın ilk hücresinde değilse A* ile rotanın 0. noktasına yürür (`isMovingToStart = true`).
   2. *Ping-Pong Devriye:* Rotanın başına varıldığında `direction = +1 / -1` ile uç noktalar arasında gidip gelir (`AdvanceToNextWaypoint`).

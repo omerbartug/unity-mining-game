@@ -57,7 +57,7 @@ classDiagram
 
 ---
 
-## 1. `IInteractable` (Interactable.cs)
+## 1. `IInteractable` (IInteractable.cs)
 
 Dünyada zaman harcanarak etkileşime girilen tüm alanların ortak sözleşmesidir.
 
@@ -105,7 +105,7 @@ Bünyesinde eşya depolayan ve bu eşyaları bir aktörün envanterine verebilen
 
 ### Metot: `CollectItems(Inventory targetInventory)`
 * **Çağıranlar:**
-  * `CollectItem.cs` (Binaların üzerindeki otomatik toplama trigger alanı)
+  * `ItemOutputArea.cs` (Binaların üzerindeki otomatik toplama trigger alanı)
   * `TransportLogic.cs` (Taşıyıcı işçilerin binalardan eşya yükleme mantığı)
 * **Uygulayanlar:**
   * `Building` alt sınıfları (`AutoMiner`, `AutoProcessor`, `CargoContainer`)
@@ -115,19 +115,32 @@ Bünyesinde eşya depolayan ve bu eşyaları bir aktörün envanterine verebilen
 
 ## 3. `Inventory` (Inventory.cs)
 
-Tüm envanter sistemlerinin ata sınıfıdır (`MonoBehaviour`).
+Tüm envanter sistemlerinin soyut ata sınıfıdır (`MonoBehaviour`).
 
-* **Amacı:** `IInteractable` ve `IItemSource` gibi sistemlerin somut bir aktör tipi (`PlayerInventory` ya da `WorkerInventory`) yerine genel bir `Inventory` referansı kabul etmesini sağlar.
-* **Mevcut Durum:** Şu an için boş bir temel sınıftır (*Marker Base Class*).
+* **Amacı:** `IInteractable` ve `IItemSource` gibi sistemlerin somut bir aktör tipi (`PlayerInventory` ya da `WorkerInventory`) yerine genel bir `Inventory` referansı kabul etmesini ve polimorfik eşya transferi yapabilmesini sağlar.
+* **Soyut Metotlar:**
+  * `public abstract bool CanAccept(InventoryObject item, int amount = 1);`
+  * `public abstract int AddItem(InventoryObject item, int amount = 1);`
+  * `public abstract int RemoveItem(InventoryObject item, int amount = 1);`
+* **Avantajı:** Alanlar ve binalar işlem yaparken `if (inventory is PlayerInventory)` gibi downcasting kontrolleri yapmak zorunda kalmaz.
+
+---
+
+## 4. `IObjectInputManager` (IObjectInputManager.cs)
+
+Dünyaya ızgara tabanlı yerleştirilebilen veya fareyle tıklanarak UI paneli açılabilen sistemlerin (`BuildingManager`, `WorkerManager`) ortak sözleşmesidir.
+
+* `bool IsPlacementMode`: Yerleştirme modunun aktifliğini döner.
+* `void UpdatePlacementMode()`: Seçili envanter slotuna göre önizleme modunu günceller.
+* `void HandleLeftClick(Vector2 mousePosition)`: Tıklanan noktaya göre yerleştirme veya UI açma sürecini başlatır.
+* `void HandlePlaced(Vector3 worldPos, Vector3Int cellPosition)`: Yerleşim onaylandığında nesneyi oluşturup envanterden düşer.
+* `void TryOpenUI(Vector2 mousePosition)`: Tıklanan nesnenin arayüzünü açmayı dener.
+* `void CancelPlacementMode()`: Yerleşim modunu iptal eder ve önizlemeyi gizler.
 
 ---
 
 ## Bilinen Sorunlar ve Gelecek İyileştirmeleri
 
 > [!WARNING]
-> **1. `CancelInteract(ProgressBar progress)` UI Bağımlılığı:**
-> Arayüz içerisinde bir UI bileşeni olan `ProgressBar` doğrudan parametre olarak alınmıştır. Temiz mimaride UI mantığı, işlemi başlatan `PlayerInteraction` / `WorkerInteraction` tarafından yönetilmeli ve bu metot parametresiz (`void CancelInteract()`) olmalıdır.
-
-> [!NOTE]
-> **2. Anemik Temel Sınıf ve Downcasting:**
-> `Inventory.cs` ortak metotlar sunmadığı için `IItemSource` ve `IInteractable` sınıfları sürekli `if (inventory is PlayerInventory) ... else if (inventory is WorkerInventory)` şeklinde tip sorgulaması yapmak zorunda kalmaktadır. İleriki refactor aşamasında `Inventory` sınıfına `CanAccept()`, `AddItem()`, `RemoveItem()` gibi abstract sözleşmeler eklenmesi bu kod kalabalığını ortadan kaldıracaktır.
+> **`CancelInteract(ProgressBar progress)` UI Bağımlılığı:**
+> Arayüz içerisinde bir UI bileşeni olan `ProgressBar` doğrudan parametre olarak alınmıştır. İleride UI mantığı, işlemi başlatan `PlayerInteraction` / `WorkerInteraction` tarafından yönetilerek bu metot parametresiz (`void CancelInteract()`) hale getirilebilir.

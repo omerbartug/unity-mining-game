@@ -27,6 +27,7 @@ classDiagram
         -int storageCapacity
         -int storage
         -MiningArea miningArea
+        +event Action OnStorageChanged
         +CollectItems(Inventory) void
     }
 
@@ -100,6 +101,7 @@ Tüm binaların ortak atasıdır.
 ### 3. `AutoMiner.cs` (Otomatik Madenci)
 Bir `MiningArea` üzerine yerleştirilir. Zamana bağlı olarak otomatik maden kazar ve deposunda biriktirir.
 * **Üretim Döngüsü:** Altındaki madeni `Physics2D.OverlapBox` ile bulur. Depo kapasitesi (`storageCapacity`) dolana kadar her `productionTime` saniyede 1 maden üretir. Depo dolduğunda üretim sayacı durur.
+* **Event Odaklı Arayüz (`OnStorageChanged`):** Depo miktarı değiştiğinde (maden çıkarıldığında veya toplandığında) tetiklenir; `MinerPanelUI`'ın her kare string oluşturmak yerine yalnızca veri değiştiğinde güncellenmesini sağlar.
 * **Kayıpsız Toplama (`CollectItems`):** Gelen envanterin kabul edip edemeyeceğini (`inventory.CanAccept`) sorgular. Ne kadar eşya eklenebildiyse (`int added = inventory.AddItem(...)`) depodan sadece o kadarını düşer.
 
 ---
