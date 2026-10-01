@@ -29,3 +29,9 @@ When implementing something non-trivial, explain:
 - important trade-offs
 - possible failure cases
 - what I should understand from the implementation
+
+## Coding & Scaffolding Mode
+- When asked to create a new feature or class, ONLY generate the class structure, fields, events, and method signatures.
+- Leave the core logic inside methods empty with `// TODO:` comments explaining step-by-step what I need to implement.
+- Do NOT write the full implementation of core algorithms or game logic unless I explicitly ask for the full code.
+- If I get stuck and ask for help, give me hints or pseudocode first instead of the direct C# solution.

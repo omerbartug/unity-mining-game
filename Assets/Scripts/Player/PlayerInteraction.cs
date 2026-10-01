@@ -45,7 +45,7 @@ public class PlayerInteraction : MonoBehaviour
         IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null && interactable == currentInteractable)
         {
-            currentInteractable.CancelInteract(progress);
+            progress.ResetProgress();
             timer = 0f;
             currentInteractable = null;
         }
@@ -99,10 +99,10 @@ public class PlayerInteraction : MonoBehaviour
                     progress.ResetProgress();
                 }
             }
-            else if (timer > 0f) // Tuş bırakıldıysa veya etkileşim yarıda kesildiyse iptal et
+            else if (timer >= 0f) // Tuş bırakıldıysa veya etkileşim yarıda kesildiyse iptal et
             {
                 playerMovement.EnableMovement();
-                currentInteractable.CancelInteract(progress);
+                progress.ResetProgress();
                 timer = 0f;
             }
         }

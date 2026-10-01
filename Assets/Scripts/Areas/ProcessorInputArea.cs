@@ -66,9 +66,4 @@ public class ProcessorInputArea : MonoBehaviour, IInteractable
         }
     }
 
-    // Etkileşim kesildiğinde ilerlemeyi sıfırlar.
-    public void CancelInteract(ProgressBar progress)
-    {
-        progress?.ResetProgress();
-    }
 }

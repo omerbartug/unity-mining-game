@@ -99,7 +99,6 @@ public class WorkerInteraction : MonoBehaviour
     // Devam eden etkileşimi güvenle iptal eder, zamanlayıcıyı ve barı sıfırlar.
     private void CancelInteraction()
     {
-        if (currentInteractable != null) currentInteractable.CancelInteract(progress);
         timer = 0f;
         if (progress != null) progress.ResetProgress();
         IsInteracting = false;

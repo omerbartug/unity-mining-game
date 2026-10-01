@@ -26,10 +26,5 @@ public interface IInteractable
     
     // Etkileşim süresi başarıyla tamamlandığında çalıştırılır.
     void CompleteInteract(Inventory inventory, ItemData item, int amount);
-
-
-    /// Etkileşim süresi dolmadan tuş bırakılırsa veya alandan çıkılırsa çalıştırılır.
-    /// <param name="progress">Sıfırlanacak ilerleme çubuğu UI referansı.</param>
-    void CancelInteract(ProgressBar progress);
 }
 

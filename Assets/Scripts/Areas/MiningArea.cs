@@ -28,9 +28,4 @@ public class MiningArea : MonoBehaviour, IInteractable
         inventory?.AddItem(item, amount);
     }
 
-    // Etkileşim yarıda kesildiğinde ilerleme çubuğunu sıfırlar.
-    public void CancelInteract(ProgressBar progress)
-    {
-        progress?.ResetProgress();
-    }
 }

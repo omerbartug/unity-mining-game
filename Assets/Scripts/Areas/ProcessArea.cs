@@ -61,9 +61,4 @@ public class ProcessArea : MonoBehaviour, IInteractable
         inventory.AddItem(item.rewardItem, amount);
     }
 
-    // Etkileşim iptal edildiğinde ilerleme çubuğunu sıfırlar.
-    public void CancelInteract(ProgressBar progress)
-    {
-        progress?.ResetProgress();
-    }
 }
