@@ -13,6 +13,7 @@ public class PlayerInventory : Inventory
 
     public event Action SelectedSlotChanged;
     public event Action InventoryChanged;
+    public event Action InventoryFulled;
 
     public static PlayerInventory Instance { get; private set; }
 
@@ -78,6 +79,7 @@ public class PlayerInventory : Inventory
         }
 
         Debug.LogWarning($"[PlayerInventory] Envanter dolu! {item.objectName} eklenemedi.");
+        InventoryFulled?.Invoke();
         return 0;
     }
 

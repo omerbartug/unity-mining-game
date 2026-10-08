@@ -13,9 +13,8 @@ public abstract class InventoryObject : ScriptableObject
     [Tooltip("Nesnenin envanter slotlarında ve panellerde görünecek simgesi.")]
     public Sprite icon;
 
-    /// <summary>
-    /// Editörde veri girişi yaparken eksik alanları denetler ve uyarı verir.
-    /// </summary>
+    
+    // Editörde veri girişi yaparken eksik alanları denetler ve uyarı verir.
     protected virtual void OnValidate()
     {
         if (string.IsNullOrWhiteSpace(objectName))

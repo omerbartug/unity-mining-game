@@ -15,6 +15,7 @@ public class PlayerInputManager : MonoBehaviour
     // Tek seferlik etkileşim event'leri
     public static event Action OnGiveToWorker;
     public static event Action OnTakeFromWorker;
+    public static event Action OnToggleShop;
 
 
     // Sürekli basılı tutulan durumlar ve eksenler
@@ -96,6 +97,12 @@ public class PlayerInputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             OnTakeFromWorker?.Invoke();
+        }
+
+        // 6. P Tuşu: Mağazayı açma / kapatma
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnToggleShop?.Invoke();
         }
     }
 }

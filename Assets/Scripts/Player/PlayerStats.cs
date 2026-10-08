@@ -24,8 +24,6 @@ public class PlayerStats : MonoBehaviour
         Instance = this;
     }
 
-    public int GetPlayerMoney() => playerMoney;
-
     // Oyuncuya para ekler.
     public void AddMoney(int amount)
     {

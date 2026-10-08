@@ -1,0 +1,858 @@
+fileFormatVersion: 2
+guid: 2f625ea9356024216879ce01a9d211a5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7146002459492147527
+    second: ChatGPT Image 8 Eki 2026 03_07_15_0
+  - first:
+      213: -9149324743706500713
+    second: ChatGPT Image 8 Eki 2026 03_07_15_1
+  - first:
+      213: 7902829179051234479
+    second: ChatGPT Image 8 Eki 2026 03_07_15_2
+  - first:
+      213: -5233541413555260219
+    second: ChatGPT Image 8 Eki 2026 03_07_15_3
+  - first:
+      213: 5275729002924859932
+    second: ChatGPT Image 8 Eki 2026 03_07_15_4
+  - first:
+      213: 7924428680872794200
+    second: ChatGPT Image 8 Eki 2026 03_07_15_5
+  - first:
+      213: -5888975033721734429
+    second: ChatGPT Image 8 Eki 2026 03_07_15_6
+  - first:
+      213: 6210006177520519107
+    second: ChatGPT Image 8 Eki 2026 03_07_15_7
+  - first:
+      213: -1052798019554715552
+    second: ChatGPT Image 8 Eki 2026 03_07_15_8
+  - first:
+      213: -6428797598187855838
+    second: ChatGPT Image 8 Eki 2026 03_07_15_9
+  - first:
+      213: 5881779425067464129
+    second: ChatGPT Image 8 Eki 2026 03_07_15_10
+  - first:
+      213: 7373574215481330607
+    second: ChatGPT Image 8 Eki 2026 03_07_15_11
+  - first:
+      213: 9015298963329311007
+    second: ChatGPT Image 8 Eki 2026 03_07_15_12
+  - first:
+      213: -7546922616693474973
+    second: ChatGPT Image 8 Eki 2026 03_07_15_13
+  - first:
+      213: -5961854485352539162
+    second: ChatGPT Image 8 Eki 2026 03_07_15_14
+  - first:
+      213: 2594564365809055543
+    second: ChatGPT Image 8 Eki 2026 03_07_15_15
+  - first:
+      213: 3768581726936207940
+    second: ChatGPT Image 8 Eki 2026 03_07_15_16
+  - first:
+      213: 830447751575435921
+    second: ChatGPT Image 8 Eki 2026 03_07_15_17
+  - first:
+      213: -8186780391844740838
+    second: ChatGPT Image 8 Eki 2026 03_07_15_18
+  - first:
+      213: 1312180926250676620
+    second: ChatGPT Image 8 Eki 2026 03_07_15_19
+  - first:
+      213: -8284776367348190318
+    second: ChatGPT Image 8 Eki 2026 03_07_15_20
+  - first:
+      213: -8232532859492231176
+    second: ChatGPT Image 8 Eki 2026 03_07_15_21
+  - first:
+      213: 7285830928860820483
+    second: ChatGPT Image 8 Eki 2026 03_07_15_22
+  - first:
+      213: 3030542269073366170
+    second: ChatGPT Image 8 Eki 2026 03_07_15_23
+  - first:
+      213: -2516542136686144625
+    second: ChatGPT Image 8 Eki 2026 03_07_15_24
+  - first:
+      213: 4196174342706858814
+    second: ChatGPT Image 8 Eki 2026 03_07_15_25
+  - first:
+      213: -2949708252381003725
+    second: ChatGPT Image 8 Eki 2026 03_07_15_26
+  - first:
+      213: 1996863024908968242
+    second: ChatGPT Image 8 Eki 2026 03_07_15_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 900
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_0
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 1223
+        width: 31
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 741e8123063bb2360800000000000000
+      internalID: 7146002459492147527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_1
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1222
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 791aeacee91170180800000000000000
+      internalID: -9149324743706500713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1235
+        height: 1219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa4d0f1744d7cad60800000000000000
+      internalID: 7902829179051234479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 487
+        width: 222
+        height: 695
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c43eb710d9be57b0800000000000000
+      internalID: -5233541413555260219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_4
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 974
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c12ef8e7397273940800000000000000
+      internalID: 5275729002924859932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_5
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1022
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 858175b56e939fd60800000000000000
+      internalID: 7924428680872794200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_6
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 720
+        width: 89
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea3fdf6868264ea0800000000000000
+      internalID: -5888975033721734429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_7
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 829
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c7871867bf5e2650800000000000000
+      internalID: 6210006177520519107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_8
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 817
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 068d43877c5b361f0800000000000000
+      internalID: -1052798019554715552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_9
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 811
+        width: 35
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 220e02b45a258c6a0800000000000000
+      internalID: -6428797598187855838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_10
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 869
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c5f85e593740a150800000000000000
+      internalID: 5881779425067464129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_11
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 875
+        width: 30
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fab8ebe9ea2345660800000000000000
+      internalID: 7373574215481330607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_12
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 899
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11e03d54a6cc1d70800000000000000
+      internalID: 9015298963329311007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_13
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 640
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 369bf9c8dd1f34790800000000000000
+      internalID: -7546922616693474973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_14
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 613
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eb1efdceec334da0800000000000000
+      internalID: -5961854485352539162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_15
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 473
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7377fea4b8eb10420800000000000000
+      internalID: 2594564365809055543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_16
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 457
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4429f052d11bc4430800000000000000
+      internalID: 3768581726936207940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_17
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 387
+        width: 44
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19afc2584d7568b00800000000000000
+      internalID: 830447751575435921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_18
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 427
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1106f9eb96b26e80800000000000000
+      internalID: -8186780391844740838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_19
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 266
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c81f636a99dc53210800000000000000
+      internalID: 1312180926250676620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_20
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 232
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 293f8acd9cf860d80800000000000000
+      internalID: -8284776367348190318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_21
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 217
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f71c3c6bfa20cd80800000000000000
+      internalID: -8232532859492231176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_22
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 18
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 304bd48b0a87c1560800000000000000
+      internalID: 7285830928860820483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_23
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 31
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c9ce02326ae0a20800000000000000
+      internalID: 3030542269073366170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_24
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 31
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8315888242731dd0800000000000000
+      internalID: -2516542136686144625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_25
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 22
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b86a8155ecb3a30800000000000000
+      internalID: 4196174342706858814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_26
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 15
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 330cac109f78017d0800000000000000
+      internalID: -2949708252381003725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChatGPT Image 8 Eki 2026 03_07_15_27
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 17
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 231afc0675846bb10800000000000000
+      internalID: 1996863024908968242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ChatGPT Image 8 Eki 2026 03_07_15_0: 7146002459492147527
+      ChatGPT Image 8 Eki 2026 03_07_15_1: -9149324743706500713
+      ChatGPT Image 8 Eki 2026 03_07_15_10: 5881779425067464129
+      ChatGPT Image 8 Eki 2026 03_07_15_11: 7373574215481330607
+      ChatGPT Image 8 Eki 2026 03_07_15_12: 9015298963329311007
+      ChatGPT Image 8 Eki 2026 03_07_15_13: -7546922616693474973
+      ChatGPT Image 8 Eki 2026 03_07_15_14: -5961854485352539162
+      ChatGPT Image 8 Eki 2026 03_07_15_15: 2594564365809055543
+      ChatGPT Image 8 Eki 2026 03_07_15_16: 3768581726936207940
+      ChatGPT Image 8 Eki 2026 03_07_15_17: 830447751575435921
+      ChatGPT Image 8 Eki 2026 03_07_15_18: -8186780391844740838
+      ChatGPT Image 8 Eki 2026 03_07_15_19: 1312180926250676620
+      ChatGPT Image 8 Eki 2026 03_07_15_2: 7902829179051234479
+      ChatGPT Image 8 Eki 2026 03_07_15_20: -8284776367348190318
+      ChatGPT Image 8 Eki 2026 03_07_15_21: -8232532859492231176
+      ChatGPT Image 8 Eki 2026 03_07_15_22: 7285830928860820483
+      ChatGPT Image 8 Eki 2026 03_07_15_23: 3030542269073366170
+      ChatGPT Image 8 Eki 2026 03_07_15_24: -2516542136686144625
+      ChatGPT Image 8 Eki 2026 03_07_15_25: 4196174342706858814
+      ChatGPT Image 8 Eki 2026 03_07_15_26: -2949708252381003725
+      ChatGPT Image 8 Eki 2026 03_07_15_27: 1996863024908968242
+      ChatGPT Image 8 Eki 2026 03_07_15_3: -5233541413555260219
+      ChatGPT Image 8 Eki 2026 03_07_15_4: 5275729002924859932
+      ChatGPT Image 8 Eki 2026 03_07_15_5: 7924428680872794200
+      ChatGPT Image 8 Eki 2026 03_07_15_6: -5888975033721734429
+      ChatGPT Image 8 Eki 2026 03_07_15_7: 6210006177520519107
+      ChatGPT Image 8 Eki 2026 03_07_15_8: -1052798019554715552
+      ChatGPT Image 8 Eki 2026 03_07_15_9: -6428797598187855838
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

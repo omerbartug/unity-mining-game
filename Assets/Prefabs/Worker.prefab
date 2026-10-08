@@ -258,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 3381227436915959247}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.008, y: 0.091, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -370,7 +370,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 963453013, guid: 28e17befec6da40d9a8908f9e86388f2, type: 3}
+  m_Sprite: {fileID: 7902829179051234479, guid: 2f625ea9356024216879ce01a9d211a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -415,8 +415,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.12225299, y: 0}
-  m_Size: {x: 0.60511756, y: 1}
+  m_Offset: {x: 0.010324866, y: 0}
+  m_Size: {x: 0.80398434, y: 1}
   m_Direction: 0
 --- !u!114 &3719801263854829582
 MonoBehaviour:
@@ -451,8 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a5ea04ea46f44b59d6876e0d3bca7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorkerMovement
-  grid: {fileID: 0}
-  pathfinding: {fileID: 0}
 --- !u!114 &7685965493766629390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,8 +516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69203675985c4b8c943137a9b15cd80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TransportMovement
-  grid: {fileID: 0}
-  pathfinding: {fileID: 0}
 --- !u!114 &9168145074357299919
 MonoBehaviour:
   m_ObjectHideFlags: 0
