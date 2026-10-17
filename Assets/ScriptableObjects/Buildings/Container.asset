@@ -15,9 +15,9 @@ MonoBehaviour:
   objectName: Container
   icon: {fileID: -9082660326067173623, guid: c049ffcb3d8d84bcbb765bf225c43fe2, type: 3}
   price: 1500
-  buildingPrefab: {fileID: 5712823990251523145, guid: 2769e59cbd6a04748adf8408084772d0, type: 3}
-  ghostPrefab: {fileID: 2323391516853462129, guid: f69bb442fba384ac6bbe196289682889, type: 3}
-  size: {x: 4, y: 2}
+  buildingPrefab: {fileID: 2383998670469717137, guid: 5fa9a393c62b043a6a6a4b4f7776d2c8, type: 3}
+  ghostPrefab: {fileID: 7457448310562630509, guid: 03a5db90a813e4a9789d974fd9596ca4, type: 3}
+  size: {x: 3, y: 1}
   placementBlockerLayer:
     serializedVersion: 2
     m_Bits: 584

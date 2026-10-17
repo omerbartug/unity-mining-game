@@ -16,7 +16,7 @@ TagManager:
   - Environment
   - Worker
   - Ground
-  - Area
+  - Collision
   - InteractionArea
   - SellingArea
   - 

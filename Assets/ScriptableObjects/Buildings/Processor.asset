@@ -20,7 +20,7 @@ MonoBehaviour:
   size: {x: 3, y: 3}
   placementBlockerLayer:
     serializedVersion: 2
-    m_Bits: 3016
+    m_Bits: 2760
   fineLayer:
     serializedVersion: 2
     m_Bits: 1024
