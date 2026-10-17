@@ -102,6 +102,8 @@ public class AutoProcessor : Building
         }
 
         currentItem = inputQueue.Dequeue();
+        productionTime = currentItem.processTime * 0.4f;
+
         InputQueueChanged?.Invoke();
         CurrentItemChanged?.Invoke();
         timer = 0f;

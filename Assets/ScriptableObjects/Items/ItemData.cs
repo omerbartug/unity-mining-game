@@ -23,6 +23,9 @@ public class ItemData : InventoryObject
     [Tooltip("Bu eşya işlendiğinde ortaya çıkacak urun (1:1 dönüşüm).")]
     public ItemData rewardItem;
 
+    [Tooltip("Bu eşya ne kadar surede process edilecek?")]
+    public float processTime;
+
 
 
     

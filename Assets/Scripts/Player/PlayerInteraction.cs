@@ -89,10 +89,15 @@ public class PlayerInteraction : MonoBehaviour
             {
                 playerMovement.DisableMovement();
 
+                 // 1. Madenin kendi processTime'ı varsa onu, yoksa alanın standart OperationTime'ını al
+                float duration = (currentInteractable.WorkType == WorkerWorkType.Processing && item != null && item.processTime > 0f)
+                ? item.processTime
+                : currentInteractable.OperationTime;
+                
                 timer += Time.deltaTime;
-                progress.SetProgress(timer / currentInteractable.OperationTime);
+                progress.SetProgress(timer / duration);
 
-                if (timer >= currentInteractable.OperationTime)
+                if (timer >= duration)
                 {
                     currentInteractable.CompleteInteract(playerInventory, item, amount);
                     timer = 0f;
